@@ -4,8 +4,6 @@
 
 using namespace std;
 
-const int width = 200, height = 200;
-
 void criarImagem();
 
 int main() {
@@ -14,21 +12,21 @@ int main() {
 
 	string filename;
 	getline(cin, filename);
-
+ 
 	ifstream imgIn;
 	imgIn.open(filename);
-
+	
 
 	ofstream imgOut;
-	string filename_copy = filename + "_copy";
+	string filename_copy =  "copy_of_" + filename;
 	imgOut.open(filename_copy);
 	
 	if(imgIn.is_open()) {
 
-		string line;
-		while(getline(imgIn, line)) {
-
-			imgOut << line << endl;
+		char character;
+		while(imgIn.get(character)) {
+			
+			imgOut << character;	
 		}
 
 	}else {
@@ -44,6 +42,8 @@ int main() {
 }
 
 void criarImagem() {
+
+	int width = 200, height = 200;
 
 	fstream image;
 	image.open("picture.ppm", ios::out);

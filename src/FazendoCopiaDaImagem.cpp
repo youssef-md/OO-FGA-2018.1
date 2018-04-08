@@ -18,15 +18,14 @@ int main() {
 	string filename_copy =  "copy_of_" + filename;
 	imgOut.open(filename_copy);
 	
-	vector<int> imgVector;
 
-	if(imgIn.is_open()) {
+	vector<char> imgVector;
+
+	if(imgIn.is_open()) { //copiando a imagem para o vector
 
 		char character;
-
 		while(imgIn.get(character)) {
-			
-			imgOut << character;
+
 			imgVector.push_back(character);
 		}
 
@@ -35,7 +34,13 @@ int main() {
 		cout << "erro" << endl;
 	}
 
-	cout << "tamanho do vector: " << imgVector.size() << endl;
+	long int sizeVector = imgVector.size();
+	cout << "tamanho do vector: " << sizeVector << endl;
+
+	for(int i = 0; i < sizeVector; i++) {
+
+		imgOut << imgVector[i];
+	}
 
 	imgIn.close();
 	imgOut.close();

@@ -13,6 +13,7 @@ class Image : public File {
 private:
 
 	void ReadHeader();
+	void CreateImage();
 
 public:
 

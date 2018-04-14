@@ -51,3 +51,9 @@ void File::ReadFile(string filename) {
 		cout << "O arquivo não existe" << endl;
 	}
 }
+
+void File::CreateFile(string filename) {
+
+	this->fileOut.open(filename);
+
+}

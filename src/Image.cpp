@@ -25,6 +25,9 @@ Image::Image(string filename) {
 	ReadHeader();
 	ReadFile(filename);
 
+	CreateImage();
+
+
 }
 
 
@@ -38,14 +41,32 @@ void Image::ReadHeader() {
 	getline(this->fileIn, this->beginMsg, ' ');
 	getline(this->fileIn, this->sizeMsg, ' ');
 	getline(this->fileIn, this->Ncript, '\n');
+	getline(this->fileIn, this->width, ' ');
+	getline(this->fileIn, this->height, '\n');
+	getline(this->fileIn, this->maxColorValue, '\n');
 
-	cout << "MN:" << magicNumber << endl;
+	cout << "MN:" << this->magicNumber << endl;
 	cout << "Hash:" << hashtag << endl;
-	cout << "BegMsg:" << beginMsg << endl;
-	cout << "SizeMsg:" << sizeMsg << endl;
-	cout << "Ncript:" << Ncript << endl;
+	cout << "BegMsg:" << this->beginMsg << endl;
+	cout << "SizeMsg:" << this->sizeMsg << endl;
+	cout << "Ncript:" << this->Ncript << endl;
 	cout << get_filepath() << endl;
 }
 
 
 
+void Image::CreateImage() {
+
+	CreateFile("./img/copy_of_" + get_filename());
+
+	this->fileOut << this->magicNumber << endl;
+	this->fileOut << this->width << " " << this->height << endl;
+	this->fileOut << this->maxColorValue << endl;
+
+	long int vectorLen= this->fileVector.size();
+
+	for(int i = 0; i < vectorLen; i++) {
+		this->fileOut << this->fileVector[i];
+	}
+
+}

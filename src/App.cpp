@@ -10,8 +10,7 @@ int main() {
 	
 	getline(cin, filename);
 
-	Image * img_ppm = new Image(filename);
- 	img_ppm->readHeaderConfig();
+	Image * img = new Image(filename);
 
 	return 0;
 }

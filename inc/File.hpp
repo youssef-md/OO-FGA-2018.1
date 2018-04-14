@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -12,20 +13,28 @@ private:
 	string filename;
 	string filepath;
 
+	void set_filename(string filename);
+
+
+	void set_filepath(string filepath);
+
+	
 protected: 
 	ifstream fileIn;
 	ofstream fileOut;
 
+	vector<char> fileVector;
+
+	void ReadFile(string filename);
+	void OpenFile(string filename);
+
+
 public:
 	File();
 
-	void set_filename(string filename);
 	string get_filename();
-
-	void set_filepath(string filepath);
 	string get_filepath();
 
-	void OpenFile(string filename);
 
 };
 

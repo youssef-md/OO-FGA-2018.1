@@ -32,7 +32,8 @@ protected:
 	void CreateFile(string filename);
 
 	File();
-
+	~File();
+	
 public:
 	
 	string get_filename();

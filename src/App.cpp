@@ -12,5 +12,7 @@ int main() {
 
 	Image * img = new Image(filename);
 
+	delete img;
+
 	return 0;
 }

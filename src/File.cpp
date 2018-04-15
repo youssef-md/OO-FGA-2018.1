@@ -8,6 +8,12 @@ File::File() {
 	cout << "Default Constructor File class" << endl;
 }
 
+File::~File() {
+
+	cout << "Default Destructor File class" << endl;
+	fileIn.close();
+	fileOut.close();
+}
 
 void File::set_filename(string filename) {
 
@@ -17,7 +23,7 @@ void File::set_filename(string filename) {
 
 string File::get_filename() {
 
-	return this->filename;
+	return filename;
 }
 
 void File::set_filepath(string filepath) {
@@ -27,33 +33,33 @@ void File::set_filepath(string filepath) {
 
 string File::get_filepath() {
 
-	return this->filepath;
+	return filepath;
 }
 
 void File::OpenFile(string filename) {
 
 	set_filename(filename);
-	this->fileIn.open(get_filepath()); //arquivo a ser lido
+	fileIn.open(get_filepath()); //arquivo a ser lido
 }
 
 void File::ReadFile(string filename) {
 
-	if(this->fileIn.is_open()) {
+	if(fileIn.is_open()) {
 
 		char character;
-		while( ! (this->fileIn.eof()) )  {
+		while( fileIn.get(character) )  {
 
-			this->fileIn.get(character);
-			this->fileVector.push_back(character);	
+			fileVector.push_back(character);	
 		}
 
 	}else {
+		//tratar o erro, e impedir que o código contine!
 		cout << "O arquivo não existe" << endl;
+		return ;
 	}
 }
 
 void File::CreateFile(string filename) {
 
-	this->fileOut.open(filename);
-
+	fileOut.open(filename);
 }

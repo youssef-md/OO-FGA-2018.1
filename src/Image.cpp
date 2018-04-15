@@ -12,9 +12,6 @@ Image::Image() {
 	cout << "Default Constructor Image class" << endl;
 }
 
-Image::~Image() {
-	cout << "Default Destructor" << endl;
-} 
 
 Image::Image(string filename) {
 
@@ -27,7 +24,6 @@ Image::Image(string filename) {
 
 	CreateImage();
 
-
 }
 
 
@@ -35,21 +31,21 @@ Image::Image(string filename) {
 void Image::ReadHeader() {
 
 	char hashtag;
-	getline(this->fileIn, this->magicNumber, '\n');
-	this->fileIn.get(hashtag);// lendo o #
+	getline(fileIn, magicNumber, '\n');
+	fileIn.get(hashtag);// lendo o #
 
-	getline(this->fileIn, this->beginMsg, ' ');
-	getline(this->fileIn, this->sizeMsg, ' ');
-	getline(this->fileIn, this->Ncript, '\n');
-	getline(this->fileIn, this->width, ' ');
-	getline(this->fileIn, this->height, '\n');
-	getline(this->fileIn, this->maxColorValue, '\n');
+	getline(fileIn, beginMsg, ' ');
+	getline(fileIn, sizeMsg, ' ');
+	getline(fileIn, Ncript, '\n');
+	getline(fileIn, width, ' ');
+	getline(fileIn, height, '\n');
+	getline(fileIn, maxColorValue, '\n');
 
-	cout << "MN:" << this->magicNumber << endl;
+	cout << "MN:" << magicNumber << endl;
 	cout << "Hash:" << hashtag << endl;
-	cout << "BegMsg:" << this->beginMsg << endl;
-	cout << "SizeMsg:" << this->sizeMsg << endl;
-	cout << "Ncript:" << this->Ncript << endl;
+	cout << "BegMsg:" << beginMsg << endl;
+	cout << "SizeMsg:" << sizeMsg << endl;
+	cout << "Ncript:" << Ncript << endl;
 	cout << get_filepath() << endl;
 }
 
@@ -59,14 +55,15 @@ void Image::CreateImage() {
 
 	CreateFile("./img/copy_of_" + get_filename());
 
-	this->fileOut << this->magicNumber << endl;
-	this->fileOut << this->width << " " << this->height << endl;
-	this->fileOut << this->maxColorValue << endl;
+	fileOut << magicNumber << endl;
+	fileOut << width << " " << height << endl;
+	fileOut << maxColorValue << endl;
 
-	long int vectorLen= this->fileVector.size();
+	long int sizeVector = fileVector.size();
 
-	for(int i = 0; i < vectorLen; i++) {
-		this->fileOut << this->fileVector[i];
+	for(int i = 0; i < sizeVector; i++) {
+
+		fileOut << fileVector[i];
 	}
 
 }

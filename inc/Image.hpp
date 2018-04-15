@@ -14,24 +14,28 @@ private:
 
 	void ReadHeader();
 	void CreateImage();
+	string magicNumber;
+	int width, height;
+	int maxColorValue;
 
 public:
-
-
-	string magicNumber;
 	
 	string beginMsg, sizeMsg, Ncript;
 
-	string width, height, maxColorValue;
-
-
 	Image();
 	Image(string filename);
-	~Image();
 
-	
+	void set_magicNumber(string magicNumber);
+	string get_magicNumber();
 
-	//void createImageOutput();
+	void set_width(int width);
+	int get_width();
+
+	void set_height(int height);
+	int get_height();
+
+	void set_maxColorValue(int maxColorValue);
+	int get_maxColorValue();
 
 
 };

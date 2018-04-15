@@ -26,27 +26,82 @@ Image::Image(string filename) {
 
 }
 
+void Image::set_magicNumber(string magicNumber) {
+
+	this->magicNumber = magicNumber;
+}
+
+string Image::get_magicNumber() {
+
+	return magicNumber;
+}
+
+void Image::set_width(int width) {
+
+	this->width = width;
+}
+
+int Image::get_width() {
+
+	return width;
+}
+
+void Image::set_height(int height) {
+
+	this->height = height;
+}
+
+int Image::get_height() {
+	
+	return height;
+}
+
+void Image::set_maxColorValue(int maxColorValue) {
+
+	this->maxColorValue = maxColorValue;
+}
+
+int Image::get_maxColorValue() {
+
+	return maxColorValue;
+}
 
 
 void Image::ReadHeader() {
 
-	char hashtag;
 	getline(fileIn, magicNumber, '\n');
-	fileIn.get(hashtag);// lendo o #
 
+	char hashtag;
+	fileIn.get(hashtag);
+
+	//faz sentido estar nessa classe?-------------
 	getline(fileIn, beginMsg, ' ');
 	getline(fileIn, sizeMsg, ' ');
 	getline(fileIn, Ncript, '\n');
-	getline(fileIn, width, ' ');
-	getline(fileIn, height, '\n');
-	getline(fileIn, maxColorValue, '\n');
+	//--------------------------------------------
 
-	cout << "MN:" << magicNumber << endl;
-	cout << "Hash:" << hashtag << endl;
+	string str_width, str_height, str_maxColorValue;
+
+	getline(fileIn, str_width, ' ');
+	getline(fileIn, str_height, '\n');
+	getline(fileIn, str_maxColorValue, '\n');
+
+	set_width(stoi(str_width));
+	set_height(stoi(str_height));
+	set_maxColorValue(stoi(str_maxColorValue));
+
+
+	cout << "MN:" << get_magicNumber() << endl;
+	cout << "Dimensão:" << get_width() << " x " << get_height() << endl; 
+	cout << "maxColorValue: " << get_maxColorValue() << endl;
+
+	cout << "Hashtag:" << hashtag << endl;
 	cout << "BegMsg:" << beginMsg << endl;
 	cout << "SizeMsg:" << sizeMsg << endl;
 	cout << "Ncript:" << Ncript << endl;
 	cout << get_filepath() << endl;
+
+
 }
 
 
@@ -55,15 +110,14 @@ void Image::CreateImage() {
 
 	CreateFile("./img/copy_of_" + get_filename());
 
-	fileOut << magicNumber << endl;
-	fileOut << width << " " << height << endl;
-	fileOut << maxColorValue << endl;
+	fileOut << get_magicNumber() << endl;
+	fileOut << get_width() << " " << get_height() << endl;
+	fileOut << get_maxColorValue() << endl;
 
-	long int sizeVector = fileVector.size();
-
-	for(int i = 0; i < sizeVector; i++) {
+	for(unsigned int i = 0; i < fileVector.size(); i++) {
 
 		fileOut << fileVector[i];
 	}
 
 }
+

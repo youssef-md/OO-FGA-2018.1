@@ -76,23 +76,26 @@ void Image::ReadHeader() {
 
 	string str_width, str_height, str_maxColorValue;
 
-	string str_beginMsg, str_sizeMsg, str_Ncript;
+	string str_beginMsg, str_sizeMsg, str_shiftAlphabet;
 
 	//faz sentido estar nessa classe?-------------
 	getline(fileIn, str_beginMsg, ' ');
 	getline(fileIn, str_sizeMsg, ' ');
-	getline(fileIn, str_Ncript, '\n');
+	getline(fileIn, str_shiftAlphabet, '\n');
 	//--------------------------------------------
-
-	
-
 	getline(fileIn, str_width, ' ');
 	getline(fileIn, str_height, '\n');
 	getline(fileIn, str_maxColorValue, '\n');
 
+
 	set_width(stoi(str_width));
 	set_height(stoi(str_height));
 	set_maxColorValue(stoi(str_maxColorValue));
+
+	set_beginMsg(stoi(str_beginMsg));
+	set_sizeMsg(stoi(str_sizeMsg));
+	set_shiftAlphabet(stoi(str_shiftAlphabet));
+
 
 
 	cout << "MN:" << get_magicNumber() << endl;

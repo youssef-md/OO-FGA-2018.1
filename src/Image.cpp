@@ -74,13 +74,17 @@ void Image::ReadHeader() {
 	char hashtag;
 	fileIn.get(hashtag);
 
+	string str_width, str_height, str_maxColorValue;
+	
+	string str_beginMsg, str_sizeMsg, str_Ncript;
+
 	//faz sentido estar nessa classe?-------------
-	getline(fileIn, beginMsg, ' ');
-	getline(fileIn, sizeMsg, ' ');
-	getline(fileIn, Ncript, '\n');
+	getline(fileIn, str_beginMsg, ' ');
+	getline(fileIn, str_sizeMsg, ' ');
+	getline(fileIn, str_Ncript, '\n');
 	//--------------------------------------------
 
-	string str_width, str_height, str_maxColorValue;
+	
 
 	getline(fileIn, str_width, ' ');
 	getline(fileIn, str_height, '\n');
@@ -101,8 +105,63 @@ void Image::ReadHeader() {
 	cout << "Ncript:" << Ncript << endl;
 	cout << get_filepath() << endl;
 
+}
+
+void Image::decrypt(){
+
+	char crip;
+	int noCrip = 0, i = 0;
+	int cifraDescrip,tamCripDescrip;
+
+	ifstream arquivoDaCrip;
+	arquivoDaCrip.open("./imagens/cripPgm.txt");
+
+	ofstream arquivoDescrip;
+	arquivoDescrip.open("./imagens/descripPgm.txt");
+
+	cifraDescrip = getCifra();
+	tamCripDescrip = getTamCrip();
+
+	while(i<tamCripDescrip){
+		
+		arquivoDaCrip.get(crip);
+		
+
+		if(crip == ' ' || crip =='.' || crip == '-'){
+			noCrip = (int)crip;
+		}
+		else{
+			if(islower(crip)){
+
+				if(((int)crip-cifraDescrip)<97){
+					noCrip =((int)crip-cifraDescrip)+26;
+				}
+				else{
+					noCrip =(int)crip-cifraDescrip;
+				}
+			}
+			else{
+				if(((int)crip-cifraDescrip)<65){
+					noCrip =((int)crip-cifraDescrip)+26;
+				}
+				else{
+					noCrip =(int)crip-cifraDescrip;
+				}
+			}
+		}
+		cout << (char)noCrip ;
+		arquivoDescrip << (char)noCrip ;
+		noCrip  = 0;
+		i++;
+	}
+	
 
 }
+
+
+
+
+
 
 
 
@@ -120,4 +179,6 @@ void Image::CreateImage() {
 	}
 
 }
+
+
 

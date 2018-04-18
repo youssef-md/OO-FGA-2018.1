@@ -115,7 +115,6 @@ void Image::ReadHeader() {
 
 
 
-
 void Image::CreateImage() {
 
 	CreateFile("./img/copy_of_" + get_filename());

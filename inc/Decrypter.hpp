@@ -2,8 +2,11 @@
 #define DECRYPTER_HPP
 
 #include <string>
+#include <fstream>
 
 using namespace std;
+
+class Decrypter {
 
 private:
     int beginMsg;
@@ -16,8 +19,7 @@ private:
 public:
 
     Decrypter();
-    Decrypter(int beginMsg, int sizeMsg, int shiftAlphabet); // PGM
-    Decrypter(int beginMsg, int sizeMsg, string keyword); // PPM
+    Decrypter(string beginMsg, string sizeMsg, string , string filename); // PGM
 
     void set_beginMsg(int beginMsg);
     int get_beginMsg();
@@ -27,6 +29,12 @@ public:
 
     void set_shiftAlphabet(int shiftAlphabet);
     int get_shiftAlphabet();
+
+    void set_keyword(string keyword);
+    string get_keyword();
+
+
+};
 
 
 #endif

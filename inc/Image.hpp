@@ -37,6 +37,7 @@ public:
 	void set_maxColorValue(int maxColorValue);
 	int get_maxColorValue();
 
+	void setImageAttributes(string magicNumber, string width, string height, string maxColorValue);
 
 };
 

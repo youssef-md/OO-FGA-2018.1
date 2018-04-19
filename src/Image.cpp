@@ -2,6 +2,8 @@
 #include "File.hpp"
 #include "Image.hpp"
 
+#include "Decrypter.hpp"
+
 #include <iostream>
 #include <string>
 
@@ -69,48 +71,44 @@ int Image::get_maxColorValue() {
 
 void Image::ReadHeader() {
 
-	getline(fileIn, magicNumber, '\n');
 
 	char hashtag;
+	string magicNumber, str_width, str_height, str_maxColorValue;
+	string str_beginMsg, str_sizeMsg, str_shiftAlphabet, str_keyConfig;
+
+	getline(fileIn, magicNumber, '\n');
+
 	fileIn.get(hashtag);
-
-	string str_width, str_height, str_maxColorValue;
-
-	string str_beginMsg, str_sizeMsg, str_shiftAlphabet;
-
-	//faz sentido estar nessa classe?-------------
 	getline(fileIn, str_beginMsg, ' ');
 	getline(fileIn, str_sizeMsg, ' ');
-	getline(fileIn, str_shiftAlphabet, '\n');
-	//--------------------------------------------
+	getline(fileIn, str_keyConfig, '\n');
+
 	getline(fileIn, str_width, ' ');
 	getline(fileIn, str_height, '\n');
 	getline(fileIn, str_maxColorValue, '\n');
 
-
-	set_width(stoi(str_width));
-	set_height(stoi(str_height));
-	set_maxColorValue(stoi(str_maxColorValue));
-
-	set_beginMsg(stoi(str_beginMsg));
-	set_sizeMsg(stoi(str_sizeMsg));
-	set_shiftAlphabet(stoi(str_shiftAlphabet));
+	setImageAttributes(magicNumber, str_width, str_height, str_maxColorValue);
 
 
+	Decrypter * decrypter = new Decrypter(str_beginMsg, str_sizeMsg,
+										  str_keyConfig, get_filename());
 
-	cout << "MN:" << get_magicNumber() << endl;
-	cout << "Dimensão:" << get_width() << " x " << get_height() << endl; 
-	cout << "maxColorValue: " << get_maxColorValue() << endl;
+	delete(decrypter);
+	
+/*
 
-	cout << "Hashtag:" << hashtag << endl;
-	cout << "BegMsg:" << beginMsg << endl;
-	cout << "SizeMsg:" << sizeMsg << endl;
-	cout << "Ncript:" << Ncript << endl;
+*/
 	cout << get_filepath() << endl;
 
 }
 
+void Image::setImageAttributes(string magicNumber, string width, string height, string maxColorValue) {
 
+	set_magicNumber(magicNumber);
+	set_width(stoi(width));
+	set_height(stoi(height));
+	set_maxColorValue(stoi(maxColorValue));
+}
 
 
 

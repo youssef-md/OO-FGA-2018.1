@@ -1,25 +1,30 @@
 #include "Image.hpp"
+#include <string>
 #include <iostream>
+#include <stdexcept>
+
 
 using namespace std;
 
 int main() {
 
 	string filename;
-	cout << "file name: ";
 	
+	cout << "nome do arquivo: ";
 	getline(cin, filename);
 
-/*
-	int op = 0;
-	cout << "(1) PGM  (2) PPM" << endl;
-	cin >> op;
-	cout << op;
-*/
-	
-	Image * img = new Image(filename);
+	if(filename.find(".pgm") != string::npos) {
 
-	delete img;
+		//PGM * imgPGM = new PGM(filename);
+
+	} else if(filename.find(".ppm") != string::npos) {
+
+		//PPM * imgPPM = new PPM(filename);
+
+	} else {
+
+		throw invalid_argument(".pgm or .ppm was not identified");
+	}
 
 	return 0;
 }

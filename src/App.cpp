@@ -10,6 +10,13 @@ int main() {
 	
 	getline(cin, filename);
 
+/*
+	int op = 0;
+	cout << "(1) PGM  (2) PPM" << endl;
+	cin >> op;
+	cout << op;
+*/
+	
 	Image * img = new Image(filename);
 
 	delete img;

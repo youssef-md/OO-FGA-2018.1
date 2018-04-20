@@ -20,7 +20,8 @@ private:
 	
 protected: 
 
-	
+//é necessário herdar de File para ter os atributos de um arquivo
+
 	ifstream fileIn;
 	ofstream fileOut;
 

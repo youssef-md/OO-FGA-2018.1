@@ -30,7 +30,6 @@ Decrypter::Decrypter(string beginMsg, string sizeMsg, string keyConfig, string f
 }
 
 
-
 void Decrypter::set_beginMsg(int beginMsg) {
 
 	this->beginMsg = beginMsg;
@@ -69,4 +68,12 @@ void Decrypter::set_keyword(string keyword) {
 string Decrypter::get_keyword() {
 
 	return keyword;
+}
+
+void Decrypter::decryptPGM() {
+
+}
+
+void Decrypter::decryptPPM() {
+	
 }

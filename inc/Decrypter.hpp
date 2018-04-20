@@ -9,6 +9,7 @@ using namespace std;
 class Decrypter {
 
 private:
+
     int beginMsg;
     int sizeMsg;
     int shiftAlphabet;
@@ -32,6 +33,9 @@ public:
 
     void set_keyword(string keyword);
     string get_keyword();
+
+    void decryptPGM();
+    void decryptPPM();
 
 
 };

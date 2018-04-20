@@ -12,6 +12,7 @@ int main() {
 	string filename;
 	
 	cout << "nome do arquivo: ";
+	
 	getline(cin, filename);
 
 	if(filename.find(".pgm") != string::npos) {

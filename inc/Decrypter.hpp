@@ -14,15 +14,12 @@ private:
 
     int beginMsg;
     int sizeMsg;
-    int shiftAlphabet;
-    string keyword;
-
-    
+    string key;
 
 public:
 
     Decrypter();
-    Decrypter(string beginMsg, string sizeMsg, string , string filename); // PGM
+    Decrypter(int beginMsg, int sizeMsg, string key);
 
     void set_beginMsg(int beginMsg);
     int get_beginMsg();
@@ -30,11 +27,8 @@ public:
     void set_sizeMsg(int sizeMsg);
     int get_sizeMsg();
 
-    void set_shiftAlphabet(int shiftAlphabet);
-    int get_shiftAlphabet();
-
-    void set_keyword(string keyword);
-    string get_keyword();
+    void set_key(string key);
+    string get_key();
 
     void decryptPGM(const vector<char>& baseVector);
     void decryptPPM(const vector<char>& baseVector);

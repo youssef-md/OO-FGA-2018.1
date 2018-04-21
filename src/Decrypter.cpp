@@ -6,26 +6,14 @@ Decrypter::Decrypter() {
 
 }
 
-Decrypter::Decrypter(string beginMsg, string sizeMsg, string keyConfig, string filename) {
+
+Decrypter::Decrypter(int beginMsg, int sizeMsg, string key) {
 
 	cout << "Constructor of Decrypter class" << endl;
 
-	set_beginMsg(stoi(beginMsg));
-	set_sizeMsg(stoi(sizeMsg));
-
-	// definindo o tipo de criptografia com base nos formatos
-	if(filename.find(".pgm") != string::npos) { 
-
-		set_shiftAlphabet(stoi(keyConfig));
-		set_keyword(" ");
-
-	} else if(filename.find(".ppm") != string::npos) {
-
-		set_keyword(keyConfig);
-		set_shiftAlphabet(0);
-
-	}
-	
+	set_beginMsg(beginMsg);
+	set_sizeMsg(sizeMsg);
+	set_key(key);	
 }
 
 
@@ -41,7 +29,7 @@ int Decrypter::get_beginMsg() {
 
 void Decrypter::set_sizeMsg(int sizeMsg) {
 
-	this-> sizeMsg = sizeMsg;
+	this->sizeMsg = sizeMsg;
 }
 
 int Decrypter::get_sizeMsg() {
@@ -49,32 +37,38 @@ int Decrypter::get_sizeMsg() {
 	return sizeMsg;
 }
 
-void Decrypter::set_shiftAlphabet(int shiftAlphabet) {
 
-	this->shiftAlphabet = shiftAlphabet;
-}
-    
-int Decrypter::get_shiftAlphabet() {
+void Decrypter::set_key(string key) {
 
-	return shiftAlphabet;
-}
-
-void Decrypter::set_keyword(string keyword) {
-
-	this->keyword = keyword;
+	this->key = key;
 } 
 
-string Decrypter::get_keyword() {
+string Decrypter::get_key() {
 
-	return keyword;
+	return key;
 }
 
 void Decrypter::decryptPGM(const vector<char>& baseVector) {
+	
+	cout << "Caesar Cipher" << endl;
 
-	cout << "Metodo decryptPGM" << endl;
+
+	cout << "Begin: " << get_beginMsg() << endl;
+	cout << "Size: " << get_sizeMsg() << endl;
+	cout << "Shift: " << stoi(get_key()) << endl;
+
+	for(int i = 0; i < get_sizeMsg(); i++ ) {
+
+	}
 }
 
 void Decrypter::decryptPPM(const vector<char>& baseVector) {
 	
-	cout << "Metodo decryptPPM" << endl;
+	cout << "Keyword Cipher" << endl;
+
+	cout << "Begin: " << get_beginMsg() << endl;
+	cout << "Size: " << get_sizeMsg() << endl;
+	cout << "Shift: " << get_key() << endl;
+
+
 }

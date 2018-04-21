@@ -69,40 +69,38 @@ void Image::ReadHeader() {
 
 	char hashtag;
 	string magicNumber, str_width, str_height, str_maxColorValue;
-	string str_beginMsg, str_sizeMsg, str_shiftAlphabet, str_keyConfig;
+	string str_beginMsg, str_sizeMsg, str_key;
 
 	getline(fileIn, magicNumber, '\n');
 
 	fileIn.get(hashtag);
 	getline(fileIn, str_beginMsg, ' ');
 	getline(fileIn, str_sizeMsg, ' ');
-	getline(fileIn, str_keyConfig, '\n');
+	getline(fileIn, str_key, '\n');
 
 	getline(fileIn, str_width, ' ');
 	getline(fileIn, str_height, '\n');
 	getline(fileIn, str_maxColorValue, '\n');
 
-	setImageAttributes(magicNumber, str_width, str_height, str_maxColorValue);
+	setAttributes(magicNumber, str_width, str_height, str_maxColorValue,
+					   str_beginMsg, str_sizeMsg, str_key);
 
 
-	Decrypter * decrypter = new Decrypter(str_beginMsg, str_sizeMsg,
-										  str_keyConfig, get_filename());
-
-	delete(decrypter);
-	
-/*
-
-*/
 	cout << get_filepath() << endl;
 
 }
 
-void Image::setImageAttributes(string magicNumber, string width, string height, string maxColorValue) {
+void Image::setAttributes(string magicNumber, string width, string height, string maxColorValue,
+							   string beginMsg, string sizeMsg, string key) {
 
 	set_magicNumber(magicNumber);
 	set_width(stoi(width));
 	set_height(stoi(height));
 	set_maxColorValue(stoi(maxColorValue));
+
+	set_beginMsg(stoi(beginMsg));
+	set_sizeMsg(stoi(sizeMsg));
+	set_key(key);
 
 }
 

@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class Image : public File {
+class Image : public File, public Decrypter {
 
 private:
 
@@ -21,10 +21,12 @@ private:
 	int width, height;
 	int maxColorValue;
 
+protected:
+
+	string beginMsg;
+
 public:
 	
-	string beginMsg, sizeMsg, Ncript;
-
 	Image();
 	Image(string filename);
 
@@ -40,7 +42,8 @@ public:
 	void set_maxColorValue(int maxColorValue);
 	int get_maxColorValue();
 
-	void setImageAttributes(string magicNumber, string width, string height, string maxColorValue);
+	void setAttributes(string magicNumber, string width, string height, string maxColorValue,
+					   string beginMsg, string sizeMsg, string key);
 
 };
 

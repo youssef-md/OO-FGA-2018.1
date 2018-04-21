@@ -40,6 +40,7 @@ void File::OpenFile(string filename) {
 	fileIn.open(get_filepath()); //arquivo a ser lido
 }
 
+	
 void File::ReadFile(string filename) {
 
 	if(fileIn.is_open()) {

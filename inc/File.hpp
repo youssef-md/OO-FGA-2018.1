@@ -1,0 +1,52 @@
+#ifndef FILE_HPP
+#define FILE_HPP
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+
+class File {
+
+private:
+
+	string filename;
+	string filepath;
+
+	vector<char> fileVector;
+
+	void set_filename(string filename);
+	void set_filepath(string filepath);
+	
+	
+protected: 
+
+//é necessário herdar de File para ter os atributos de um arquivo
+
+	ifstream fileIn;
+	ofstream fileOut;
+
+	void OpenFile(string filename);
+	void ReadFile(string filename);
+
+	void CreateFile(string filename);
+
+	vector<char> const &get_fileVector() const { return fileVector; }
+
+	File();
+	~File();
+	
+public:
+	
+	string get_filename();
+	string get_filepath();
+
+
+};
+
+
+
+
+#endif

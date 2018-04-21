@@ -1,8 +1,6 @@
+
 #include "File.hpp"
-#include <iostream>
-#include <fstream>
-#include <string> 
-#include <vector>
+
 
 File::File() {
 	cout << "Default Constructor File class" << endl;

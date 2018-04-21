@@ -1,7 +1,5 @@
+
 #include "Decrypter.hpp"
-#include <iostream>
-#include <string>
-#include <fstream>
 
 
 Decrypter::Decrypter() {
@@ -14,8 +12,9 @@ Decrypter::Decrypter(string beginMsg, string sizeMsg, string keyConfig, string f
 
 	set_beginMsg(stoi(beginMsg));
 	set_sizeMsg(stoi(sizeMsg));
-
-	if(filename.find(".pgm") != string::npos) {
+	
+	// definindo o tipo de criptografia com base nos formatos
+	if(filename.find(".pgm") != string::npos) { 
 
 		set_shiftAlphabet(stoi(keyConfig));
 		set_keyword(" ");
@@ -72,8 +71,10 @@ string Decrypter::get_keyword() {
 
 void Decrypter::decryptPGM() {
 
+
 }
 
 void Decrypter::decryptPPM() {
 	
+
 }

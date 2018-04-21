@@ -13,7 +13,7 @@ class PGM : public Image {
 
 public:
 	PGM();
-	PGM(string filename) : Image(filename){}
+	PGM(string filename) : Image(filename){} // super()
 
 
 };

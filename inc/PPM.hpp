@@ -13,7 +13,8 @@ class PPM : public Image {
 
 public:
 	PPM();
-	PPM(string filename) : Image(filename){}
+	PPM(string filename) : Image(filename){} // super()
+
 
 };
 

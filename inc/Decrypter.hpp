@@ -1,6 +1,7 @@
 #ifndef DECRYPTER_HPP
 #define DECRYPTER_HPP
 
+#include <iostream>
 #include <string>
 #include <fstream>
 

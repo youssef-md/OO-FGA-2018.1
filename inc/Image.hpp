@@ -2,6 +2,9 @@
 #define IMAGE_HPP
 
 #include "File.hpp"
+#include "Decrypter.hpp"
+
+#include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>

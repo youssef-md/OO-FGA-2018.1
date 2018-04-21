@@ -2,6 +2,8 @@
 #define PPM_HPP
 
 #include "Image.hpp"
+#include "Decrypter.hpp"
+
 #include <vector>
 #include <fstream>
 #include <string>
@@ -15,6 +17,7 @@ public:
 	PPM();
 	PPM(string filename) : Image(filename){} // super()
 
+	void decrypt();
 
 };
 

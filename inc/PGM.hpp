@@ -2,6 +2,8 @@
 #define PGM_HPP
 
 #include "Image.hpp"
+#include "Decrypter.hpp"
+
 #include <vector>
 #include <fstream>
 #include <string>
@@ -14,6 +16,8 @@ class PGM : public Image {
 public:
 	PGM();
 	PGM(string filename) : Image(filename){} // super()
+
+	void decrypt();
 
 
 };

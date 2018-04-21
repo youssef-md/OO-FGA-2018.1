@@ -1,6 +1,7 @@
 #ifndef DECRYPTER_HPP
 #define DECRYPTER_HPP
 
+#include <vector>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -35,8 +36,8 @@ public:
     void set_keyword(string keyword);
     string get_keyword();
 
-    void decryptPGM();
-    void decryptPPM();
+    void decryptPGM(const vector<char>& baseVector);
+    void decryptPPM(const vector<char>& baseVector);
 
 
 };

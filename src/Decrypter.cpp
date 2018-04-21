@@ -12,7 +12,7 @@ Decrypter::Decrypter(string beginMsg, string sizeMsg, string keyConfig, string f
 
 	set_beginMsg(stoi(beginMsg));
 	set_sizeMsg(stoi(sizeMsg));
-	
+
 	// definindo o tipo de criptografia com base nos formatos
 	if(filename.find(".pgm") != string::npos) { 
 
@@ -69,12 +69,12 @@ string Decrypter::get_keyword() {
 	return keyword;
 }
 
-void Decrypter::decryptPGM() {
+void Decrypter::decryptPGM(const vector<char>& baseVector) {
 
-
+	cout << "Metodo decryptPGM" << endl;
 }
 
-void Decrypter::decryptPPM() {
+void Decrypter::decryptPPM(const vector<char>& baseVector) {
 	
-
+	cout << "Metodo decryptPPM" << endl;
 }

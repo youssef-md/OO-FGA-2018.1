@@ -103,6 +103,7 @@ void Image::setImageAttributes(string magicNumber, string width, string height, 
 	set_width(stoi(width));
 	set_height(stoi(height));
 	set_maxColorValue(stoi(maxColorValue));
+
 }
 
 

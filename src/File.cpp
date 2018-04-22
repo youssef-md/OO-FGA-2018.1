@@ -3,12 +3,13 @@
 
 
 File::File() {
-	cout << "Default Constructor File class" << endl;
+
 }
 
 File::~File() {
 
-	cout << "Default Destructor File class" << endl;
+	usleep(500000);
+	cout << "Fechando o arquivo..." << endl;
 	fileIn.close();
 	fileOut.close();
 }
@@ -34,8 +35,10 @@ string File::get_filepath() {
 	return filepath;
 }
 
+
 void File::OpenFile(string filename) {
 
+	cout << "Abrindo o arquivo..." << endl;
 	set_filename(filename);
 	fileIn.open(get_filepath()); //arquivo a ser lido
 }
@@ -43,6 +46,8 @@ void File::OpenFile(string filename) {
 	
 void File::ReadFile(string filename) {
 
+	
+	cout << "Lendo o arquivo..." << endl;
 	if(fileIn.is_open()) {
 
 		char character;
@@ -55,7 +60,9 @@ void File::ReadFile(string filename) {
 
 		throw invalid_argument("O arquivo não existe");
 	}
-}
+	
+}	
+
 
 void File::CreateFile(string filename) {
 

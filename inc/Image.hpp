@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ protected:
 public:
 	
 	Image();
-	Image(string filename);
+	Image(string filename);//Sobrecarga 
 
 	void set_magicNumber(string magicNumber);
 	string get_magicNumber();

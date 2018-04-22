@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <stdexcept>
+#include <unistd.h>
 
 using namespace std;
 
@@ -28,9 +30,9 @@ protected:
 	ifstream fileIn;
 	ofstream fileOut;
 
+	
 	void OpenFile(string filename);
 	void ReadFile(string filename);
-
 	void CreateFile(string filename);
 
 	vector<char> const &get_fileVector() const { return fileVector; }

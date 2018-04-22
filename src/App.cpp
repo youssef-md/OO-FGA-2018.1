@@ -5,7 +5,9 @@
 #include <iostream>
 #include <stdexcept>
 
+
 using namespace std;
+
 
 int main() {
 
@@ -15,14 +17,14 @@ int main() {
 	
 	getline(cin, filename);
 
-	if(filename.find(".pgm") != string::npos) {
+	if(filename.find("pgm") != string::npos) {
 
 		PGM * imgPGM = new PGM(filename);
 		imgPGM->decrypt();
 
 		delete imgPGM;
 
-	} else if(filename.find(".ppm") != string::npos) {
+	} else if(filename.find("ppm") != string::npos) {
 
 		PPM * imgPPM = new PPM(filename);
 		imgPPM->decrypt();

@@ -10,11 +10,13 @@ PPM::PPM() {
 
 void PPM::decrypt() {
 
-	cout << "Descriptografando a "<< get_filename() << " ..." << endl;
+	usleep(500000);
+
+	cout << "Descriptografando "<< get_filename() << "..." << endl;
 
 	Decrypter * decrypter = new Decrypter(get_beginMsg(), get_sizeMsg(), get_key());
 
-	decrypter->decryptPPM(get_fileVector());
+	decrypter->KeywordCipher(get_fileVector());
 
 	delete(decrypter);	
 }

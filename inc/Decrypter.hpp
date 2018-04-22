@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -30,8 +31,8 @@ public:
     void set_key(string key);
     string get_key();
 
-    void decryptPGM(const vector<char>& baseVector);
-    void decryptPPM(const vector<char>& baseVector);
+    void CaesarCipher(const vector<char>& baseVector);
+    void KeywordCipher(const vector<char>& baseVector);
 
 
 };

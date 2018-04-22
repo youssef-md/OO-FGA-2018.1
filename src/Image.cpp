@@ -6,20 +6,21 @@ using namespace std;
 
 Image::Image() {
 
-	cout << "Default Constructor Image class" << endl;
 }
 
 
 Image::Image(string filename) {
 
-	cout << "Constructor of Image class" << endl;
-
+	usleep(500000);
 	OpenFile(filename);
 
+	usleep(500000);
 	ReadHeader();
-	ReadFile(filename);
-
-	CreateImage();
+	
+	usleep(500000);
+	
+	if(!(get_filename().find(".ppm") != string::npos))
+		ReadFile(filename);
 
 }
 
@@ -67,6 +68,7 @@ int Image::get_maxColorValue() {
 void Image::ReadHeader() {
 
 
+	cout << "Lendo o cabeçalho..." << endl;
 	char hashtag;
 	string magicNumber, str_width, str_height, str_maxColorValue;
 	string str_beginMsg, str_sizeMsg, str_key;
@@ -86,8 +88,6 @@ void Image::ReadHeader() {
 	setAttributes(magicNumber, str_width, str_height, str_maxColorValue,
 					   str_beginMsg, str_sizeMsg, str_key);
 
-
-	cout << get_filepath() << endl;
 
 }
 

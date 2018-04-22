@@ -9,8 +9,6 @@ Decrypter::Decrypter() {
 
 Decrypter::Decrypter(int beginMsg, int sizeMsg, string key) {
 
-	cout << "Constructor of Decrypter class" << endl;
-
 	set_beginMsg(beginMsg);
 	set_sizeMsg(sizeMsg);
 	set_key(key);	
@@ -48,9 +46,9 @@ string Decrypter::get_key() {
 	return key;
 }
 
-void Decrypter::decryptPGM(const vector<char>& baseVector) {
+void Decrypter::CaesarCipher(const vector<char>& baseVector) {
 	
-	cout << "Caesar Cipher" << endl;
+	cout << "Método de criptografia: Caesar Cipher" << endl;
 /*
 	cout << "Begin: " << get_beginMsg() << endl;
 	cout << "Size: " << get_sizeMsg() << endl;
@@ -61,22 +59,22 @@ void Decrypter::decryptPGM(const vector<char>& baseVector) {
 	char cryptedLetter;
 
 	cout << "A mensagem descriptograda é: ";
-
+	usleep(500000);
 	for(int i = 0, msgPosition = get_beginMsg(); i < get_sizeMsg(); i++, msgPosition++) {
 
 		cryptedLetter = baseVector[msgPosition];
 		int decryptedLetter = 0;
 
-		if(isalpha(cryptedLetter)) {
+		if(isalpha(cryptedLetter)) { // se for letra
 
-			if(islower(cryptedLetter)) {
+			if(islower(cryptedLetter)) { // se for minúscula
 
 				if(((int)cryptedLetter - shiftAlpha) < 97)
 					decryptedLetter = ((int)cryptedLetter - shiftAlpha) + 26;
 				else 
 					decryptedLetter = (int)cryptedLetter - shiftAlpha;
 
-			} else {
+			} else { // se for maiúscula
 
 				if(((int)cryptedLetter - shiftAlpha) < 65)
 					decryptedLetter = ((int)cryptedLetter - shiftAlpha) + 26;
@@ -86,20 +84,24 @@ void Decrypter::decryptPGM(const vector<char>& baseVector) {
 
 			cout << (char)decryptedLetter;
 
-		} else 
+		} else // se não for letra
 			cout << cryptedLetter;
 	}
 
 	cout << endl;
 }
 
-void Decrypter::decryptPPM(const vector<char>& baseVector) {
+void Decrypter::KeywordCipher(const vector<char>& baseVector) {
 	
-	cout << "Keyword Cipher" << endl;
+	cout << "Método de criptografia: Keyword Cipher" << endl;
 
+/*
 	cout << "Begin: " << get_beginMsg() << endl;
 	cout << "Size: " << get_sizeMsg() << endl;
 	cout << "Shift: " << get_key() << endl;
-
+*/
+	
+	cout << "A mensagem descriptograda é: ";
+	usleep(500000);
 
 }

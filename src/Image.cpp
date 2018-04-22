@@ -74,6 +74,7 @@ void Image::ReadHeader() {
 	getline(fileIn, magicNumber, '\n');
 
 	fileIn.get(hashtag);
+	
 	getline(fileIn, str_beginMsg, ' ');
 	getline(fileIn, str_sizeMsg, ' ');
 	getline(fileIn, str_key, '\n');

@@ -52,9 +52,8 @@ void File::ReadFile(string filename) {
 		}
 
 	}else {
-		//tratar o erro, e impedir que o código contine!
-		cout << "O arquivo não existe" << endl;
-		return ;
+
+		throw invalid_argument("O arquivo não existe");
 	}
 }
 

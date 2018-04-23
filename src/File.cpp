@@ -38,6 +38,7 @@ string File::get_filepath() {
 void File::OpenFile(string filename) {
 
 	cout << "Abrindo o arquivo..." << endl;
+	//if(fileIn.is_open())
 	set_filename(filename);
 	fileIn.open(get_filepath()); //arquivo a ser lido
 }

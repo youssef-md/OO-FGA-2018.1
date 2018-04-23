@@ -2,11 +2,11 @@
 #include "PGM.hpp"
 #include "PPM.hpp"
 #include "ImageEditor.hpp"
-
+#include "Menu.hpp"
 #include <string>
 #include <iostream>
 #include <stdexcept>
-
+#include <unistd.h>
 
 using namespace std;
 
@@ -19,37 +19,9 @@ int main() {
 	
 	getline(cin, filename);
 
-	if(filename.find("pgm") != string::npos) {
+	Menu * menu = new Menu(filename);
 
-		PGM * imgPGM = new PGM(filename);
-		ImageEditor * imageEditor = new ImageEditor(imgPGM->get_fileVector(),
-													imgPGM->get_magicNumber(),
-													imgPGM->get_width(),
-													imgPGM->get_height(),
-													imgPGM->get_maxColorValue());
-		
-		imgPGM->decrypt();
-
-		imageEditor->Reflect();
-		imageEditor->Inverse();
-
-		imageEditor->CreateImage(imgPGM->get_filename());
-
-		delete imgPGM;
-		delete imageEditor;
-
-	} else if(filename.find("ppm") != string::npos) {
-
-		PPM * imgPPM = new PPM(filename);
-
-		imgPPM->decrypt();
-		
-		delete imgPPM;
-
-	} else {
-
-		throw invalid_argument(".pgm or .ppm was not identified");
-	}
+	menu->menu();
 
 	
 	

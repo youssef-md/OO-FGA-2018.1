@@ -11,7 +11,6 @@ File::~File() {
 	usleep(500000);
 	cout << "Fechando o arquivo..." << endl;
 	fileIn.close();
-	fileOut.close();
 }
 
 void File::set_filename(string filename) {
@@ -44,7 +43,7 @@ void File::OpenFile(string filename) {
 }
 
 	
-void File::ReadFile(string filename) {
+void File::ReadFile() {
 
 	
 	cout << "Lendo o arquivo..." << endl;
@@ -62,9 +61,3 @@ void File::ReadFile(string filename) {
 	}
 	
 }	
-
-
-void File::CreateFile(string filename) {
-
-	fileOut.open(filename);
-}

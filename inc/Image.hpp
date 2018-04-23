@@ -17,7 +17,6 @@ class Image : public File, public Decrypter {
 private:
 
 	void ReadHeader();
-	void CreateImage();
 	string magicNumber;
 	int width, height;
 	int maxColorValue;

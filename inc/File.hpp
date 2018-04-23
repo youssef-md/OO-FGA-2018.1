@@ -27,25 +27,20 @@ protected:
 
 //é necessário herdar de File para ter os atributos de um arquivo
 
-	ifstream fileIn;
-	ofstream fileOut;
-
-	
-	void OpenFile(string filename);
-	void ReadFile(string filename);
-	void CreateFile(string filename);
-
-	vector<char> const &get_fileVector() const { return fileVector; }
-
 	File();
 	~File();
+
+	ifstream fileIn;
 	
+	void OpenFile(string filename);
+	void ReadFile();
+	
+
 public:
-	
+
 	string get_filename();
 	string get_filepath();
-
-
+	vector<char> const &get_fileVector() const { return fileVector; }
 };
 
 

@@ -18,9 +18,11 @@ Image::Image(string filename) {
 	ReadHeader();
 	
 	usleep(500000);
-	
-	if(!(get_filename().find(".ppm") != string::npos))
-		ReadFile(filename);
+
+	//if(!(get_filename().find(".ppm") != string::npos))
+	ReadFile();
+
+	//CreateImage();
 
 }
 
@@ -102,29 +104,9 @@ void Image::setAttributes(string magicNumber, string width, string height, strin
 	set_beginMsg(stoi(beginMsg));
 	set_sizeMsg(stoi(sizeMsg));
 	set_key(key);
-
 }
 
 
-
-
-void Image::CreateImage() {
-
-
-	vector<char> imageVector = get_fileVector();
-
-	CreateFile("./img/copy_of_" + get_filename());
-
-	fileOut << get_magicNumber() << endl;
-	fileOut << get_width() << " " << get_height() << endl;
-	fileOut << get_maxColorValue() << endl;
-
-	for(unsigned int i = 0; i < imageVector.size(); i++) {
-
-		fileOut << imageVector[i];
-	}
-
-}
 
 
 

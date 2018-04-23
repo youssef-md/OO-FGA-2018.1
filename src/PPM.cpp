@@ -6,7 +6,19 @@ using namespace std;
 
 PPM::PPM() {
 
+	ReadFile();
+
 }
+
+void PPM::ReadFile() {
+
+	cout << "Lendo com o vetor de struct" << endl;
+
+	vector<char> fileVector = get_fileVector();
+
+	imageVector.push_back(pixel());
+}
+
 
 void PPM::decrypt() {
 

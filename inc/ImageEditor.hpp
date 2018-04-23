@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <unistd.h>
+#include <algorithm>
 
 class ImageEditor :  public Image {
 
@@ -24,6 +25,7 @@ public:
 	~ImageEditor();
 
 	void CreateImage(string filename);
+	void Reflect();
 };
 
 

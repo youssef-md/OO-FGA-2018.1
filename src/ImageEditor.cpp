@@ -29,8 +29,15 @@ void ImageEditor::CreateImage(string filename) {
 	fileOut << get_width() << " " << get_height() << endl;
 	fileOut << get_maxColorValue() << endl;
 
-	for(unsigned int i = 0; i < baseImage.size(); i++) {
-
+	for(unsigned int i = 0; i < baseImage.size(); i++) 
 		fileOut << baseImage[i];
-	}
+	
+}
+
+void ImageEditor::Reflect() {
+	
+	usleep(500000);
+	cout << "Espelhando..." << endl;	
+
+	reverse(baseImage.begin(), baseImage.end());
 }

@@ -17,18 +17,21 @@ private:
 	PPM * imgPPM;
 	string filename;
 
-	
+
+	bool flagPPM;
+	bool flagPGM;
+	bool imageEdited;
+
+	void ImageEditingChoice();
+	void CreatingImageEditorObject();
 
 public:
 	Menu(string filename);
 	~Menu();
 
-	bool flagPPM;
-	bool flagPGM;
-	bool imageEditing;
 
 	void menu();
-	void ImageEditingChoice();
+
 };
 
 

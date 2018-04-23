@@ -27,13 +27,13 @@ Menu::Menu(string filename) {
 
 Menu::~Menu() {
 
-	if(flagPGM && imageEditing){
+	if(flagPGM && imageEdited){
 
 		delete imgEditor;
 		delete imgPGM;
 
 
-	} else if(flagPPM && imageEditing) {
+	} else if(flagPPM && imageEdited) {
 
 		delete imgEditor;
 		delete imgPPM;
@@ -97,19 +97,12 @@ void Menu::ImageEditingChoice() {
 		return;
 	}
 
-	imageEditing = true;
-	if(flagPGM)
-		imgEditor = new ImageEditor(imgPGM->get_fileVector(),
-									imgPGM->get_magicNumber(),
-									imgPGM->get_width(),
-									imgPGM->get_height(),
-									imgPGM->get_maxColorValue());
-	else if(flagPPM)
-		imgEditor = new ImageEditor(imgPPM->get_fileVector(),
-									imgPPM->get_magicNumber(),
-									imgPPM->get_width(),
-									imgPPM->get_height(),
-									imgPPM->get_maxColorValue());
+	if(!imageEdited) {
+
+		CreatingImageEditorObject();
+		imageEdited = true;
+	}
+
 
 	switch(operation) {
 
@@ -123,4 +116,23 @@ void Menu::ImageEditingChoice() {
 	}
 
 	imgEditor->CreateImage(filename);
+}
+
+void Menu::CreatingImageEditorObject() {
+
+
+
+	if(flagPGM)
+		imgEditor = new ImageEditor(imgPGM->get_fileVector(),
+									imgPGM->get_magicNumber(),
+									imgPGM->get_width(),
+									imgPGM->get_height(),
+									imgPGM->get_maxColorValue());
+	else if(flagPPM)
+		imgEditor = new ImageEditor(imgPPM->get_fileVector(),
+									imgPPM->get_magicNumber(),
+									imgPPM->get_width(),
+									imgPPM->get_height(),
+									imgPPM->get_maxColorValue());
+
 }

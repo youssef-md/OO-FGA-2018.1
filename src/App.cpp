@@ -31,6 +31,7 @@ int main() {
 		imgPGM->decrypt();
 
 		imageEditor->Reflect();
+		imageEditor->Inverse();
 
 		imageEditor->CreateImage(imgPGM->get_filename());
 

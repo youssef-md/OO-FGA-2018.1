@@ -41,3 +41,10 @@ void ImageEditor::Reflect() {
 
 	reverse(baseImage.begin(), baseImage.end());
 }
+
+void ImageEditor::Inverse() {
+
+	for(unsigned int i = 0; i < baseImage.size(); i++) 
+		baseImage[i] = 255 - baseImage[i];
+	
+}

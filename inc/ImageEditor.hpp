@@ -26,6 +26,8 @@ public:
 
 	void CreateImage(string filename);
 	void Reflect();
+	void Inverse();
+	
 };
 
 

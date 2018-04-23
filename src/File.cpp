@@ -38,9 +38,11 @@ string File::get_filepath() {
 void File::OpenFile(string filename) {
 
 	cout << "Abrindo o arquivo..." << endl;
-	//if(fileIn.is_open())
 	set_filename(filename);
-	fileIn.open(get_filepath()); //arquivo a ser lido
+	fileIn.open(get_filepath());
+
+	if(!fileIn.is_open())
+		throw invalid_argument("O arquivo não existe");
 }
 
 	
@@ -48,17 +50,11 @@ void File::ReadFile() {
 
 	
 	cout << "Lendo o arquivo..." << endl;
-	if(fileIn.is_open()) {
 
-		char character;
-		while( fileIn.get(character) )  {
+	char character;
+	while( fileIn.get(character) )  {
 
-			fileVector.push_back(character);	
-		}
-
-	}else {
-
-		throw invalid_argument("O arquivo não existe");
+		fileVector.push_back(character);	
 	}
-	
+
 }	

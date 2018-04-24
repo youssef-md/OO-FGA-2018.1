@@ -32,7 +32,7 @@ public:
     string get_key();
 
     void CaesarCipher(const vector<char>& baseVector);
-    void KeywordCipher(const vector<char>& baseVector);
+    void KeywordCipher(unsigned int *messageInt);
 
 
 };

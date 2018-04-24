@@ -12,6 +12,7 @@ PPM::PPM() {
 }
 PPM::~PPM() {
 	free(*imageMatrix);
+	free(messageInt);
 }
 
 void PPM::ReadFile() {
@@ -40,7 +41,6 @@ void PPM::ReadFile() {
 
 	CreateImage();
 	FindingMessage();
-	KeywordDecipher();
 }
 
 void PPM::CreateImage(){
@@ -109,94 +109,20 @@ void PPM::FindingMessage() {
 
 }
 
-void PPM::KeywordDecipher() {
 
-	string alphabet = "abcdefghijklmnopqrstuvwxyz";
-    int alphaLen = 26;
-
-    string keyword = get_key();
-
-    int msgLen = get_sizeMsg();
-
-    char msg[msgLen]; 
-
-    for (int i = 0; i < msgLen; ++i) {
-
-        int number;
-        number = messageInt[i];
-        msg[i] = alphabet[number-1];     
-    }
-
-    string temp = "";
-    for (int i = 0; i < (int)keyword.length(); i++) {
-
-        temp += keyword[i];
-    }
-
-    for (int i = 0; i < 26; i++) {
-
-        temp+= (char)(i+97);
-    }
-
-
-    for (int i = 0; i < (int)temp.length(); i++) {
-
-        bool found = false;
-
-        for (int j = 0; j <(int)keyword.length(); j++) {
-
-            if(temp[i]==keyword[j]){
-
-                found = true;
-                break;
-            }
-        }
-
-        if (found == false)
-        	keyword+=temp[i];      
-    }
-
-
-
-    string decryText = "";
-    for (int i = 0; i < msgLen ; i++) {
-        
-        if (msg[i] == 0) 
-            decryText += " ";
-        else{
-
-            int counter = 0;
-            for (int j = 0; j < alphaLen; j++) {
-
-                if (msg[i]==keyword[j]) {
-                    decryText +=alphabet[counter];
-                    break;
-
-                }else
-                    counter ++;
-            }
-        }
-    }
-
-
-
-    cout << "Decrypted Text: "<<decryText<<endl;
-
-
-}
 
 
 void PPM::decrypt() {
 
 	usleep(500000);
-
 	cout << "Descriptografando "<< get_filename() << "..." << endl;
+	usleep(500000);
 
 	Decrypter * decrypter = new Decrypter(get_beginMsg(), get_sizeMsg(), get_key());
 
+	decrypter->KeywordCipher(messageInt);
 
-
-	decrypter->KeywordCipher(get_fileVector());
+	usleep(2000000);
 
 	delete(decrypter);	
 }

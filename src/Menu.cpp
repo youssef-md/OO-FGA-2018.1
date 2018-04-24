@@ -105,7 +105,7 @@ void Menu::ImageEditingChoice() {
 			imgEditor->Inverse();
 			break;
 	}
-	
+
 	imgEditor->CreateImage(filename);
 }
 
@@ -133,7 +133,7 @@ void Menu::Welcome() {
 	system("clear");
 
 	cout << "+----------------------------------------------+" << endl;
-	cout << "|     Coloque a imagen dentro da pasta /img    |" << endl;
+	cout << "|     Coloque a imagem dentro da pasta /img    |" << endl;
 	cout << "+----------------------------------------------+" << endl;
 	usleep(1500000);
 	system("clear");

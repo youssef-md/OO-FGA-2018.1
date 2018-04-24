@@ -85,10 +85,9 @@ void Menu::ImageEditingChoice() {
 	usleep(500000);
 	system("clear");
 
-	if(operation != 1 && operation != 2){
-		cout << "Operacao invalida!" << endl;
-		return;
-	}
+
+	if(operation != 1 && operation != 2)
+		throw invalid_argument("Operação inválida");
 
 	if(!imageEdited) {
 
@@ -105,14 +104,12 @@ void Menu::ImageEditingChoice() {
 		case 2:
 			imgEditor->Inverse();
 			break;
-
 	}
-
+	
 	imgEditor->CreateImage(filename);
 }
 
 void Menu::CreatingImageEditorObject() {
-
 
 
 	if(flagPGM)
@@ -121,13 +118,7 @@ void Menu::CreatingImageEditorObject() {
 									imgPGM->get_width(),
 									imgPGM->get_height(),
 									imgPGM->get_maxColorValue());
-	else if(flagPPM)
-		imgEditor = new ImageEditor(imgPPM->get_fileVector(),
-									imgPPM->get_magicNumber(),
-									imgPPM->get_width(),
-									imgPPM->get_height(),
-									imgPPM->get_maxColorValue());
-
+	
 }
 
 
@@ -169,11 +160,13 @@ void Menu::setObject() {
 	if(filename.find(".pgm") != string::npos){
 
 		imgPGM = new PGM(filename);
+		imgPGM->ReadFile();
 		flagPGM = true;
 
 	} else if(filename.find(".ppm") != string::npos){
 
 		imgPPM = new PPM(filename);
+		imgPPM->ReadFile();
 		flagPPM = true;
 
 	} else {

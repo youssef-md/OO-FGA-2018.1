@@ -25,19 +25,17 @@ private:
 	
 protected: 
 
-//é necessário herdar de File para ter os atributos de um arquivo
-
 	File();
 	~File();
 
 	ifstream fileIn;
 	
 	void OpenFile(string filename);
-	void ReadFile();
-	
+
 
 public:
-
+	void ReadFile();
+	
 	string get_filename();
 	string get_filepath();
 	vector<char> const &get_fileVector() const { return fileVector; }

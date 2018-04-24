@@ -28,7 +28,9 @@ protected:
 public:
 	
 	Image();
-	Image(string filename);//Sobrecarga 
+	Image(string filename);
+
+	void super(string filename);
 
 	void set_magicNumber(string magicNumber);
 	string get_magicNumber();

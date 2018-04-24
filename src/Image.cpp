@@ -19,11 +19,6 @@ Image::Image(string filename) {
 	
 	usleep(500000);
 
-	ReadFile();
-	usleep(500000);
-	system("clear");
-
-
 }
 
 void Image::set_magicNumber(string magicNumber) {

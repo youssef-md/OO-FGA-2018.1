@@ -12,25 +12,31 @@
 
 using namespace std;
 
-struct pixel { 
+typedef struct {
 
-	int r;
-	int g;
-	int b;
-};
+	char r;
+	char g;
+	char b;
+}PIXEL;
 
 class PPM : public Image {
 
 private: 
-	vector<pixel> imageVector;
+	PIXEL **imageMatrix;
+	unsigned int *totalSum;
 
 
 public:
 	PPM();
 	PPM(string filename) : Image(filename){} // super()
 
-	void ReadFile(); 
+	void ReadFile(); //@override from class File;
 	void decrypt();
+
+	//refact
+	void FindingMessage();
+	void KeywordDecipher();
+	void CreateImage();
 
 };
 

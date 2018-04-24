@@ -48,8 +48,8 @@ void File::OpenFile(string filename) {
 	
 void File::ReadFile() {
 
-	
 	cout << "Lendo o arquivo..." << endl;
+	usleep(500000);
 
 	char character;
 	while( fileIn.get(character) )  {
@@ -57,4 +57,5 @@ void File::ReadFile() {
 		fileVector.push_back(character);	
 	}
 
+	system("clear");
 }	

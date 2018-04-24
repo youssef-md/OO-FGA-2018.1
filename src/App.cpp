@@ -1,7 +1,6 @@
 #include "Image.hpp"
 #include "PGM.hpp"
 #include "PPM.hpp"
-#include "ImageEditor.hpp"
 #include "Menu.hpp"
 #include <string>
 #include <iostream>

@@ -12,13 +12,13 @@ Menu::~Menu() {
 
 	if(flagPGM && imageEdited){
 
-		delete imgEditor;
+		delete editorPGM;
 		delete imgPGM;
 
 
 	} else if(flagPPM && imageEdited) {
 
-		delete imgEditor;
+		delete editorPGM;
 		delete imgPPM;
 		
 	} else if(flagPGM) {
@@ -73,7 +73,7 @@ void Menu::Options() {
 	}
 }
 
-void Menu::ImageEditingChoice() {
+void Menu::ImageEditingChoicePGM() {
 
 	int operation = 0;
 	usleep(500000);
@@ -99,25 +99,65 @@ void Menu::ImageEditingChoice() {
 	switch(operation) {
 
 		case 1:
-			imgEditor->Reflect();
+			editorPGM->Reflect();
 			break;
 		case 2:
-			imgEditor->Inverse();
+			editorPGM->Inverse();
 			break;
 	}
 
-	imgEditor->CreateImage(filename);
+	editorPGM->CreateImage(filename);
 }
+
+void Menu::ImageEditingChoicePPM() {
+
+	int operation = 0;
+	usleep(500000);
+	cout << "+----------------------------------------------+" << endl;
+	cout << "|   (1)Espelhar            (2)Inverter a cor   |" << endl;
+	cout << "|   (3)Escala de cinza     (2)Filtro Sépia     |" << endl;
+	cout << "|----------------------------------------------+" << endl;
+	cout << "+----->";
+	cin >> operation;
+	usleep(500000);
+	system("clear");
+
+
+	if(operation != 1 && operation != 2 && operation != 3 && operation != 4)
+		throw invalid_argument("Operação inválida");
+
+	if(!imageEdited) {
+
+		CreatingImageEditorObject();
+		imageEdited = true;
+	}
+
+
+	switch(operation) {
+
+		case 1:
+			editorPGM->Reflect();
+			break;
+		case 2:
+			editorPGM->Inverse();
+			break;
+	}
+
+	editorPGM->CreateImage(filename);
+}
+
 
 void Menu::CreatingImageEditorObject() {
 
 
 	if(flagPGM)
-		imgEditor = new ImageEditor(imgPGM->get_fileVector(),
-									imgPGM->get_magicNumber(),
-									imgPGM->get_width(),
-									imgPGM->get_height(),
-									imgPGM->get_maxColorValue());
+		editorPGM = new ImageEditorPGM(imgPGM->get_fileVector(),
+									   imgPGM->get_magicNumber(),
+									   imgPGM->get_width(),
+									   imgPGM->get_height(),
+									   imgPGM->get_maxColorValue());
+	if(flagPPM)
+		editorPPM = new ImageEditorPPM(imgPPM->imageMatrix);
 	
 }
 

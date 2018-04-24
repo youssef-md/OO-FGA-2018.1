@@ -3,7 +3,7 @@
 
 #include "PGM.hpp"
 #include "PPM.hpp"
-#include "ImageEditor.hpp"
+#include "ImageEditorPGM.hpp"
 
 #include <string>
 #include <stdexcept>
@@ -13,7 +13,7 @@
 class Menu {
 
 private:
-	ImageEditor * imgEditor;
+	ImageEditorPGM * editorPGM;
 	PGM * imgPGM;
 	PPM * imgPPM;
 	string filename;
@@ -23,7 +23,8 @@ private:
 	bool flagPGM;
 	bool imageEdited;
 
-	void ImageEditingChoice();
+	void ImageEditingChoicePGM();
+	void ImageEditingChoicePPM();
 	void CreatingImageEditorObject();
 
 public:

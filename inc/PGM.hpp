@@ -3,8 +3,6 @@
 
 #include "Image.hpp"
 
-#include "ImageEditor.hpp"
-
 #include <vector>
 #include <fstream>
 #include <string>

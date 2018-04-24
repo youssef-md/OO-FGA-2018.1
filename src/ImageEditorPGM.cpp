@@ -1,9 +1,9 @@
 
-#include "ImageEditor.hpp"
+#include "ImageEditorPGM.hpp"
 
 using namespace std;
 
-ImageEditor::ImageEditor(const vector<char>& baseImage, string magicNumber, 
+ImageEditorPGM::ImageEditorPGM(const vector<char>& baseImage, string magicNumber, 
 				     	 int width, int height, int maxPixel) {
 
 	this->baseImage = baseImage;
@@ -13,11 +13,11 @@ ImageEditor::ImageEditor(const vector<char>& baseImage, string magicNumber,
 	set_maxColorValue(maxPixel);
 }
 
-ImageEditor::~ImageEditor() {
+ImageEditorPGM::~ImageEditorPGM() {
 	
 }
 
-void ImageEditor::CreateImage(string filename) {
+void ImageEditorPGM::CreateImage(string filename) {
 
 	usleep(500000);
 	cout << "Criando uma imagem..." << endl;
@@ -33,8 +33,31 @@ void ImageEditor::CreateImage(string filename) {
 		fileOut << baseImage[i];
 	
 }
+/*
+void ImageEditorPGM::CreateImage(struct PIXEL **imageMatrix){
 
-void ImageEditor::Reflect() {
+   	usleep(500000);
+	cout << "Criando uma imagem..." << endl;
+
+	ofstream fileOut;
+	fileOut.open("./img/copy_of_" + get_filename());
+
+	fileOut << get_magicNumber() << endl;
+	fileOut << get_width() << " " << get_height() << endl;
+	fileOut << get_maxColorValue() << endl;
+
+	for (int column = 0; column < get_height(); column++) {
+        for (int row = 0; row < get_width(); row++) {
+            fileOut << (imageMatrix[column][row].r);
+            fileOut << (imageMatrix[column][row].g);
+            fileOut << (imageMatrix[column][row].b);
+        }
+    }
+
+}
+*/
+
+void ImageEditorPGM::Reflect() {
 	
 	usleep(500000);
 	cout << "Espelhando..." << endl;	
@@ -49,7 +72,7 @@ void ImageEditor::Reflect() {
 	}
 }
 
-void ImageEditor::Inverse() {
+void ImageEditorPGM::Inverse() {
 
 	for(unsigned int i = 0; i < baseImage.size(); i++) 
 		baseImage[i] = 255 - baseImage[i];

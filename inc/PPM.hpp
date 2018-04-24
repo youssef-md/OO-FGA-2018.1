@@ -3,8 +3,6 @@
 
 #include "Image.hpp"
 
-#include "ImageEditor.hpp"
-
 #include <vector>
 #include <fstream>
 #include <string>
@@ -12,21 +10,23 @@
 
 using namespace std;
 
-typedef struct {
+struct PIXEL{
 
 	char r;
 	char g;
 	char b;
-}PIXEL;
+};
 
 class PPM : public Image {
 
 private: 
-	PIXEL **imageMatrix;
 	unsigned int *messageInt;
 
 
 public:
+
+	struct PIXEL **imageMatrix;
+
 	PPM();
 	~PPM();
 	PPM(string filename) : Image(filename){} // super()
@@ -36,8 +36,8 @@ public:
 
 	//refact
 	void FindingMessage();
-	void KeywordDecipher();
-	void CreateImage();
+	//void KeywordDecipher();
+	void CallCreateImage();
 
 };
 

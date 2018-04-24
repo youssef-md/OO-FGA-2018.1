@@ -1,16 +1,14 @@
 
 #include "PPM.hpp"
 
-
 using namespace std;
-
-
-
 
 PPM::PPM() {
 
 }
+
 PPM::~PPM() {
+
 	free(*imageMatrix);
 	free(messageInt);
 }
@@ -22,11 +20,11 @@ void PPM::ReadFile() {
 	system("clear");
 
 	//alocando memória para a matriz de struct
-	imageMatrix = (PIXEL**) malloc (sizeof(PIXEL*) * get_height());
+	imageMatrix = (struct PIXEL**) malloc (sizeof(struct PIXEL*) * get_height());
 
 	for(int i = 0; i < get_width(); i++) {
 
-		imageMatrix[i] = (PIXEL*) malloc (sizeof(PIXEL) * get_width());
+		imageMatrix[i] = (struct PIXEL*) malloc (sizeof(struct PIXEL) * get_width());
 	}
 
 
@@ -39,10 +37,16 @@ void PPM::ReadFile() {
 		}
 	}
 
-	CreateImage();
-	FindingMessage();
+	//CreateImage();
+	//FindingMessage();
 }
 
+void CallCreateImage() {
+
+	
+}
+
+/*
 void PPM::CreateImage(){
 
    	usleep(500000);
@@ -64,7 +68,7 @@ void PPM::CreateImage(){
     }
 
 }
-
+*/
 
 void PPM::FindingMessage() {
 

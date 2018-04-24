@@ -93,6 +93,9 @@ void Decrypter::CaesarCipher(const vector<char>& baseVector) {
 	cout << endl;
 }
 
+
+
+
 void Decrypter::KeywordCipher(unsigned int *messageInt) {
 
 	cout << "Método de criptografia: Keyword Cipher" << endl;

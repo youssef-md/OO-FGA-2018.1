@@ -21,6 +21,8 @@ void ImageEditorPGM::CreateImage(string filename) {
 
 	usleep(500000);
 	cout << "Criando uma imagem..." << endl;
+	usleep(800000);
+	system("clear");
 
 	ofstream fileOut;
 	fileOut.open("./img/copy_of_" + filename);
@@ -33,29 +35,6 @@ void ImageEditorPGM::CreateImage(string filename) {
 		fileOut << baseImage[i];
 	
 }
-/*
-void ImageEditorPGM::CreateImage(struct PIXEL **imageMatrix){
-
-   	usleep(500000);
-	cout << "Criando uma imagem..." << endl;
-
-	ofstream fileOut;
-	fileOut.open("./img/copy_of_" + get_filename());
-
-	fileOut << get_magicNumber() << endl;
-	fileOut << get_width() << " " << get_height() << endl;
-	fileOut << get_maxColorValue() << endl;
-
-	for (int column = 0; column < get_height(); column++) {
-        for (int row = 0; row < get_width(); row++) {
-            fileOut << (imageMatrix[column][row].r);
-            fileOut << (imageMatrix[column][row].g);
-            fileOut << (imageMatrix[column][row].b);
-        }
-    }
-
-}
-*/
 
 void ImageEditorPGM::Reflect() {
 	
@@ -72,7 +51,10 @@ void ImageEditorPGM::Reflect() {
 	}
 }
 
-void ImageEditorPGM::Inverse() {
+void ImageEditorPGM::InvertColor() {
+
+	usleep(500000);
+	cout << "Invertendo as cores..." << endl;
 
 	for(unsigned int i = 0; i < baseImage.size(); i++) 
 		baseImage[i] = 255 - baseImage[i];

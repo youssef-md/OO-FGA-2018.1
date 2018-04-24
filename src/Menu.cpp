@@ -15,12 +15,6 @@ Menu::~Menu() {
 		delete editorPGM;
 		delete imgPGM;
 
-
-	} else if(flagPPM && imageEdited) {
-
-		delete editorPGM;
-		delete imgPPM;
-		
 	} else if(flagPGM) {
 
 		delete imgPGM;
@@ -56,11 +50,13 @@ void Menu::Options() {
 					imgPGM->decrypt();
 				else if(flagPPM)
 					imgPPM->decrypt();
-
 				break;
 
 			case 2:
-				ImageEditingChoice();
+				if(flagPGM)
+					ImageEditingChoicePGM();
+				if(flagPPM)
+					ImageEditingChoicePPM();
 				break;
 
 			case 3:
@@ -102,7 +98,7 @@ void Menu::ImageEditingChoicePGM() {
 			editorPGM->Reflect();
 			break;
 		case 2:
-			editorPGM->Inverse();
+			editorPGM->InvertColor();
 			break;
 	}
 
@@ -114,8 +110,7 @@ void Menu::ImageEditingChoicePPM() {
 	int operation = 0;
 	usleep(500000);
 	cout << "+----------------------------------------------+" << endl;
-	cout << "|   (1)Espelhar            (2)Inverter a cor   |" << endl;
-	cout << "|   (3)Escala de cinza     (2)Filtro Sépia     |" << endl;
+	cout << "|   (1)Escala de cinza      (2)Inverter a cor  |" << endl;
 	cout << "|----------------------------------------------+" << endl;
 	cout << "+----->";
 	cin >> operation;
@@ -123,7 +118,7 @@ void Menu::ImageEditingChoicePPM() {
 	system("clear");
 
 
-	if(operation != 1 && operation != 2 && operation != 3 && operation != 4)
+	if(operation != 1 && operation != 2 )
 		throw invalid_argument("Operação inválida");
 
 	if(!imageEdited) {
@@ -132,23 +127,22 @@ void Menu::ImageEditingChoicePPM() {
 		imageEdited = true;
 	}
 
-
 	switch(operation) {
 
 		case 1:
-			editorPGM->Reflect();
+			imgPPM->GreyScale();
 			break;
 		case 2:
-			editorPGM->Inverse();
+			imgPPM->InvertColor();
 			break;
+
 	}
 
-	editorPGM->CreateImage(filename);
+	imgPPM->CreateImage();
 }
 
 
 void Menu::CreatingImageEditorObject() {
-
 
 	if(flagPGM)
 		editorPGM = new ImageEditorPGM(imgPGM->get_fileVector(),
@@ -156,9 +150,6 @@ void Menu::CreatingImageEditorObject() {
 									   imgPGM->get_width(),
 									   imgPGM->get_height(),
 									   imgPGM->get_maxColorValue());
-	if(flagPPM)
-		editorPPM = new ImageEditorPPM(imgPPM->imageMatrix);
-	
 }
 
 

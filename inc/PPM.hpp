@@ -32,12 +32,13 @@ public:
 	PPM(string filename) : Image(filename){} // super()
 
 	void ReadFile(); //@override from class File;
+	void CreateImage();
+
+	void FindingMessage();
 	void decrypt();
 
-	//refact
-	void FindingMessage();
-	//void KeywordDecipher();
-	void CallCreateImage();
+	void GreyScale();
+	void InvertColor();
 
 };
 

@@ -10,7 +10,7 @@ PPM::PPM() {
 PPM::~PPM() {
 
 	free(*imageMatrix);
-	free(messageInt);
+	
 }
 
 void PPM::ReadFile() {
@@ -36,21 +36,15 @@ void PPM::ReadFile() {
 			fileIn.get(imageMatrix[column][row].b);
 		}
 	}
-
-	//CreateImage();
-	//FindingMessage();
 }
 
-void CallCreateImage() {
-
-	
-}
-
-/*
 void PPM::CreateImage(){
 
    	usleep(500000);
 	cout << "Criando uma imagem..." << endl;
+	usleep(800000);
+	system("clear");
+
 
 	ofstream fileOut;
 	fileOut.open("./img/copy_of_" + get_filename());
@@ -68,7 +62,52 @@ void PPM::CreateImage(){
     }
 
 }
-*/
+
+void PPM::GreyScale() {
+
+	usleep(500000);
+	cout << "Escala de cinza..." << endl;
+	for (int column = 0; column < get_height(); column++) {
+        for (int row = 0; row < get_width(); row++) {
+
+			int grey = (imageMatrix[column][row].r + imageMatrix[column][row].g + imageMatrix[column][row].b)/3;
+			imageMatrix[column][row].r = grey;
+			imageMatrix[column][row].g = grey;
+			imageMatrix[column][row].b = grey;
+
+		}
+	}
+}
+
+void PPM::InvertColor() {
+
+	usleep(500000);
+	cout << "Invertendo as cores..." << endl;
+	for (int column = 0; column < get_height(); column++) {
+        for (int row = 0; row < get_width(); row++) {
+        	imageMatrix[column][row].r = 255 - imageMatrix[column][row].r;
+        	imageMatrix[column][row].g = 255 - imageMatrix[column][row].g;
+        	imageMatrix[column][row].b = 255 - imageMatrix[column][row].b;
+        }
+    }
+}
+
+void PPM::decrypt() {
+
+	usleep(500000);
+	cout << "Descriptografando "<< get_filename() << "..." << endl;
+	usleep(500000);
+
+	Decrypter * decrypter = new Decrypter(get_beginMsg(), get_sizeMsg(), get_key());
+
+	FindingMessage();
+	decrypter->KeywordCipher(messageInt);
+
+	usleep(2000000);
+
+	delete(decrypter);	
+}
+
 
 void PPM::FindingMessage() {
 
@@ -104,31 +143,8 @@ void PPM::FindingMessage() {
 		z--;
 	}
 
-	ofstream TextoCrip;
-    TextoCrip.open("TextoCrip.txt");
-    for (int y = 0; y < get_sizeMsg(); y++) {
-        
-            TextoCrip << messageInt[y]<<" ";
-    }
-
 }
 
 
-
-
-void PPM::decrypt() {
-
-	usleep(500000);
-	cout << "Descriptografando "<< get_filename() << "..." << endl;
-	usleep(500000);
-
-	Decrypter * decrypter = new Decrypter(get_beginMsg(), get_sizeMsg(), get_key());
-
-	decrypter->KeywordCipher(messageInt);
-
-	usleep(2000000);
-
-	delete(decrypter);	
-}
 
 

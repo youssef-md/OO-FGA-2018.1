@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 #include <unistd.h>
-#include "PPM.hpp" // incluir a struct RGB
+
 
 
 class ImageEditorPGM :  public Image {
@@ -25,10 +25,9 @@ public:
 	~ImageEditorPGM();
 
 	void CreateImage(string filename);
-	//void CreateImage(struct PIXEL **imageMatrix);
 
 	void Reflect();
-	void Inverse();
+	void InvertColor();
 
 };
 

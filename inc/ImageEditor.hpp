@@ -2,6 +2,7 @@
 #define IMAGEEDITOR_HPP
 
 #include "Image.hpp"
+#include "PPM.hpp"
 
 #include <fstream>
 #include <vector>

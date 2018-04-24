@@ -23,11 +23,12 @@ class PPM : public Image {
 
 private: 
 	PIXEL **imageMatrix;
-	unsigned int *totalSum;
+	unsigned int *messageInt;
 
 
 public:
 	PPM();
+	~PPM();
 	PPM(string filename) : Image(filename){} // super()
 
 	void ReadFile(); //@override from class File;

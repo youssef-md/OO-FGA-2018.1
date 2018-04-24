@@ -43,7 +43,7 @@ public:
 
 	void set_maxColorValue(int maxColorValue);
 	int get_maxColorValue();
-
+	
 	void setAttributes(string magicNumber, string width, string height, string maxColorValue,
 					   string beginMsg, string sizeMsg, string key);
 

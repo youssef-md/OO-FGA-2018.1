@@ -10,6 +10,9 @@ using namespace std;
 PPM::PPM() {
 
 }
+PPM::~PPM() {
+	free(*imageMatrix);
+}
 
 void PPM::ReadFile() {
 
@@ -36,6 +39,7 @@ void PPM::ReadFile() {
 	}
 
 	CreateImage();
+	FindingMessage();
 }
 
 void PPM::CreateImage(){
@@ -50,16 +54,59 @@ void PPM::CreateImage(){
 	fileOut << get_width() << " " << get_height() << endl;
 	fileOut << get_maxColorValue() << endl;
 
-	for (int y = 0; y < get_height(); y++) {
-        for (int x = 0; x < get_width(); x++) {
-            fileOut<<(imageMatrix[y][x].r);
-            fileOut<<(imageMatrix[y][x].g);
-            fileOut<<(imageMatrix[y][x].b);
+	for (int column = 0; column < get_height(); column++) {
+        for (int row = 0; row < get_width(); row++) {
+            fileOut << (imageMatrix[column][row].r);
+            fileOut << (imageMatrix[column][row].g);
+            fileOut << (imageMatrix[column][row].b);
         }
     }
 
 }
 
+
+void PPM::FindingMessage() {
+
+	messageInt = (unsigned int *) malloc (sizeof(unsigned int) * get_sizeMsg());
+
+	unsigned int begin = get_beginMsg()/3;
+    unsigned int division = (get_beginMsg()%3);
+    unsigned int beginTrack = (begin/get_width());
+    unsigned int beginRow = begin - (beginTrack * get_width());
+
+	for (unsigned int i = beginTrack; i <= beginTrack ; i++) {
+
+		int z = 0;
+
+		for (unsigned int j = beginRow; j < beginRow + get_sizeMsg(); j++) {
+			if(division == 1){
+
+			    messageInt[z] = ((unsigned int)imageMatrix[i][j].g % 10)+((unsigned int)imageMatrix[i][j].b % 10)+((unsigned int)imageMatrix[i][j+1].r % 10);
+
+			}else if(division == 2){
+
+			    messageInt[z] = ((unsigned int)imageMatrix[i][j].b%10)+((unsigned int)imageMatrix[i][j+1].r%10)+((unsigned int)imageMatrix[i][j+1].g%10);
+
+			}else if(division == 0){
+
+				messageInt[z] = ((unsigned int)imageMatrix[i][j].r%10)+((unsigned int)imageMatrix[i][j].g%10)+((unsigned int)imageMatrix[i][j].b%10);
+
+			}
+
+			z++;
+		}
+
+		z--;
+	}
+
+	ofstream TextoCrip;
+    TextoCrip.open("TextoCrip.txt");
+    for (int y = 0; y < get_sizeMsg(); y++) {
+        
+            TextoCrip << messageInt[y]<<" ";
+    }
+
+}
 
 
 

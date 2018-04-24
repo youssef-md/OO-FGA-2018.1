@@ -28,6 +28,8 @@ void PPM::decrypt() {
 
 	Decrypter * decrypter = new Decrypter(get_beginMsg(), get_sizeMsg(), get_key());
 
+	
+
 	decrypter->KeywordCipher(get_fileVector());
 
 	delete(decrypter);	

@@ -49,18 +49,18 @@ string Decrypter::get_key() {
 void Decrypter::CaesarCipher(const vector<char>& baseVector) {
 	
 	cout << "Método de criptografia: Caesar Cipher" << endl;
-/*
-	cout << "Begin: " << get_beginMsg() << endl;
-	cout << "Size: " << get_sizeMsg() << endl;
-	cout << "Shift: " << stoi(get_key()) << endl;
-*/
 
 	int shiftAlpha = stoi(get_key());
 	char cryptedLetter;
 
+	usleep(1000000);
+	system("clear");
+
+	cout << "+----------------------------------------------+" << endl;
+	cout << "|              Mensagem decifrada              |" << endl;
+	cout << "+----------------------------------------------+" << endl;
 	usleep(500000);
-	cout << "A mensagem descriptograda é: ";
-	
+
 	for(int i = 0, msgPosition = get_beginMsg(); i < get_sizeMsg(); i++, msgPosition++) {
 
 		cryptedLetter = baseVector[msgPosition];
@@ -90,6 +90,8 @@ void Decrypter::CaesarCipher(const vector<char>& baseVector) {
 	}
 
 	cout << endl;
+
+	usleep(2000000);
 }
 
 void Decrypter::KeywordCipher(const vector<char>& baseVector) {
@@ -107,4 +109,5 @@ void Decrypter::KeywordCipher(const vector<char>& baseVector) {
 
 
 	cout << endl;
+	usleep(2000000);
 }

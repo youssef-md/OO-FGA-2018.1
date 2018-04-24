@@ -8,6 +8,7 @@
 #include <string>
 #include <stdexcept>
 #include <unistd.h>
+#include <stdlib.h>
 
 class Menu {
 
@@ -26,12 +27,15 @@ private:
 	void CreatingImageEditorObject();
 
 public:
-	Menu(string filename);
+	Menu();
 	~Menu();
 
+	void Welcome();
+	void InputData();
+	void Options();
 
-	void menu();
 
+	void setObject();
 };
 
 

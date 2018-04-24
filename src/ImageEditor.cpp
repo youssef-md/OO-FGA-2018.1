@@ -39,7 +39,14 @@ void ImageEditor::Reflect() {
 	usleep(500000);
 	cout << "Espelhando..." << endl;	
 
-	reverse(baseImage.begin(), baseImage.end());
+	char character;
+	unsigned int i,j;
+	for(i = 0,  j = baseImage.size(); i < (baseImage.size()/2); i++, j-- ) {
+
+		character = baseImage[i];
+		baseImage[i] = baseImage[j];
+		baseImage[j] = character;
+	}
 }
 
 void ImageEditor::Inverse() {

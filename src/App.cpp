@@ -13,15 +13,10 @@ using namespace std;
 
 int main() {
 
-	string filename;
-	
-	cout << "nome do arquivo: ";
-	
-	getline(cin, filename);
 
-	Menu * menu = new Menu(filename);
+	Menu * menu = new Menu();
 
-	menu->menu();
+	menu->Options();
 
 	
 	

@@ -1,28 +1,11 @@
 
 #include "Menu.hpp"
 
-Menu::Menu(string filename) {
+Menu::Menu() {
 
-	this->filename = filename;
-
-	flagPGM = false;
-	flagPPM = false;
-
-	if(filename.find(".pgm") != string::npos){
-
-		imgPGM = new PGM(filename);
-		flagPGM = true;
-
-	} else if(filename.find(".ppm") != string::npos){
-
-		imgPPM = new PPM(filename);
-		flagPPM = true;
-
-	} else {
-
-		throw invalid_argument(".pgm or .ppm was not identified!");
-	}
-
+	Welcome();
+	InputData();
+	setObject();
 }
 
 Menu::~Menu() {
@@ -48,7 +31,7 @@ Menu::~Menu() {
 	}
 }
 
-void Menu::menu() {
+void Menu::Options() {
 
 	int choice = 0;
 	bool stop = false;
@@ -56,10 +39,15 @@ void Menu::menu() {
 	while(!stop){
 
 		usleep(500000);
-		cout << "O que voce deseja fazer ?" << endl;
-		usleep(500000);
-		cout << "(1)Decifrar a mensagem   (2)Editar a imagem   (3)Sair" << endl;
+		cout << "+----------------------------------------------+" << endl;
+		cout << "|           O que voce deseja fazer?           |" << endl;
+		cout << "|                                              |" << endl;
+		cout << "|(1)Decifrar        (2)Editar           (3)Sair|" << endl;
+		cout << "|----------------------------------------------+" << endl;
+		cout << "+----->";
 		cin >> choice;
+		usleep(500000);
+		system("clear");
 
 		switch(choice) {
 
@@ -77,7 +65,7 @@ void Menu::menu() {
 
 			case 3:
 				usleep(500000);
-				cout << "bye bye õ/" << endl;
+				cout << "+----->bye bye õ/" << endl;
 				stop = true;
 				break;
 				
@@ -89,8 +77,13 @@ void Menu::ImageEditingChoice() {
 
 	int operation = 0;
 	usleep(500000);
-	cout << "(1)Espelhar  (2)Inverter cores " << endl;
+	cout << "+----------------------------------------------+" << endl;
+	cout << "|        (1)Espelhar     (2)Inverter a cor     |" << endl;
+	cout << "|----------------------------------------------+" << endl;
+	cout << "+----->";
 	cin >> operation;
+	usleep(500000);
+	system("clear");
 
 	if(operation != 1 && operation != 2){
 		cout << "Operacao invalida!" << endl;
@@ -136,3 +129,58 @@ void Menu::CreatingImageEditorObject() {
 									imgPPM->get_maxColorValue());
 
 }
+
+
+void Menu::Welcome() {
+
+	usleep(500000);
+	cout << "Author: Youssef Muhamad" << endl;
+	usleep(500000);
+	cout << "Object Oriented C++" << endl;
+	usleep(500000);
+	
+	system("clear");
+
+	cout << "+----------------------------------------------+" << endl;
+	cout << "|     Coloque a imagen dentro da pasta /img    |" << endl;
+	cout << "+----------------------------------------------+" << endl;
+	usleep(1500000);
+	system("clear");
+
+}
+
+void Menu::InputData() {
+
+	cout << "+----------------------------------------------+" << endl;
+	cout << "|     Entre o nome da imagem com o formato     |" << endl;
+	cout << "|----------------------------------------------+" << endl;
+	cout << "+----->";
+	getline(cin, filename);
+
+	usleep(500000);
+	system("clear");
+}
+
+void Menu::setObject() {
+
+	flagPGM = false;
+	flagPPM = false;
+
+	if(filename.find(".pgm") != string::npos){
+
+		imgPGM = new PGM(filename);
+		flagPGM = true;
+
+	} else if(filename.find(".ppm") != string::npos){
+
+		imgPPM = new PPM(filename);
+		flagPPM = true;
+
+	} else {
+
+		throw invalid_argument(".pgm or .ppm was not identified!");
+	}
+}
+
+
+

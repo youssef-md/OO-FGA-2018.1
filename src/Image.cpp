@@ -19,10 +19,10 @@ Image::Image(string filename) {
 	
 	usleep(500000);
 
-	//if(!(get_filename().find(".ppm") != string::npos))
 	ReadFile();
+	usleep(500000);
+	system("clear");
 
-	//CreateImage();
 
 }
 

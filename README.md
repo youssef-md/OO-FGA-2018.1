@@ -22,10 +22,10 @@ Para os aquivos **.ppm** as opções são:
 * Inverter as cores
 
 ### Como executar
-Copie a imagem que deseja testar para a pasta **/img**
+Copie a imagem que deseja testar para a pasta **/img**<br/>
 Dentro da pasta **/EP1**, execute no terminal:
 ```
-$ make 
+$ make run
 ```
-Entre o nome do arquivo, **não é preciso digitar o caminho do mesmo**
+Entre o nome do arquivo, **não é preciso digitar o caminho do mesmo**<br/>
 Siga as instruções que aparecerão no terminal.

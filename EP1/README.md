@@ -1,9 +1,5 @@
 ## Exercício Prático 1 FGA-OO-2018.1
 
-### Como baixar 
-```
-$ git clone link_do_gitlab
-```
 ### Como compilar 
 Dentro da pasta **/EP1**,  execute no terminal: 
 ```

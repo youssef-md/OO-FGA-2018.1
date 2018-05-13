@@ -3,6 +3,6 @@
 
 ### Como baixar 
 ```
-$ git clone link_do_repositório
+$ git clone https://gitlab.com/youssef-md/OO-FGA-2018.1.git
 ```
-Para mais detalhes de como executar um EP, entre em sua respectiva pasta por aqui mesmo .
+Para mais detalhes de como executar um determinado EP, entre em sua respectiva pasta por aqui mesmo.

@@ -2,4 +2,10 @@ package com.battleship.main;
 
 public class Game {
 
+	
+	
+	public static void main(String args[]) {
+		
+		
+	}
 }

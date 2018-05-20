@@ -1,7 +1,6 @@
 package com.battleship.main;
 
 import java.awt.Canvas;
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;

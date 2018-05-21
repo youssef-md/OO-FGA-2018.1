@@ -6,7 +6,8 @@ public class Game implements Runnable {
 
 	public int width, height;
 	public String title;
-	private boolean running = false;;
+	private boolean running = false;
+	
 	private Display display;
 	private Thread thread;
 	

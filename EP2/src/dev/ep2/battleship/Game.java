@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.ImageLoader;
+import dev.ep2.battleship.gfx.SpriteSheet;
 
 public class Game implements Runnable {
 	
@@ -15,6 +16,7 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	private BufferedImage testImage;
+	private SpriteSheet sheet;
 
 	public int width, height;
 	public String title;
@@ -31,7 +33,8 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("/img/s2-checked.png");
+		testImage = ImageLoader.loadImage("/img/spritesheet_teste.png");
+		sheet = new SpriteSheet(testImage);
 	}
 	
 	private void tick() {
@@ -49,8 +52,12 @@ public class Game implements Runnable {
 		}
 		
 		g = bs.getDrawGraphics();
-		
 		g.clearRect(0, 0, width, height); //clear screen
+		
+		//Draw Here
+		
+		g.drawImage(sheet.crop(0, 0, 250, 250), 5, 5, null);//using sprite sheet
+		//Draw Here
 		
 		
 		bs.show();

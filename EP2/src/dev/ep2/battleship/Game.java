@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.ep2.battleship.display.Display;
+import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.gfx.ImageLoader;
 import dev.ep2.battleship.gfx.SpriteSheet;
 
@@ -30,6 +31,7 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
+		Assets.init(); // Loading the assets
 		
 	}
 	
@@ -49,11 +51,14 @@ public class Game implements Runnable {
 			return;
 		}
 		
-		g = bs.getDrawGraphics();
+		g = bs.getDrawGraphics(); 
 		g.clearRect(0, 0, width, height); //clear screen
 		
 
+		g.drawImage(Assets.p2, 10, 10, null);
 		
+		g = bs.getDrawGraphics();
+		g.drawImage(Assets.p1, 250, 250, null);
 
 		
 		

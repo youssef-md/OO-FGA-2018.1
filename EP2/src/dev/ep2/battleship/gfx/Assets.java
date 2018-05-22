@@ -11,6 +11,9 @@ public class Assets {
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/img/spritesheet_teste.png"));
 		
-		
+		p1 = sheet.crop(0, 0, WIDTH, HEIGHT);
+		p2 = sheet.crop(250, 0, WIDTH, HEIGHT);
+		p3 = sheet.crop(0, 250, WIDTH, HEIGHT);
+		p4 = sheet.crop(250, 250, WIDTH, HEIGHT);
 	}
 }

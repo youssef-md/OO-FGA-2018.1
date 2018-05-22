@@ -13,10 +13,7 @@ public class Game implements Runnable {
 	private Display display;
 	private Thread thread;
 	private BufferStrategy bs;
-	private Graphics g;
-	
-	private BufferedImage testImage;
-	private SpriteSheet sheet;
+	private Graphics g;	
 
 	public int width, height;
 	public String title;
@@ -33,13 +30,12 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("/img/spritesheet_teste.png");
-		sheet = new SpriteSheet(testImage);
+		
 	}
 	
-	int x = 0;
+	int y = 0;
 	private void tick() {
-		x++;
+		y++;
 	}
 	
 	
@@ -49,17 +45,16 @@ public class Game implements Runnable {
 		bs = display.getCanvas().getBufferStrategy(); 
 		
 		if(bs == null) {
-			display.getCanvas().createBufferStrategy(3);
+			display.getCanvas().createBufferStrategy(3);// triple buffering
 			return;
 		}
 		
 		g = bs.getDrawGraphics();
 		g.clearRect(0, 0, width, height); //clear screen
 		
-		//Draw Here
+
 		
-		g.drawImage(sheet.crop(0, 0, 250, 250), x, 5, null);//using sprite sheet
-		//Draw Here
+
 		
 		
 		bs.show();

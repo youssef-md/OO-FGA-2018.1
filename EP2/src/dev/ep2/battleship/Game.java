@@ -37,9 +37,11 @@ public class Game implements Runnable {
 		sheet = new SpriteSheet(testImage);
 	}
 	
+	int x = 0;
 	private void tick() {
-		
+		x++;
 	}
+	
 	
 	private void render() {
 
@@ -56,7 +58,7 @@ public class Game implements Runnable {
 		
 		//Draw Here
 		
-		g.drawImage(sheet.crop(0, 0, 250, 250), 5, 5, null);//using sprite sheet
+		g.drawImage(sheet.crop(0, 0, 250, 250), x, 5, null);//using sprite sheet
 		//Draw Here
 		
 		

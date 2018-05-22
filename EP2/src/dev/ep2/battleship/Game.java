@@ -1,21 +1,21 @@
 package dev.ep2.battleship;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import dev.ep2.battleship.display.Display;
 
 public class Game implements Runnable {
+	
+	private Display display;
+	private Thread thread;
+	private BufferStrategy bs;
+	private Graphics g;
 
 	public int width, height;
 	public String title;
 	private boolean running = false;
-	
-	private Display display;
-	private Thread thread;
-	private BufferStrategy bufferStrategy;
-	private Graphics graphics;
-	
 	
 	public Game(String title, int width, int height) {
 		
@@ -30,27 +30,31 @@ public class Game implements Runnable {
 		display = new Display(title, width, height);
 	}
 	
-	private void update() {
+	private void tick() {
 		
 	}
 	
 	private void render() {
 
 		// preventing flickering to the screen with buffers
-		this.bufferStrategy = this.display.getCanvas().getBufferStrategy(); 
+		bs = display.getCanvas().getBufferStrategy(); 
 		
-		if(this.bufferStrategy == null) {
-			this.display.getCanvas().createBufferStrategy(3);
+		if(bs == null) {
+			display.getCanvas().createBufferStrategy(3);
 			return;
 		}
 		
-		this.graphics = this.bufferStrategy.getDrawGraphics();
+		g = bs.getDrawGraphics();
 		
-		//drawing
-		this.graphics.fillRect(0, 0, this.width, this.height);
+		g.clearRect(0, 0, width, height); //clear screen
 		
-		this.bufferStrategy.show();
-		this.bufferStrategy.dispose();
+		g.setColor(Color.red);
+		g.fillRect(10, 50, 50, 70);
+		g.setColor(Color.green);
+		g.fillRect(10, 10, 10, 10);
+		
+		bs.show();
+		g.dispose();
 	}
 
 
@@ -61,7 +65,7 @@ public class Game implements Runnable {
 		
 		while(this.running) { // game loop
 			
-			update();
+			tick();
 			render();
 		}
 		
@@ -70,22 +74,22 @@ public class Game implements Runnable {
 	
 	public synchronized void start() {
 		
-		if(!this.running) {
-			
-			this.running = true;
-			this.thread = new Thread(this); // running Game class(this) as a Thread
-			this.thread.start(); // calling run()
+		if(!running) {
+		
+			running = true;
+			thread = new Thread(this); // running Game class(this) as a Thread
+			thread.start(); // calling run()
 		}			
 	}
 	
 	public synchronized void stop() {
 		
-		if(this.running) {
+		if(running) {
 			
-			this.running = false;
+			running = false;
 			
 			try {
-				this.thread.join();
+				thread.join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}	

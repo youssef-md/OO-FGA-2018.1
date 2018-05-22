@@ -52,7 +52,6 @@ public class Game implements Runnable {
 		
 		g.clearRect(0, 0, width, height); //clear screen
 		
-		g.drawImage(testImage, 20, 20, null);
 		
 		bs.show();
 		g.dispose();

@@ -38,14 +38,14 @@ public class Game implements Runnable {
 		
 		Assets.init(); // loading the assets
 		
-		gameState = new GameState(); // GameState extends abstract State, so use state = GameState
-		StateManager.setState(gameState); // Setting the current state
+		gameState = new GameState(); // GameState extends abstract State .: (state) = (GameState)
+		StateManager.setState(gameState); // Saving the runtime current state
 	}
 	
 
-	private void tick() {
+	private void tick() { // update
 
-		if(StateManager.getState() != null) { // there is a current state running
+		if(StateManager.getState() != null) { // there is a current runtime state running
 			
 			State currentState = StateManager.getState(); // getting the current state
 			currentState.tick(); // updating the current state
@@ -60,18 +60,18 @@ public class Game implements Runnable {
 		bs = display.getCanvas().getBufferStrategy(); 
 		
 		if(bs == null) {
+			
 			display.getCanvas().createBufferStrategy(3);// triple buffering
 			return;								
 		}
 		
 		g = bs.getDrawGraphics(); 
-		g.clearRect(0, 0, width, height); //clear screen
+		g.clearRect(0, 0, width, height); // clear screen
 		
 		if(StateManager.getState() != null) { // there is a current state running
 			
-			State currentState = StateManager.getState(); 
+			State currentState = StateManager.getState(); // (state) = (GameState/MenuState) due to abstract class
 			currentState.render(g); // pass the Graphics for the current State render()
-			
 		}
 
 		
@@ -84,7 +84,6 @@ public class Game implements Runnable {
 	public void run() {
 	
 		init(); 
-		
 		
 		int fps = 60;
 		double timePerTick = 1000000000 / fps;
@@ -119,10 +118,10 @@ public class Game implements Runnable {
 			
 		}
 		
-		stop();
+		stop(); // in case the game hasn't been stopped
 	}
 	
-	public synchronized void start() {
+	public synchronized void start() { // synchronizing this Thread's method 
 		
 		if(!running) {
 		
@@ -132,7 +131,7 @@ public class Game implements Runnable {
 		}			
 	}
 	
-	public synchronized void stop() {
+	public synchronized void stop() { // synchronizing this Thread's method
 		
 		if(running) {
 			

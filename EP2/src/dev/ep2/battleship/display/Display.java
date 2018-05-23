@@ -41,5 +41,8 @@ public class Display {
 	}
 	
 	
-	public Canvas getCanvas() { return canvas; }
+	public Canvas getCanvas() { 
+	
+		return canvas; 
+	}
 }

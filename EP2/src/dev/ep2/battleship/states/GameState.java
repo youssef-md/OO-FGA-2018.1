@@ -11,16 +11,16 @@ public class GameState extends State{
 		
 	}
 	
+	int x = 0;
 	@Override
 	public void tick() {
-		
-		
+		x++;
 	}
 
 	@Override
 	public void render(Graphics g) {
 		
-		g.drawImage(Assets.p1, 0, 0, null);
+		g.drawImage(Assets.p1, x, 0, null);
 	}
 
 	

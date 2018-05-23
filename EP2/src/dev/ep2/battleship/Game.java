@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.states.GameState;
+import dev.ep2.battleship.states.MenuState;
 import dev.ep2.battleship.states.State;
 import dev.ep2.battleship.states.StateManager;
 
@@ -17,6 +18,7 @@ public class Game implements Runnable {
 	private Graphics g;	
 
 	private State gameState;
+	private State menuState;
 	
 	public int width, height;
 	public String title;
@@ -39,6 +41,7 @@ public class Game implements Runnable {
 		Assets.init(); // loading the assets
 		
 		gameState = new GameState(); // GameState extends abstract State .: (state) = (GameState)
+		menuState = new MenuState();
 		StateManager.setState(gameState); // Saving the runtime current state
 	}
 	

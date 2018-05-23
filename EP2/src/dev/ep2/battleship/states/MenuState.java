@@ -2,26 +2,22 @@ package dev.ep2.battleship.states;
 
 import java.awt.Graphics;
 
-import dev.ep2.battleship.gfx.Assets;
+public class MenuState extends State	{
 
-public class GameState extends State{
-
-	public GameState() {
-		
+	public MenuState() {
 		
 	}
 	
-	int x = 0;
 	@Override
 	public void tick() {
-		x++;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void render(Graphics g) {
+		// TODO Auto-generated method stub
 		
-		g.drawImage(Assets.p2, x, 0, null);
 	}
 
-	
 }

@@ -35,9 +35,9 @@ public class Game implements Runnable {
 		
 	}
 	
-	int y = 0;
+	int x = 0;
 	private void tick() {
-		y++;
+		x++;	
 	}
 	
 	
@@ -48,19 +48,19 @@ public class Game implements Runnable {
 		
 		if(bs == null) {
 			display.getCanvas().createBufferStrategy(3);// triple buffering
-			return;
+			return;								
 		}
 		
 		g = bs.getDrawGraphics(); 
 		g.clearRect(0, 0, width, height); //clear screen
 		
-
-		g.drawImage(Assets.p2, 10, 10, null);
+		
+		g.drawImage(Assets.p2, x, 10, null);
+		
 		
 		g = bs.getDrawGraphics();
 		g.drawImage(Assets.p1, 250, 250, null);
 
-		
 		
 		bs.show();
 		g.dispose();

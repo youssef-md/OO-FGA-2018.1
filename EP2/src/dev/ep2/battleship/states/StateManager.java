@@ -1,5 +1,7 @@
 package dev.ep2.battleship.states;
 
+import dev.ep2.battleship.states.State;
+
 public class StateManager {
 
 	private static State currentState = null;

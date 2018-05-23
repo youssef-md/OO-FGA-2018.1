@@ -2,12 +2,12 @@ package dev.ep2.battleship;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.Assets;
-import dev.ep2.battleship.gfx.ImageLoader;
-import dev.ep2.battleship.gfx.SpriteSheet;
+import dev.ep2.battleship.states.GameState;
+import dev.ep2.battleship.states.State;
+import dev.ep2.battleship.states.StateManager;
 
 public class Game implements Runnable {
 	
@@ -16,9 +16,13 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;	
 
+	private State gameState;
+	
 	public int width, height;
 	public String title;
 	private boolean running = false;
+	
+	
 	
 	public Game(String title, int width, int height) {
 		
@@ -31,13 +35,22 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
-		Assets.init(); // Loading the assets
 		
+		Assets.init(); // loading the assets
+		
+		gameState = new GameState(); // GameState extends abstract State, so use state = GameState
+		StateManager.setState(gameState); // Setting the current state
 	}
 	
-	int x = 0;
+
 	private void tick() {
-		x++;	
+
+		if(StateManager.getState() != null) { // there is a current state running
+			
+			State currentState = StateManager.getState(); // getting the current state
+			currentState.tick(); // updating the current state
+			
+		}
 	}
 	
 	
@@ -54,12 +67,12 @@ public class Game implements Runnable {
 		g = bs.getDrawGraphics(); 
 		g.clearRect(0, 0, width, height); //clear screen
 		
-		
-		g.drawImage(Assets.p2, x, 10, null);
-		
-		
-		g = bs.getDrawGraphics();
-		g.drawImage(Assets.p1, 250, 250, null);
+		if(StateManager.getState() != null) { // there is a current state running
+			
+			State currentState = StateManager.getState(); 
+			currentState.render(g); // pass the Graphics for the current State render()
+			
+		}
 
 		
 		bs.show();

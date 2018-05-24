@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.Assets;
+import dev.ep2.battleship.input.KeyManager;
 import dev.ep2.battleship.states.GameState;
 import dev.ep2.battleship.states.MenuState;
 import dev.ep2.battleship.states.State;
@@ -20,6 +21,8 @@ public class Game implements Runnable {
 	private State gameState;
 	private State menuState;
 	
+	private KeyManager keyManager;
+	
 	public int width, height;
 	public String title;
 	private boolean running = false;
@@ -31,12 +34,14 @@ public class Game implements Runnable {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		keyManager = new KeyManager();
 	}
 
 	
 	private void init() {
 		
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
 		
 		Assets.init(); // loading the assets
 		

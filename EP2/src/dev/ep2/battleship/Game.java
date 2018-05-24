@@ -53,6 +53,8 @@ public class Game implements Runnable {
 
 	private void tick() { // update
 
+		keyManager.tick(); // updating the keys that are being pressed
+		
 		if(StateManager.getState() != null) { // there is a current runtime state running
 			
 			State currentState = StateManager.getState(); // getting the current state
@@ -129,6 +131,11 @@ public class Game implements Runnable {
 		stop(); // in case the game hasn't been stopped
 	}
 	
+	
+	public KeyManager getKeyManager() {
+		
+		return keyManager;
+	}
 	public synchronized void start() { // synchronizing this Thread's method 
 		
 		if(!running) {

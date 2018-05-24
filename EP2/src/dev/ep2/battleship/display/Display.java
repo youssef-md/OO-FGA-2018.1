@@ -49,6 +49,7 @@ public class Display {
 	}
 	
 	public JFrame getFrame() {
+		
 		return frame;
 	}
 }

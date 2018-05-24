@@ -40,8 +40,8 @@ public class Game implements Runnable {
 		
 		Assets.init(); // loading the assets
 		
-		gameState = new GameState(); // GameState extends abstract State .: (state) = (GameState)
-		menuState = new MenuState();
+		gameState = new GameState(this); // GameState extends abstract State .: (state) = (GameState)
+		menuState = new MenuState(this);
 		StateManager.setState(gameState); // Saving the runtime current state
 	}
 	

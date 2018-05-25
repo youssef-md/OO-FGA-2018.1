@@ -41,7 +41,7 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keyManager);
+		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
 		
 		Assets.init(); // loading the assets
 		
@@ -126,9 +126,16 @@ public class Game implements Runnable {
 				timer = 0;
 			}
 			
+			try {
+				thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		
-		stop(); // in case the game hasn't been stopped
+		stop() ; // in case the game hasn't been stopped
 	}
 	
 	
@@ -136,6 +143,8 @@ public class Game implements Runnable {
 		
 		return keyManager;
 	}
+	
+	
 	public synchronized void start() { // synchronizing this Thread's method 
 		
 		if(!running) {

@@ -13,7 +13,7 @@ public class KeyManager implements KeyListener{
 		keys = new boolean[256]; // array for checking if a key is pressed or not by comparing to its keyCode
 	}
 	
-	public void tick() { // updating the keys every frame
+	public void tick() { // updating the keys every frame and generating event in case Q W E R was pressed
 		
 		Q = keys[KeyEvent.VK_Q];
 		W = keys[KeyEvent.VK_W];

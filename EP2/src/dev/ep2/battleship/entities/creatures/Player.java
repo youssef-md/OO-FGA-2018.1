@@ -20,19 +20,18 @@ public class Player extends Creature{
 		
 		if(game.getKeyManager().Q) {
 			System.out.println("Atacar uma posição do tabuleiro");
-			y -= 3;
 		}
-		if(game.getKeyManager().W) {
+		
+		if(game.getKeyManager().W) { 
 			System.out.println("Descobrir se há uma embarcação inimiga em uma área 2x2 do tabuleiro;");
-			y += 3;
 		}
+		
 		if(game.getKeyManager().E) {
 			System.out.println("Atacar uma área 2x2 do tabuleiro");
-			x -= 3;
 		}
-		if(game.getKeyManager().R) {
+		
+		if(game.getKeyManager().R) { 
 			System.out.println("Atacar uma linha/coluna completa do tabuleiro");
-			x += 3;
 		}
 	}
 

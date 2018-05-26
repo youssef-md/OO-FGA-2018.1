@@ -4,15 +4,18 @@ import java.awt.Graphics;
 
 import dev.ep2.battleship.Game;
 import dev.ep2.battleship.entities.creatures.Player;
+import dev.ep2.battleship.states.components.Board;
 
 public class GameState extends State{
 
 	private Player player;
+	private Board board;
 	
 	public GameState(Game game) {
 		
 		super(game);
 		player = new Player(game, 250, 250);
+		board = new Board();
 	}
 	
 	
@@ -24,8 +27,8 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
-		
-		player.render(g);
+
+		board.paint(g);
 	}
 
 	

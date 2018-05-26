@@ -19,8 +19,7 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;	
 
-	private State gameState;
-	private State menuState;
+	private Route route;
 	
 	private KeyManager keyManager;
 	
@@ -36,6 +35,7 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 		keyManager = new KeyManager();
+		
 	}
 
 	
@@ -45,16 +45,9 @@ public class Game implements Runnable {
 		
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
 		
+		route = new Route(this, g);
+		
 		Assets.init(); // loading the assets
-		
-		//routes
-		gameState = new GameState(this, g); // GameState extends abstract State .: (state) = (GameState)
-		menuState = new MenuState(this);
-		//routes
-		
-		StateManager.setState(gameState); // Saving the runtime current state
-		
-		
 		
 		
 	}
@@ -64,10 +57,10 @@ public class Game implements Runnable {
 
 		keyManager.tick(); // updating the keys that are being pressed
 		
-		if(StateManager.getState() != null) { // there is a current runtime state running
+		if(route.isThereAView()) { // there is a current runtime state running
 			
-			State currentState = StateManager.getState(); // getting the current state
-			currentState.tick(); // updating the current state
+			State currentView = route.getView(); 
+			currentView.tick(); 
 		}
 	}
 	
@@ -78,24 +71,21 @@ public class Game implements Runnable {
 		// preventing flickering to the screen with buffers
 		bs = display.getCanvas().getBufferStrategy(); 
 		
-		
 		if(bs == null) {
 			
 			display.getCanvas().createBufferStrategy(3);// triple buffering
 			return;								
 		}
-		g = bs.getDrawGraphics(); 
 		
+		g = bs.getDrawGraphics(); 
 		g.clearRect(0, 0, width, height); // clear screen
 		
-		
-		if(StateManager.getState() != null) { // there is a current state running
+		if(route.isThereAView()) {
 			
-			State currentState = StateManager.getState(); // (state) = (GameState/MenuState) due to abstract class
-			currentState.render(g); // pass the Graphics for the current State render()
+			State currentView = route.getView();
+			currentView.render(g); // pass the Graphics for the current State render()
 		}
 
-		
 		bs.show();
 		g.dispose();
 	}

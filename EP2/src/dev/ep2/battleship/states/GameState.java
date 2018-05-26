@@ -11,13 +11,10 @@ public class GameState extends State{
 
 	private Player player;
 	private Board board;
-	private Graphics g;
 	
 	public GameState(Game game, Graphics g) {
 		
-		super(game);
-		
-		this.g = g;
+		super(game);	
 		
 		player = new Player(game, 100);
 		board = new Board();

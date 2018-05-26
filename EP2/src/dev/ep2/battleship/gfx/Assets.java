@@ -4,16 +4,19 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	public static BufferedImage p1, p2, p3, p4;
-	private static final int WIDTH = 250, HEIGHT = 250;
+	public static BufferedImage wave;
+	
+	private static final int WAVE_WIDTH = 80, WAVE_HEIGHT = 80;
 	
 	public static void init() {
 		
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/img/spritesheet_teste.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/img/ondas.jpg"));
 		
-		p1 = sheet.crop(0, 0, WIDTH, HEIGHT);
-		p2 = sheet.crop(250, 0, WIDTH, HEIGHT);
-		p3 = sheet.crop(0, 250, WIDTH, HEIGHT);
-		p4 = sheet.crop(250, 250, WIDTH, HEIGHT);
+		wave = sheet.crop(0, 0, WAVE_WIDTH, WAVE_HEIGHT);
+		
+	}
+	
+	public static int getWaveSize() {
+		return WAVE_WIDTH;
 	}
 }

@@ -5,17 +5,17 @@ import java.awt.Graphics;
 import dev.ep2.battleship.Game;
 import dev.ep2.battleship.gfx.Assets;
 
-public class Player extends Creature{
+public class Player {
 
 	private Game game;
+	private int health;
 	
-	public Player(Game game, float x, float y) {
+	public Player(Game game, int health) {
 		
-		super(x, y);
+		this.health = health;
 		this.game = game;
 	}
 
-	@Override
 	public void tick() {
 		
 		if(game.getKeyManager().Q) {
@@ -35,10 +35,10 @@ public class Player extends Creature{
 		}
 	}
 
-	@Override
 	public void render(Graphics g) {
 		
 		//g.drawImage(Assets.p2, (int) x, (int) y, null);
+		//desenhar o hp e as estratégias
 	}	
 
 }

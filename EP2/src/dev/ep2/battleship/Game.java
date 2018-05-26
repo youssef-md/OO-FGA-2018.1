@@ -10,6 +10,7 @@ import dev.ep2.battleship.states.GameState;
 import dev.ep2.battleship.states.MenuState;
 import dev.ep2.battleship.states.State;
 import dev.ep2.battleship.states.StateManager;
+import dev.ep2.battleship.states.components.Board;
 
 public class Game implements Runnable {
 	
@@ -41,13 +42,21 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
+		
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
 		
 		Assets.init(); // loading the assets
 		
-		gameState = new GameState(this); // GameState extends abstract State .: (state) = (GameState)
+		//routes
+		gameState = new GameState(this, g); // GameState extends abstract State .: (state) = (GameState)
 		menuState = new MenuState(this);
+		//routes
+		
 		StateManager.setState(gameState); // Saving the runtime current state
+		
+		
+		
+		
 	}
 	
 
@@ -59,24 +68,26 @@ public class Game implements Runnable {
 			
 			State currentState = StateManager.getState(); // getting the current state
 			currentState.tick(); // updating the current state
-			
 		}
 	}
 	
 	
 	private void render() {
 
+		
 		// preventing flickering to the screen with buffers
 		bs = display.getCanvas().getBufferStrategy(); 
+		
 		
 		if(bs == null) {
 			
 			display.getCanvas().createBufferStrategy(3);// triple buffering
 			return;								
 		}
-		
 		g = bs.getDrawGraphics(); 
+		
 		g.clearRect(0, 0, width, height); // clear screen
+		
 		
 		if(StateManager.getState() != null) { // there is a current state running
 			

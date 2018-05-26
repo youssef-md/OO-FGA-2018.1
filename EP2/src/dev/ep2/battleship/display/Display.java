@@ -2,8 +2,11 @@ package dev.ep2.battleship.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
+
+import dev.ep2.battleship.gfx.Assets;
 
 public class Display {
 
@@ -37,9 +40,9 @@ public class Display {
 		canvas.setMaximumSize(new Dimension(width, height));
 		
 		canvas.setFocusable(false);
-		
 		frame.add(canvas); //Appending canvas to the JFrame
 		frame.pack();
+		
 	}
 	
 	

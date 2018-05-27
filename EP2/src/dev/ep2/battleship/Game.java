@@ -72,8 +72,7 @@ public class Game implements Runnable {
 		bs = display.getCanvas().getBufferStrategy(); 
 		
 		if(bs == null) {
-			
-			display.getCanvas().createBufferStrategy(3);// triple buffering
+			display.getCanvas().createBufferStrategy(3);// triple buffering for smooth gameplay
 			return;								
 		}
 		

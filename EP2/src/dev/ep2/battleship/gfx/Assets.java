@@ -11,10 +11,10 @@ public class Assets {
 	public static void init() {
 		
 		SpriteSheet sheetWave = new SpriteSheet(ImageLoader.loadImage("/img/water_top_view.jpg"));
-		SpriteSheet sheetBlock = new SpriteSheet(ImageLoader.loadImage("/img/block.png"));
+		SpriteSheet sheetBlock = new SpriteSheet(ImageLoader.loadImage("/img/water_block.png"));
 		
 		wave = sheetWave.crop(0, 0, WAVE_SIZE, WAVE_SIZE);
-		water_block = sheetBlock.crop(0, 0, 80, 80);
+		water_block = sheetBlock.crop(0, 0, 100, 100);
 		
 	}
 	

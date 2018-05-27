@@ -8,8 +8,8 @@ import dev.ep2.battleship.gfx.Assets;
 public class Board {
 
 
-	private final int WIDTH = 12;
-	private final int HEIGHT = 12;
+	private final int WIDTH = 10;
+	private final int HEIGHT = 10;
 	
 	
 	public Board() {
@@ -22,7 +22,7 @@ public class Board {
 		
 		for(int i = 0; i < WIDTH; i++) {
 			for(int j = 0; j < HEIGHT; j++) {
-				g.drawImage(Assets.water_block, i * 80 + 16, j * 80 + 16, null);
+				g.drawImage(Assets.water_block, i * 100 + 400, j * 100 + 0, 100, 100, null);
 			}
 		}
 		

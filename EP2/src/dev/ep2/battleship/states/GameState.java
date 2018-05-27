@@ -31,7 +31,7 @@ public class GameState extends State{
 	public void render(Graphics g) {
 		
 		//animation waves
-		g.drawImage(Assets.wave, 0, 0, null);
+		g.drawImage(Assets.wave, 400, 0, null);
 		//animation waves
 		
 		board.render(g);

@@ -1,18 +1,16 @@
 package dev.ep2.battleship;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.input.KeyManager;
-import dev.ep2.battleship.states.GameState;
-import dev.ep2.battleship.states.MenuState;
 import dev.ep2.battleship.states.State;
-import dev.ep2.battleship.states.StateManager;
-import dev.ep2.battleship.states.components.Board;
 
-public class Game implements Runnable {
+
+public class Game extends Canvas implements Runnable {
 	
 	private Display display;
 	private Thread thread;
@@ -28,7 +26,6 @@ public class Game implements Runnable {
 	private boolean running = false;
 	
 	
-	
 	public Game(String title, int width, int height) {
 		
 		this.title = title;
@@ -42,13 +39,13 @@ public class Game implements Runnable {
 	private void init() {
 		
 		display = new Display(title, width, height);
-		
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
+
+		setGraphics();
 		
 		route = new Route(this, g);
 		
 		Assets.init(); // loading the assets
-		
 		
 	}
 	
@@ -64,6 +61,8 @@ public class Game implements Runnable {
 		}
 	}
 	
+
+
 	
 	private void render() {
 
@@ -78,15 +77,16 @@ public class Game implements Runnable {
 		
 		g = bs.getDrawGraphics(); 
 		g.clearRect(0, 0, width, height); // clear screen
-		
+
 		if(route.isThereAView()) {
 			
 			State currentView = route.getView();
 			currentView.render(g); // pass the Graphics for the current State render()
 		}
-
-		bs.show();
+		
 		g.dispose();
+		bs.show();
+		
 	}
 
 
@@ -95,42 +95,41 @@ public class Game implements Runnable {
 	
 		init(); 
 		
-		int fps = 60;
-		double timePerTick = 1000000000 / fps;
-		double delta = 0;
-		long now;
+		long timer = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
-		long timer = 0;
-		int ticks = 0;
-		
-		
-		while(this.running) { // game loop
-			
-			now = System.nanoTime();
-			delta += (now - lastTime) / timePerTick;
-			timer += now - lastTime;
+ 		double ns = 1000000000 / 30.0;
+ 		double delta = 0;
+ 		
+ 		int frames = 0;
+ 		int ticks = 0;
+				
+		while(running) { // game loop
+
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
 			lastTime = now;
 			
-			if(delta >= 1) {
-				
+			while(delta >= 1) {
 				tick();
-				render();
 				ticks++;
 				delta--;
 			}
 			
-			if(timer >= 1000000000) {
-				
-				System.out.println("Ticks and Frames: " + ticks);
-				ticks = 0;
-				timer = 0;
-			}
-			
 			try {
-				thread.sleep(100);
+				Thread.sleep(25);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			render();
+			frames++;
+			
+			if(System.currentTimeMillis() - timer > 1000) {
+				
+				timer += 1000;
+				System.out.println(ticks + "ups, " + frames + " fps");  
+				ticks = 0;
+				frames = 0;
 			}
 		}
 
@@ -171,6 +170,21 @@ public class Game implements Runnable {
 	
 	
 
+	private void setGraphics() {
+		
+		
+		bs = display.getCanvas().getBufferStrategy(); 
+		
+		if(bs == null) {
+			display.getCanvas().createBufferStrategy(3);
+			return;								
+		}
+		
+		g = bs.getDrawGraphics(); 
+		
+		g.clearRect(0, 0, width, height);
 
+		
+	}
 	
 }

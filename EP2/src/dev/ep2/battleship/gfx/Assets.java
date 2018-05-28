@@ -14,7 +14,9 @@ public class Assets {
 		SpriteSheet sheetTarget = new SpriteSheet(ImageLoader.loadImage("/img/target.png"));
 		target = sheetTarget.crop(0, 0, 200, 200);
 		
-		SpriteSheet sheetWave = new SpriteSheet(ImageLoader.loadImage("/img/waves_sprite_sheet.png"));
+		/*
+		 SpriteSheet sheetWave = new SpriteSheet(ImageLoader.loadImage("/img/waves_sprite_sheet.png"));
+		 
 			
 		
 		wave = new BufferedImage[21];
@@ -42,7 +44,7 @@ public class Assets {
 		wave[20] = sheetWave.crop(20000, 0, 1000, 1000);
 		
 		
-		
+		*/
 		
 	}
 	

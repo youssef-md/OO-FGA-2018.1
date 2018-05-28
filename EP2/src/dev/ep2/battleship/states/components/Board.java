@@ -7,8 +7,9 @@ import dev.ep2.battleship.gfx.Assets;
 public class Board {
 
 
-	private final int WIDTH = 8;
-	private final int HEIGHT = 8;
+	private int numberOfTargetX = 10;
+	private int numberOfTargetY = 10;
+	private final int boardResolution = 840;
 	
 	private int animationCounterDirection = 0;
 	private int animationCounter = 0;
@@ -25,11 +26,7 @@ public class Board {
 	
 	public void render(Graphics g) {
 	
-		//refatorar esse código para a class Animation, passar para GameState o tamnho dos blocos
-		//1000px / widthDada = tamBlocoX
-		//1000px / heighDada = tamBlocoY
-		//Criar outra Thread para rodar a animação do background
-		//Preocurar outro refatoramento com threads
+	
 		
 		if(animationCounterDirection == 0) {
 			if (animationCounter < 20) {
@@ -52,9 +49,12 @@ public class Board {
 		//g.drawImage(Assets.wave[animationCounter], 400, 0, null);
 
 		
-		for(int i = 0; i < WIDTH; i++) {
-			for(int j = 0; j < HEIGHT; j++) {
-				g.drawImage(Assets.target, i * 125 + 400, j * 125 , 125, 125, null);
+		int targetSizeX = boardResolution / numberOfTargetX;
+		int targetSizeY = boardResolution / numberOfTargetY;
+				
+		for(int i = 0; i < numberOfTargetX; i++) {
+			for(int j = 0; j < numberOfTargetY; j++) {
+				g.drawImage(Assets.target, i * targetSizeX + 300 , j * targetSizeY , targetSizeX, targetSizeY, null);
 			}
 		}
 		

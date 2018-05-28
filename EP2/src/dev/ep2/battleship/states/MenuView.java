@@ -4,9 +4,9 @@ import java.awt.Graphics;
 
 import dev.ep2.battleship.Game;
 
-public class MenuState extends State	{
+public class MenuView extends State	{
 
-	public MenuState(Game game) {
+	public MenuView(Game game) {
 		
 		super(game);
 	}

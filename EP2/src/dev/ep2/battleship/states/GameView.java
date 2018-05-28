@@ -7,12 +7,13 @@ import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.states.components.Board;
 
-public class GameState extends State{
+public class GameView extends State{
 
 	private Player player;
 	private Board board;
 	
-	public GameState(Game game, Graphics g) {
+	
+	public GameView(Game game, Graphics g) {
 		
 		super(game);	
 		
@@ -21,20 +22,24 @@ public class GameState extends State{
 	}
 	
 	
+	public void init(Graphics g) {
+
+	}
+	
 	@Override
 	public void tick() {
-	
+		
+		board.tick();
 		player.tick();
+				
 	}
 
 	@Override
 	public void render(Graphics g) {
 		
-		//animation waves
-		g.drawImage(Assets.wave, 400, 0, null);
-		//animation waves
-		
+					
 		board.render(g);
+		
 	}
 
 	

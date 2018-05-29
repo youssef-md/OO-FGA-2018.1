@@ -8,13 +8,13 @@ import dev.ep2.battleship.gfx.Assets;
 public class Player extends Creature{
 
 	private Game game;
-	private int health;
 	
-	public Player(Game game, int health, float x, float y) {
+	public Player(Game game, int x, int y) {
 		
 		super(x, y);
-		this.health = health;
 		this.game = game;
+
+		health = Creature.DEFAULT_HEALTH;
 	}
 
 	public void tick() {

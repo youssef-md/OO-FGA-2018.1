@@ -4,15 +4,16 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	public static BufferedImage target;
+	public static BufferedImage user_turn_target, pc_turn_target, hit_target, sink_target;
 	public static BufferedImage[] wave;
 	
 	private int WAVE_SIZE = 1000;
 	
 	public static void init() {
 
-		SpriteSheet sheetTarget = new SpriteSheet(ImageLoader.loadImage("/img/target.png"));
-		target = sheetTarget.crop(0, 0, 200, 200);
+		//create sprite sheet containing every type of tile;
+		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/img/target.png"));
+		user_turn_target = targets.crop(0, 0, 200, 200);
 		
 		/*
 		 SpriteSheet sheetWave = new SpriteSheet(ImageLoader.loadImage("/img/waves_sprite_sheet.png"));

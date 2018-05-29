@@ -1,0 +1,17 @@
+# width height
+6 6
+
+# matrix
+003330
+010000
+002030
+002030
+000030
+220010
+
+# number of boats of each size
+1 2
+2 2
+3 2
+4 0
+5 0

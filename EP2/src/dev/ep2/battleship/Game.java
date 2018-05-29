@@ -12,20 +12,18 @@ import dev.ep2.battleship.states.State;
 
 public class Game extends Canvas implements Runnable {
 	
+	private boolean running = false;
 	private Display display;
-	private Thread thread;
-	private BufferStrategy bs;
-	private Graphics g;	
-
-	private Route route;
-	
-	private KeyManager keyManager;
-	
 	public int width, height;
 	public String title;
-	private boolean running = false;
 	
+	private Thread thread;
+	private BufferStrategy bs;
+	private Graphics g; //static para acessar a mesma instância ao usar Threads externas
+	private Route route;
+	private KeyManager keyManager;
 	
+
 	public Game(String title, int width, int height) {
 		
 		this.title = title;
@@ -35,60 +33,30 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 
-	
-	private void init() {
+	public synchronized void start() { 
 		
-		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
-
-		setGraphics();
+		if(!running) {
 		
-		route = new Route(this, g);
-		
-		Assets.init(); // loading the assets
-		
+			running = true;
+			thread = new Thread(this); // Running Game class(this) as a Thread
+			thread.start();
+		}			
 	}
 	
-
-	private void tick() { // update
-
-		keyManager.tick(); // updating the keys that are being pressed
+	public synchronized void stop() { 
 		
-		if(route.isThereAView()) { // there is a current runtime state running
+		if(running) {
 			
-			State currentView = route.getView(); 
-			currentView.tick(); 
-		}
-	}
-	
-
-
-	
-	private void render() {
-
-		
-		// preventing flickering to the screen with buffers
-		bs = display.getCanvas().getBufferStrategy(); 
-		
-		if(bs == null) {
-			display.getCanvas().createBufferStrategy(3);// triple buffering for smooth gameplay
-			return;								
-		}
-		
-		g = bs.getDrawGraphics(); 
-		g.clearRect(0, 0, width, height); // clear screen
-
-		if(route.isThereAView()) {
+			running = false;
 			
-			State currentView = route.getView();
-			currentView.render(g); // pass the Graphics for the current State render()
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}	
 		}
-		
-		g.dispose();
-		bs.show();
-		
 	}
-
+	
 
 	@Override
 	public void run() {
@@ -109,27 +77,86 @@ public class Game extends Canvas implements Runnable {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			
-			while(delta >= 1) {
+			while(delta >= 1) { // Restricting update to 30fps, so every pc will run in the same game speed
 				tick();
 				ticks++;
 				delta--;
 			}
 			
-
+			try {
+				thread.sleep(30); // Restricting the rendering 
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			render();
 			frames++;
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				
 				timer += 1000;
-				System.out.println(ticks + "ups, " + frames + " fps");  
+				display.getFrame().setTitle(title + "  |  " + ticks + " updates: update()  | " + frames + " FPS: render() ");
 				ticks = 0;
 				frames = 0;
 			}
 		}
 
 		
-		stop() ; // in case the game hasn't been stopped
+		stop() ; // In case the game hasn't been stopped
+	}
+	
+	private void init() {
+		
+		display = new Display(width, height);
+		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
+		
+		Assets.init();
+		
+		route = new Route(this);
+		
+	}
+	
+
+	private void tick() { 
+
+		keyManager.tick(); // Updating the keys that are being pressed
+		
+		if(route.isThereAView()) { 
+			
+			route.getView().tick(); 
+		}
+		
+	}
+	
+
+
+	
+	private void render() {
+
+		
+		// Preventing flickering to the screen with buffers
+		bs = display.getCanvas().getBufferStrategy(); 
+		
+		if(bs == null) { // Create the BufferStrategy only once
+			display.getCanvas().createBufferStrategy(3);// Triple buffering for smooth gameplay
+			return;								
+		}
+		
+		g = bs.getDrawGraphics();
+		
+		{ // Able to draw using Graphics g
+			
+			g.clearRect(0, 0, width, height); // Clear screen
+	
+			if(route.isThereAView()) {
+				
+				route.getView().render(g); // Pass the Graphics for the current View to render()
+			}
+		}
+		
+		g.dispose();
+		bs.show();
+		
 	}
 	
 	
@@ -139,47 +166,9 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	
-	public synchronized void start() { // synchronizing this Thread's method 
-		
-		if(!running) {
-		
-			running = true;
-			thread = new Thread(this); // running Game class(this) as a Thread
-			thread.start(); // calling run()
-		}			
-	}
 	
-	public synchronized void stop() { // synchronizing this Thread's method
-		
-		if(running) {
-			
-			running = false;
-			
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}	
-		}
-	}
 	
 	
 
-	private void setGraphics() {
-		
-		
-		bs = display.getCanvas().getBufferStrategy(); 
-		
-		if(bs == null) {
-			display.getCanvas().createBufferStrategy(3);
-			return;								
-		}
-		
-		g = bs.getDrawGraphics(); 
-		
-		g.clearRect(0, 0, width, height);
 
-		
-	}
-	
 }

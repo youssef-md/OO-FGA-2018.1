@@ -9,4 +9,9 @@ public class HitTarget extends Target {
 		super(Assets.hit_target, ID);
 	}
 
+	@Override
+	public boolean isClickable() {
+		
+		return false;
+	}
 }

@@ -8,5 +8,11 @@ public class SinkTarget extends Target {
 		
 		super(Assets.sink_target, ID);
 	}
+	
+	@Override
+	public boolean isClickable() {
+		
+		return false;
+	}
 
 }

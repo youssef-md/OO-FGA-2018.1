@@ -12,9 +12,9 @@ public class Route {
 	private State gameView;
 	private State menuView;
 
-	public Route(Game game, Graphics g) {
+	public Route(Game game) {
 		
-		gameView = new GameView(game, g); // GameState extends abstract State .: (state) = (GameState)
+		gameView = new GameView(game); // GameState extends abstract State .: (state) = (GameState)
 		menuView = new MenuView(game);
 				
 		StateManager.setState(gameView); // Saving the runtime current state

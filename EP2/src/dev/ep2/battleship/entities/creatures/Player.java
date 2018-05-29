@@ -5,13 +5,14 @@ import java.awt.Graphics;
 import dev.ep2.battleship.Game;
 import dev.ep2.battleship.gfx.Assets;
 
-public class Player {
+public class Player extends Creature{
 
 	private Game game;
 	private int health;
 	
-	public Player(Game game, int health) {
+	public Player(Game game, int health, float x, float y) {
 		
+		super(x, y);
 		this.health = health;
 		this.game = game;
 	}

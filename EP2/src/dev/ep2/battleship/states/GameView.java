@@ -13,18 +13,14 @@ public class GameView extends State{
 	private Board board;
 	
 	
-	public GameView(Game game, Graphics g) {
+	public GameView(Game game) {
 		
 		super(game);	
 		
-		player = new Player(game, 100);
+		player = new Player(game, 100, 30, 150); //(x,y) para posicionar o hp do player
 		board = new Board();
 	}
 	
-	
-	public void init(Graphics g) {
-
-	}
 	
 	@Override
 	public void tick() {
@@ -37,7 +33,9 @@ public class GameView extends State{
 	@Override
 	public void render(Graphics g) {
 		
-					
+		//render wave animation
+		
+		
 		board.render(g);
 		
 	}

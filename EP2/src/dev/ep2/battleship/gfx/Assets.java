@@ -11,9 +11,15 @@ public class Assets {
 	
 	public static void init() {
 
-		//create sprite sheet containing every type of tile;
-		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/img/target.png"));
+	
+		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/img/targets_sprite_sheet.png"));
+		
 		user_turn_target = targets.crop(0, 0, 200, 200);
+		pc_turn_target = targets.crop(200, 0, 200, 200);
+		hit_target = targets.crop(400, 0, 200, 200);
+		sink_target = targets.crop(600, 0, 200, 200);
+
+
 		
 		/*
 		 SpriteSheet sheetWave = new SpriteSheet(ImageLoader.loadImage("/img/waves_sprite_sheet.png"));

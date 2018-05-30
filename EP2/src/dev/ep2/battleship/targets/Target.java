@@ -9,7 +9,7 @@ public class Target {
 	
 	protected final int ID;
 	
-	public static Target[] targets	= new Target[225];
+	public static Target[] targets	= new Target[5];
 	
 	public static Target userTurnTarget = new UserTurnTarget(0);
 	public static Target pcTurnTarget = new PCTurnTarget(1);

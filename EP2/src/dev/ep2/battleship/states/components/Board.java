@@ -11,16 +11,18 @@ public class Board {
 
 	private int numberOfTargetX = 10; // ler do arquivo
 	private int numberOfTargetY = 10; // ler do arquivo
+	
+	private int[][] board;
 		
 	
-	public Board() {
+	public Board(String path) {
 		
-		// Board checking if there is ships and stuff
+		loadBoard(path);
 	}
 	
 	public void tick() {
 		
-		
+		//variaveis para verificar se é clicavel, e para definir qual bloco renderizar	
 	}
 	
 	public void render(Graphics g) {
@@ -29,14 +31,36 @@ public class Board {
 		int targetWidth = boardResolution / numberOfTargetX; 
 		int targetHeight = boardResolution / numberOfTargetY;
 		
-		for(int i = 0; i < numberOfTargetX; i++) {
-			for(int j = 0; j < numberOfTargetY; j++) {
 				
-				//verificar se o target é clicável, se sim verificar se acertou o barco ou já derrubou-o
-				Target.targets[0].render(g, i * targetWidth + 300, j * targetHeight, targetWidth, targetHeight);
+		for(int y = 0; y < numberOfTargetY; y++) {
+			for(int x = 0; x < numberOfTargetX; x++) {
+				
+				getTarget(x, y).render(g, x * targetWidth + 300, y * targetHeight, targetWidth, targetHeight);
 			}
 		}
 		
+	}
+	
+	public Target getTarget(int x, int y) {
+		
+		Target target = Target.targets[board[x][y]];
+		
+		if(target == null)
+			return Target.userTurnTarget;
+		
+		return target;
+	}
+	
+	
+	private void loadBoard(String path) {
+		
+		board = new int[numberOfTargetX][numberOfTargetY];
+		
+		for(int x = 0; x < numberOfTargetX; x++) {
+			for(int y = 0; y < numberOfTargetY; y++) {
+				board[x][y] = 0;
+			}
+		}
 	}
 	
 }

@@ -18,7 +18,7 @@ public class GameView extends State{
 		super(game);	
 		
 		player = new Player(game, 30, 150); //(x,y) para posicionar o hp do player
-		board = new Board();
+		board = new Board("");
 	}
 	
 	
@@ -34,7 +34,6 @@ public class GameView extends State{
 	public void render(Graphics g) {
 		
 		//render wave animation
-		
 		
 		board.render(g);
 		

@@ -18,7 +18,7 @@ public class GameView extends State{
 		super(game);	
 		
 		player = new Player(game, 30, 150); //(x,y) para posicionar o hp do player
-		board = new Board("");
+		board = new Board("res/boards/board_1.txt");
 	}
 	
 	

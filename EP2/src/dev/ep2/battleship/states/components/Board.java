@@ -1,16 +1,20 @@
 package dev.ep2.battleship.states.components;
 
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import dev.ep2.battleship.gfx.Assets;
+import dev.ep2.battleship.helpers.FileHelper;
 import dev.ep2.battleship.targets.Target;
 
 public class Board {
 
 	private final int boardResolution = 840;
 
-	private int numberOfTargetX = 10; // ler do arquivo
-	private int numberOfTargetY = 10; // ler do arquivo
+	private int numberOfTargetX; // ler do arquivo
+	private int numberOfTargetY; // ler do arquivo
 	
 	private int[][] board;
 		
@@ -31,7 +35,7 @@ public class Board {
 		int targetWidth = boardResolution / numberOfTargetX; 
 		int targetHeight = boardResolution / numberOfTargetY;
 		
-				
+			
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				
@@ -39,11 +43,12 @@ public class Board {
 			}
 		}
 		
+		
 	}
 	
 	public Target getTarget(int x, int y) {
 		
-		Target target = Target.targets[board[x][y]];
+		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
 		
 		if(target == null)
 			return Target.userTurnTarget;
@@ -54,13 +59,24 @@ public class Board {
 	
 	private void loadBoard(String path) {
 		
+		FileHelper helper = new FileHelper("res/boards/board_1.txt");
+		
+		String[] tokens = helper.getnumberOfTargetXandY().split("\\s+");
+		numberOfTargetX = FileHelper.parseInt(tokens[0]);
+		numberOfTargetY = FileHelper.parseInt(tokens[1]);
+		
 		board = new int[numberOfTargetX][numberOfTargetY];
 		
-		for(int x = 0; x < numberOfTargetX; x++) {
-			for(int y = 0; y < numberOfTargetY; y++) {
+		
+		for(int y = 0; y < numberOfTargetY; y++) {
+			for(int x = 0; x < numberOfTargetX; x++) {
+				 
 				board[x][y] = 0;
+				//board[x][y] = FileHelper.parseInt(tokens[(x + y * numberOfTargetX) + 6]);
 			}
 		}
+		 
+		
 	}
 	
 }

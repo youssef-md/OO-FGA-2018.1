@@ -17,6 +17,8 @@ public class Route {
 		gameView = new GameView(game); // GameState extends abstract State .: (state) = (GameState)
 		menuView = new MenuView(game);
 				
+		//identificar o evento de click do botao iniciar e trocar o state;
+		
 		StateManager.setState(gameView); // Saving the runtime current state
 	}
 		

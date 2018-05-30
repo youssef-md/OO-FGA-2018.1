@@ -63,9 +63,10 @@ public class Game extends Canvas implements Runnable {
 	
 		init(); 
 		
+		int fps = 30;
 		long timer = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
- 		double ns = 1000000000 / 30.0;
+ 		double ns = 1000000000 / fps;
  		double delta = 0;
  		
  		int frames = 0;
@@ -79,19 +80,12 @@ public class Game extends Canvas implements Runnable {
 			
 			while(delta >= 1) { // Restricting update to 30fps, so every pc will run in the same game speed
 				tick();
+				render();
 				ticks++;
+				frames++;
 				delta--;
 			}
-			
-			try {
-				thread.sleep(30); // Restricting the rendering 
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			render();
-			frames++;
-			
+									
 			if(System.currentTimeMillis() - timer > 1000) {
 				
 				timer += 1000;

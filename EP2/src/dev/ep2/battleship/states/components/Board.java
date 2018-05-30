@@ -31,9 +31,8 @@ public class Board {
 	
 	public void render(Graphics g) {
 		
-		
-		int targetWidth = boardResolution / numberOfTargetX; 
-		int targetHeight = boardResolution / numberOfTargetY;
+		int targetWidth = boardResolution / numberOfTargetX; // Responsiveness for the targets based on the given
+		int targetHeight = boardResolution / numberOfTargetY; // dimension 
 		
 			
 		for(int y = 0; y < numberOfTargetY; y++) {

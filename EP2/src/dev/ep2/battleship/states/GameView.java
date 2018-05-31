@@ -30,11 +30,13 @@ public class GameView extends State{
 				
 	}
 
-	@Override
+	@Override	
 	public void render(Graphics g) {
 		
 		//render wave animation
 		
+		Assets assets = new Assets();
+		g.drawImage(assets.getIcon(), 300, 0, 840, 840, null);
 		board.render(g);
 		
 	}

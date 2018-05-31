@@ -11,15 +11,13 @@ public class Route {
 
 	private State gameView;
 	private State menuView;
-
+	
 	public Route(Game game) {
 		
 		gameView = new GameView(game); // GameState extends abstract State .: (state) = (GameState)
 		menuView = new MenuView(game);
 				
-		//identificar o evento de click do botao iniciar e trocar o state;
-		
-		StateManager.setState(gameView); // Saving the runtime current state
+		StateManager.setState(menuView); // Saving the runtime current state
 	}
 		
 	
@@ -35,5 +33,10 @@ public class Route {
 	public State getView() {
 		
 		return StateManager.getState(); // (state) = (GameState/MenuState) due to abstract class
+	}
+	
+	public static String getRouteID() {
+		
+		return StateManager.getStateID();
 	}
 }

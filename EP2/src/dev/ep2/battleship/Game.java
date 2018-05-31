@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.input.KeyManager;
+import dev.ep2.battleship.input.MouseManager;
 import dev.ep2.battleship.states.State;
 
 
@@ -19,9 +20,10 @@ public class Game extends Canvas implements Runnable {
 	
 	private Thread thread;
 	private BufferStrategy bs;
-	private Graphics g; //static para acessar a mesma instância ao usar Threads externas
+	public static Graphics g; //static para acessar a mesma instância ao usar Threads externas
 	private Route route;
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
 	
 
 	public Game(String title, int width, int height) {
@@ -30,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 		this.width = width;
 		this.height = height;
 		keyManager = new KeyManager();
+		mouseManager = new MouseManager();
 		
 	}
 
@@ -103,6 +106,7 @@ public class Game extends Canvas implements Runnable {
 		
 		display = new Display(width, height);
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
+		display.getCanvas().addMouseListener(mouseManager);
 		
 		Assets.init();
 		
@@ -114,6 +118,7 @@ public class Game extends Canvas implements Runnable {
 	private void tick() { 
 
 		keyManager.tick(); // Updating the keys that are being pressed
+		//mouseManager.tick();
 		
 		if(route.isThereAView()) { 
 			
@@ -159,8 +164,7 @@ public class Game extends Canvas implements Runnable {
 		return keyManager;
 	}
 	
-	
-	
+
 	
 	
 

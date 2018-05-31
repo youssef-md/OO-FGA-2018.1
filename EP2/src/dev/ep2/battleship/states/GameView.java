@@ -11,23 +11,24 @@ public class GameView extends State{
 
 	private Player player;
 	private Board board;
-	
-	
+	private Assets assets;
+	private final String ID = "GameView"; 
+		
 	public GameView(Game game) {
 		
 		super(game);	
 		
 		player = new Player(game, 30, 150); //(x,y) para posicionar o hp do player
 		board = new Board("res/boards/board_1.txt");
+		assets = new Assets();
 	}
 	
 	
 	@Override
 	public void tick() {
-		
+		  
 		board.tick();
-		player.tick();
-				
+		player.tick();		
 	}
 
 	@Override	
@@ -35,11 +36,20 @@ public class GameView extends State{
 		
 		//render wave animation
 		
-		Assets assets = new Assets();
-		g.drawImage(assets.getIcon(), 300, 0, 840, 840, null);
+		g.drawImage(assets.getIconWaveAnimation(), 300, 0, 840, 840, null);
+
 		board.render(g);
 		
+		
 	}
+
+	@Override
+	public String getID() {
+		
+		return ID;
+	}
+	
+	
 
 	
 }

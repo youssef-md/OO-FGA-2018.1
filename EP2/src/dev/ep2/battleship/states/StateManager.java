@@ -15,4 +15,9 @@ public class StateManager {
 		return currentState;
 	}
 	
+	public static String getStateID() {
+		return currentState.getID();
+	}
+	
+	
 }

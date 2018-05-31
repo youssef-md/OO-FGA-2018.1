@@ -11,10 +11,14 @@ import dev.ep2.battleship.targets.Target;
 
 public class Board {
 
-	private final int boardResolution = 840;
+	public static final int BOARD_RESOLUTION = 840;
+	public static final int BORDER = 300;
 
 	private int numberOfTargetX; // ler do arquivo
 	private int numberOfTargetY; // ler do arquivo
+	public static int targetWidth;
+	public static int targetHeight;
+	
 	
 	private int[][] board;
 		
@@ -31,30 +35,21 @@ public class Board {
 	
 	public void render(Graphics g) {
 		
-		int targetWidth = boardResolution / numberOfTargetX; // Responsiveness for the targets based on the given
-		int targetHeight = boardResolution / numberOfTargetY; // dimension 
+		targetWidth = BOARD_RESOLUTION / numberOfTargetX; // Responsiveness for the targets based on the given
+		targetHeight = BOARD_RESOLUTION / numberOfTargetY; // dimension 
 		
 			
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				
-				getTarget(x, y).render(g, x * targetWidth + 300, y * targetHeight, targetWidth, targetHeight);
+				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
 			}
 		}
 		
 		
 	}
 	
-	public Target getTarget(int x, int y) {
 		
-		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
-		
-		if(target == null)
-			return Target.userTurnTarget;
-		
-		return target;
-	}
-	
 	
 	private void loadBoard(String path) {
 		
@@ -70,12 +65,23 @@ public class Board {
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				 
-				board[x][y] = 0;
+				board[x][y] = 1;
 				//board[x][y] = FileHelper.parseInt(tokens[(x + y * numberOfTargetX) + 6]);
 			}
 		}
 		 
 		
 	}
+	
+	public Target getTarget(int x, int y) {
+		
+		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
+		
+		if(target == null)
+			return Target.userTurnTarget;
+		
+		return target;
+	}
+
 	
 }

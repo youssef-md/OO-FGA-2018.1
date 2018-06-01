@@ -3,6 +3,7 @@ package dev.ep2.battleship.states;
 import java.awt.Graphics;
 
 import dev.ep2.battleship.Game;
+import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.states.components.Board;
@@ -36,7 +37,8 @@ public class GameView extends State{
 		
 		//render wave animation
 		
-		g.drawImage(assets.getIconWaveAnimation(), 300, 0, 840, 840, null);
+		g.drawImage(assets.getIconWaveAnimation(), Board.BORDER, 0, Board.BOARD_RESOLUTION, Board.BOARD_RESOLUTION, null);
+		g.drawImage(Assets.filter, 0, 0, Display.frameWidth, Display.frameHeight, null);
 
 		board.render(g);
 		

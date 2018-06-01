@@ -10,7 +10,7 @@ public class MenuView extends State	{
 
 	final String ID = "MenuView"; 
 
-		
+	Assets assets = new Assets();
 	public MenuView(Game game) {
 		
 		super(game);
@@ -25,7 +25,9 @@ public class MenuView extends State	{
 	@Override
 	public void render(Graphics g) {
 		
-		g.drawImage(Assets.marpat, 0, 0, Display.frameWidth, Display.frameHeight, null);
+		
+		g.drawImage(assets.getIconWaveAnimation(), 0, 0, Display.frameWidth, Display.frameHeight, null);
+		g.drawImage(Assets.filter, 0, 0, Display.frameWidth, Display.frameHeight, null);
 	}
 
 	@Override

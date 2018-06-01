@@ -7,18 +7,19 @@ import javax.swing.ImageIcon;
 
 public class Assets {
 
-	public static BufferedImage user_turn_target, pc_turn_target, hit_target, sink_target, marpat;
-	public Image wave_animation = new ImageIcon(getClass().getResource("/img/wave_animation.gif")).getImage();
-	
+	public static BufferedImage user_turn_target, pc_turn_target, hit_target, sink_target, filter;
+	public Image wave_animation = new ImageIcon(getClass().getResource("/textures/wave_animation.gif")).getImage();
+	//public Image wave_animation = new ImageIcon(getClass().getResource("/textures/Sequence_02.gif")).getImage();
+
 	private int WAVE_SIZE = 1000;
 	
 	public static void init() {
 
-		SpriteSheet marpatSheet = new SpriteSheet(ImageLoader.loadImage("/img/marpat.jpg"));
+		SpriteSheet filterSheet = new SpriteSheet(ImageLoader.loadImage("/textures/filter.png"));
 		
-		marpat = marpatSheet.crop(0, 0, 1048, 762);
+		filter = filterSheet.crop(0, 0, 550, 200);
 		
-		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/img/targets_sprite_sheet.png"));
+		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/textures/targets_sprite_sheet.png"));
 		
 		user_turn_target = targets.crop(0, 0, 200, 200);
 		pc_turn_target = targets.crop(200, 0, 200, 200);

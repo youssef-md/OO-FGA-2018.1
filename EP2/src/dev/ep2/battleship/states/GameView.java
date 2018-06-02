@@ -2,7 +2,7 @@ package dev.ep2.battleship.states;
 
 import java.awt.Graphics;
 
-import dev.ep2.battleship.Game;
+import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.display.Display;
 import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
@@ -15,11 +15,11 @@ public class GameView extends State{
 	private Assets assets;
 	private final String ID = "GameView"; 
 		
-	public GameView(Game game) {
+	public GameView(Handler handler) {
 		
-		super(game);	
+		super(handler);	
 		
-		player = new Player(game, 30, 150); //(x,y) para posicionar o hp do player
+		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
 		board = new Board("res/boards/board_1.txt");
 		assets = new Assets();
 	}

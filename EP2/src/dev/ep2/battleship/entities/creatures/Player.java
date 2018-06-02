@@ -2,36 +2,35 @@ package dev.ep2.battleship.entities.creatures;
 
 import java.awt.Graphics;
 
-import dev.ep2.battleship.Game;
-import dev.ep2.battleship.gfx.Assets;
+import dev.ep2.battleship.Handler;
 
 public class Player extends Creature{
 
-	private Game game;
+	private Handler handler;
 	
-	public Player(Game game, int x, int y) {
+	public Player(Handler handler, int x, int y) {
 		
-		super(x, y);
-		this.game = game;
+		super(handler, x, y);
+		this.handler = handler;
 
 		health = Creature.DEFAULT_HEALTH;
 	}
 
 	public void tick() {
 		
-		if(game.getKeyManager().Q) {
+		if(handler.getKeyManager().Q) {
 			System.out.println("Atacar uma posição do tabuleiro");
 		}
 		
-		if(game.getKeyManager().W) { 
+		if(handler.getKeyManager().W) { 
 			System.out.println("Descobrir se há uma embarcação inimiga em uma área 2x2 do tabuleiro;");
 		}
 		
-		if(game.getKeyManager().E) {
+		if(handler.getKeyManager().E) {
 			System.out.println("Atacar uma área 2x2 do tabuleiro");
 		}
 		
-		if(game.getKeyManager().R) { 
+		if(handler.getKeyManager().R) { 
 			System.out.println("Atacar uma linha/coluna completa do tabuleiro");
 		}
 	}

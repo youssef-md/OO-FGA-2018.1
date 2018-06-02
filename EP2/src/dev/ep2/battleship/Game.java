@@ -9,6 +9,7 @@ import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.input.KeyManager;
 import dev.ep2.battleship.input.MouseManager;
 import dev.ep2.battleship.states.State;
+import dev.ep2.battleship.Handler;
 
 
 public class Game extends Canvas implements Runnable {
@@ -24,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 	private Route route;
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
-	
+	private Handler handler;
 
 	public Game(String title, int width, int height) {
 		
@@ -114,7 +115,8 @@ public class Game extends Canvas implements Runnable {
 		
 		Assets.init();
 		
-		route = new Route(this);
+		handler = new Handler(this);
+		route = new Route(handler);
 		
 	}
 	

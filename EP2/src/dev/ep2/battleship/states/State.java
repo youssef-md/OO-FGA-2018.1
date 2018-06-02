@@ -2,15 +2,15 @@ package dev.ep2.battleship.states;
 
 import java.awt.Graphics;
 
-import dev.ep2.battleship.Game;
+import dev.ep2.battleship.Handler;
 
 public abstract class State {
 	
-	protected Game game;
+	protected Handler handler;
 	
-	public State(Game game) {
+	public State(Handler handler) {
 		
-		this.game = game;
+		this.handler = handler;
 	}
 	
 	public abstract void tick();

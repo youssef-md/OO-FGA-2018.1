@@ -12,15 +12,15 @@ public class Route {
 	private State gameView;
 	private State menuView;
 	
-	public Route(Game game) {
+	public Route(Handler handler) {
 		
-		gameView = new GameView(game); // GameState extends abstract State .: (state) = (GameState)
-		menuView = new MenuView(game);
+		gameView = new GameView(handler); // GameState extends abstract State .: (state) = (GameState)
+		menuView = new MenuView(handler);
 				
 		StateManager.setState(menuView); // Saving the runtime current state
 	}
 		
-	public void setView(State currentState) {
+	public static void setView(State currentState) {
 		
 		StateManager.setState(currentState);
 	}

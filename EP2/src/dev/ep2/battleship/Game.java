@@ -164,6 +164,9 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
+	public Graphics getGraphicsG() {
+		return g;
+	}
 	
 	public KeyManager getKeyManager() {
 		

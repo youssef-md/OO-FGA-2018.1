@@ -11,7 +11,7 @@ public class FileHelper {
 	private FileReader fileReader;
 	
 	public FileHelper(String path) {
-		
+				
 		try {
 			
 			fileReader = new FileReader(path);

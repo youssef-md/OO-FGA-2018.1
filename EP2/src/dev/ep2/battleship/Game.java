@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private Thread thread;
 	private BufferStrategy bs;
-	public static Graphics g; //static para acessar a mesma instância ao usar Threads externas
+	public static Graphics g; 
 	private Route route;
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
@@ -93,7 +93,7 @@ public class Game extends Canvas implements Runnable {
 			if(System.currentTimeMillis() - timer > 1000) {
 				
 				timer += 1000;
-				display.getFrame().setTitle(title + "  |  " + ticks + " updates: update()  | " + frames + " FPS: render() ");
+				display.getFrame().setTitle(title + "  |  " + ticks + " updates: update( )  | " + frames + " FPS: render( ) ");
 				ticks = 0;
 				frames = 0;
 			}

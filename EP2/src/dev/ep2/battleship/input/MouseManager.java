@@ -36,22 +36,6 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 		return mouseY;
 	}
 
-
-
-	
-	/*
-	private void tickGameView(int mx, int my) {
-		
-		 
-
-		
-		int boardPositionX = mx / (Board.targetWidth + Board.BORDER);
-		int boardPositionY = mx / Board.targetHeight;
-
-	}
-	 */
-
-	
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -70,15 +54,6 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 		else if(e.getButton() == MouseEvent.BUTTON3)
 			rightPressed = false;
 		
-		/*if(Route.getRouteID() == "MenuView") {
-			
-			tickMenuView(mx, my);
-			
-		} else if(Route.getRouteID() == "GameView") {
-			
-			tickGameView(mx, my);
-		}
-			*/	
 	}
 
 	@Override

@@ -10,6 +10,8 @@ public class MenuView extends State	{
 
 	final String ID = "MenuView"; 
 	
+	private boolean isHoverBtnLoad, isHoverBtnStart = false;
+	
 	Assets assets;
 	public MenuView(Handler handler) {
 		
@@ -26,6 +28,7 @@ public class MenuView extends State	{
 		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
 			if(handler.getMouseManager().getMouseY() >= 506 && handler.getMouseManager().getMouseY() <= 612) {
 				//hover
+				isHoverBtnLoad = true;
 				//color change and sound
 				
 				if(handler.getMouseManager().isLeftPressed()) { 
@@ -43,6 +46,7 @@ public class MenuView extends State	{
 		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
 			if(handler.getMouseManager().getMouseY() >= 669 && handler.getMouseManager().getMouseY() <= 766) {
 				//hover
+				isHoverBtnStart = true;
 				//color change and sound
 				
 				if(handler.getMouseManager().isLeftPressed()) { 
@@ -63,8 +67,18 @@ public class MenuView extends State	{
 		g.drawImage(Assets.game_title, 210, 20, 1000, 400, null);
 		g.drawImage(Assets.filter, 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
 		
-		g.drawImage(Assets.btn_load, 520, 500, 350, 130, null);
-		g.drawImage(Assets.btn_start, 520, 650, 350, 130, null);
+		if(isHoverBtnLoad)
+			g.drawImage(Assets.btn_load_hover, 520, 500, 350, 130, null);
+		else
+			g.drawImage(Assets.btn_load, 520, 500, 350, 130, null);
+		
+		if(isHoverBtnStart)
+			g.drawImage(Assets.btn_start_hover, 520, 650, 350, 130, null);
+		else
+			g.drawImage(Assets.btn_start, 520, 650, 350, 130, null);
+		
+		isHoverBtnLoad = false;
+		isHoverBtnStart = false;
 		
 	}
 

@@ -1,7 +1,10 @@
 package dev.ep2.battleship.states.components;
 
+import java.io.FileNotFoundException;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class FileNavigator {
 
@@ -16,11 +19,26 @@ public class FileNavigator {
 	}
 	
 	public void Navigate(String title) {
-		fileChooser.setCurrentDirectory(new java.io.File("."));
-		fileChooser.setDialogTitle(title);
-		if(fileChooser.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {}
 		
-		path = fileChooser.getSelectedFile().getAbsolutePath();
+		fileChooser.setCurrentDirectory(new java.io.File("./res/boards"));
+		fileChooser.setDialogTitle(title);
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	
+		int result = fileChooser.showOpenDialog(open);
+		
+		if(result == JFileChooser.APPROVE_OPTION) {
+			
+			path = fileChooser.getSelectedFile().getAbsolutePath();
+			
+		} else if(result == JFileChooser.CANCEL_OPTION) {
+			
+			JOptionPane.showMessageDialog(null, "Where is the file?");
+			
+		}
+			
+
+	
+			
 	}
 	
 	public String getAbsolutePath() {

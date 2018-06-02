@@ -106,7 +106,11 @@ public class Game extends Canvas implements Runnable {
 		
 		display = new Display(width, height);
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
+		display.getFrame().addMouseListener(mouseManager);
 		display.getCanvas().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
+
 		
 		Assets.init();
 		
@@ -164,7 +168,10 @@ public class Game extends Canvas implements Runnable {
 		return keyManager;
 	}
 	
-
+	public MouseManager getMouseManager() {
+		
+		return mouseManager;
+	}
 	
 	
 

@@ -20,7 +20,10 @@ public class Route {
 		StateManager.setState(menuView); // Saving the runtime current state
 	}
 		
-	
+	public void setView(State currentState) {
+		
+		StateManager.setState(currentState);
+	}
 	public boolean isThereAView() {
 		
 		if(StateManager.getState() != null) {

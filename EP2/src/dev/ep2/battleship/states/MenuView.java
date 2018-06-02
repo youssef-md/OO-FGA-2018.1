@@ -10,7 +10,7 @@ import dev.ep2.battleship.states.components.MessagePopUp;
 public class MenuView extends State	{
 
 	final String ID = "MenuView"; 
-	private boolean isHoverBtn, isMapLoaded = false;
+	private boolean isHoverBtnStart, isMapLoaded = false;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
@@ -27,17 +27,16 @@ public class MenuView extends State	{
 		// Hit box for the Load/Start Button
 		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
 			if(handler.getMouseManager().getMouseY() >= 506 && handler.getMouseManager().getMouseY() <= 612) {
+
+				isHoverBtnStart = true;
+				
 				if(handler.getMouseManager().isLeftPressed()) { //click
 					
-					if(isMapLoaded) 
-						handler.getRoute().setView(handler.getGameView());
-					else 
-						findTheFileAndLoadIt();
+					findTheFileAndLoadIt();
+					if(isMapLoaded)
+						handler.getRoute().setView(handler.getGameView()); 		
 					
-					
-				} else //hover
-					isHoverBtn = true;
-
+				} 	
 			}
 		}
 	
@@ -52,21 +51,15 @@ public class MenuView extends State	{
 		g.drawImage(assets.getIconWaveAnimation(), 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
 		g.drawImage(Assets.game_title, 210, 20, 1000, 400, null);
 		g.drawImage(Assets.filter, 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
+			
 		
-		if(!isMapLoaded)
-			if(isHoverBtn)
-				g.drawImage(Assets.btn_load_hover, 520, 500, 350, 130, null);
-			else
-				g.drawImage(Assets.btn_load, 520, 500, 350, 130, null);
-		
-		if(isMapLoaded)
-			if(isHoverBtn)
-				g.drawImage(Assets.btn_start_hover, 520, 500, 350, 130, null);
-			else
-				g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
+		if(isHoverBtnStart)
+			g.drawImage(Assets.btn_start_hover, 520, 500, 350, 130, null);
+		else
+			g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
 		
 		
-		isHoverBtn = false;		
+		isHoverBtnStart = false;		
 		
 	}
 

@@ -2,17 +2,15 @@ package dev.ep2.battleship.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import dev.ep2.battleship.gfx.Assets;
 
 public class Display {
 
 	private JFrame frame;
 	private Canvas canvas;
-	public static int frameWidth, frameHeight;
+	private int frameWidth, frameHeight;
 	
 	public Display(int width, int height) {
 		

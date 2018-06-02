@@ -175,7 +175,13 @@ public class Game extends Canvas implements Runnable {
 		return mouseManager;
 	}
 	
+	public int getAppWidth() {
+		return width;
+	}
 	
+	public int getAppHeight() {
+		return height;
+	}
 
 
 }

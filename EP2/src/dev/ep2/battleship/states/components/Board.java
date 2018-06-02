@@ -1,23 +1,19 @@
 package dev.ep2.battleship.states.components;
 
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
-import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.helpers.FileHelper;
 import dev.ep2.battleship.targets.Target;
 
 public class Board {
 
-	public static final int BOARD_RESOLUTION = 840;
-	public static final int BORDER = 300;
+	public final int BOARD_RESOLUTION = 840;
+	public final int BORDER = 300;
 
 	private int numberOfTargetX; // ler do arquivo
 	private int numberOfTargetY; // ler do arquivo
-	public static int targetWidth;
-	public static int targetHeight;
+	public int targetWidth;
+	public int targetHeight;
 	
 	
 	private int[][] board;

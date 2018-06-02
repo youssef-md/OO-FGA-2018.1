@@ -1,32 +1,26 @@
 package dev.ep2.battleship;
 
-import java.awt.Graphics;
-
-import dev.ep2.battleship.states.GameView;
-import dev.ep2.battleship.states.MenuView;
 import dev.ep2.battleship.states.State;
 import dev.ep2.battleship.states.StateManager;
 
 public class Route {
 
-	private State gameView;
-	private State menuView;
-	
+	private StateManager stateManager;
+		
 	public Route(Handler handler) {
 		
-		gameView = new GameView(handler); // GameState extends abstract State .: (state) = (GameState)
-		menuView = new MenuView(handler);
-				
-		StateManager.setState(menuView); // Saving the runtime current state
+		stateManager = new StateManager();
+		stateManager.setState(handler.getMenuView()); // Saving the runtime current state
 	}
 		
-	public static void setView(State currentState) {
+	public void setView(State currentState) {
 		
-		StateManager.setState(currentState);
+		stateManager.setState(currentState);
 	}
+	
 	public boolean isThereAView() {
 		
-		if(StateManager.getState() != null) {
+		if(stateManager.getState() != null) {
 			return true;
 		}
 		
@@ -35,11 +29,11 @@ public class Route {
 	
 	public State getView() {
 		
-		return StateManager.getState(); // (state) = (GameState/MenuState) due to abstract class
+		return stateManager.getState(); // (state) = (GameState/MenuState) due to abstract class
 	}
 	
-	public static String getRouteID() {
+	public String getRouteID() {
 		
-		return StateManager.getStateID();
+		return stateManager.getStateID();
 	}
 }

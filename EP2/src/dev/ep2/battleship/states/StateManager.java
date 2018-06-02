@@ -6,16 +6,16 @@ public class StateManager {
 
 	private static State currentState = null;
 	
-	public static void setState(State state) {
+	public void setState(State state) {
 		
 		currentState = state;
 	}
 	
-	public static State getState() {
+	public State getState() {
 		return currentState;
 	}
 	
-	public static String getStateID() {
+	public String getStateID() {
 		return currentState.getID();
 	}
 	

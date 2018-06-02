@@ -1,5 +1,6 @@
 package dev.ep2.battleship.states;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.ep2.battleship.Game;
@@ -18,8 +19,8 @@ public class MenuView extends State	{
 	
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-										
+		
+		System.out.println("MouseX = " + game.getMouseManager().getMouseX() + " MouseY = " + game.getMouseManager().getMouseY());
 	}
 
 	@Override
@@ -28,6 +29,8 @@ public class MenuView extends State	{
 		
 		g.drawImage(assets.getIconWaveAnimation(), 0, 0, Display.frameWidth, Display.frameHeight, null);
 		g.drawImage(Assets.filter, 0, 0, Display.frameWidth, Display.frameHeight, null);
+		g.setColor(Color.RED);
+		g.fillRect(game.getMouseManager().getMouseX(), game.getMouseManager().getMouseY(), 10, 10);
 	}
 
 	@Override

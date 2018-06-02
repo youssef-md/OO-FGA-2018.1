@@ -10,7 +10,7 @@ import dev.ep2.battleship.states.components.MessagePopUp;
 public class MenuView extends State	{
 
 	final String ID = "MenuView"; 
-	private boolean isHoverBtnLoad, isHoverBtnStart = false;
+	private boolean isHoverBtn, isMapLoaded = false;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
@@ -24,43 +24,23 @@ public class MenuView extends State	{
 		
 		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 		
-		// Hit box for the Load Button
+		// Hit box for the Load/Start Button
 		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
 			if(handler.getMouseManager().getMouseY() >= 506 && handler.getMouseManager().getMouseY() <= 612) {
-				
-				isHoverBtnLoad = true;
-				
-				
-				if(handler.getMouseManager().isLeftPressed()) { 
+				if(handler.getMouseManager().isLeftPressed()) { //click
 					
-					FileNavigator fileNavigator = new FileNavigator();
+					if(isMapLoaded) 
+						handler.getRoute().setView(handler.getGameView());
+					else 
+						findTheFileAndLoadIt();
+					
+					
+				} else //hover
+					isHoverBtn = true;
 
-					fileNavigator.Navigate("Load a map");
-					
-					if(fileNavigator.getPath() != null ) {
-						
-						handler.setGameView(fileNavigator.getPath());	
-					
-					} else if(fileNavigator.getPath() == null) {
-					
-						MessagePopUp message = new MessagePopUp(handler.getGame().getGraphicsG(), "Where is the file???");
-					}
-				}
 			}
 		}
-		
-		// Hit box for the Start Button
-		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
-			if(handler.getMouseManager().getMouseY() >= 669 && handler.getMouseManager().getMouseY() <= 766) {
-				
-				isHoverBtnStart = true;
-				
-				if(handler.getMouseManager().isLeftPressed()) { 
-					
-					handler.getRoute().setView(handler.getGameView());
-				}
-			}
-		}
+	
 		
 	
 	}
@@ -73,21 +53,40 @@ public class MenuView extends State	{
 		g.drawImage(Assets.game_title, 210, 20, 1000, 400, null);
 		g.drawImage(Assets.filter, 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
 		
-		if(isHoverBtnLoad)
-			g.drawImage(Assets.btn_load_hover, 520, 500, 350, 130, null);
-		else
-			g.drawImage(Assets.btn_load, 520, 500, 350, 130, null);
+		if(!isMapLoaded)
+			if(isHoverBtn)
+				g.drawImage(Assets.btn_load_hover, 520, 500, 350, 130, null);
+			else
+				g.drawImage(Assets.btn_load, 520, 500, 350, 130, null);
 		
-		if(isHoverBtnStart)
-			g.drawImage(Assets.btn_start_hover, 520, 650, 350, 130, null);
-		else
-			g.drawImage(Assets.btn_start, 520, 650, 350, 130, null);
+		if(isMapLoaded)
+			if(isHoverBtn)
+				g.drawImage(Assets.btn_start_hover, 520, 500, 350, 130, null);
+			else
+				g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
 		
-		isHoverBtnLoad = false;
-		isHoverBtnStart = false;
+		
+		isHoverBtn = false;		
 		
 	}
 
+	private void findTheFileAndLoadIt() {
+		
+		FileNavigator fileNavigator = new FileNavigator();
+		fileNavigator.Navigate("Load a map");
+		
+		if(fileNavigator.getPath() != null ) {
+			
+			handler.setGameView(fileNavigator.getPath());	
+			isMapLoaded = true;
+			
+		} else if(fileNavigator.getPath() == null) {
+		
+			MessagePopUp message = new MessagePopUp(handler.getGame().getGraphicsG(), "Where is the file???");
+		}
+
+	}
+	
 	@Override
 	public String getID() {
 		

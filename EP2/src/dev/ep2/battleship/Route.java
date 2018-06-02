@@ -20,10 +20,9 @@ public class Route {
 	
 	public boolean isThereAView() {
 		
-		if(stateManager.getState() != null) {
+		if(stateManager.getState() != null) 
 			return true;
-		}
-		
+	
 		return false;
 	}
 	

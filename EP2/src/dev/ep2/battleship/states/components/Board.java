@@ -49,7 +49,7 @@ public class Board {
 	
 	private void loadBoard(String path) {
 		
-		FileHelper helper = new FileHelper("res/boards/board_1.txt");
+		FileHelper helper = new FileHelper(path);
 		
 		String[] tokens = helper.getnumberOfTargetXandY().split("\\s+");
 		numberOfTargetX = FileHelper.parseInt(tokens[0]);

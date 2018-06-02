@@ -14,15 +14,16 @@ public class GameView extends State{
 	private Assets assets;
 	private final String ID = "GameView"; 
 		
-	public GameView(Handler handler) {
+	public GameView(Handler handler, String boardPath) {
 		
 		super(handler);	
 		
-		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
-		board = new Board("res/boards/board_1.txt");
 		assets = new Assets();
+		board = new Board(boardPath);
+		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
 	}
 	
+
 	
 	@Override
 	public void tick() {
@@ -49,6 +50,8 @@ public class GameView extends State{
 		
 		return ID;
 	}
+	
+	
 	
 	
 

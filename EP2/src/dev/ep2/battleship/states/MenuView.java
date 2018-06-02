@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.gfx.Assets;
+import dev.ep2.battleship.states.components.FileNavigator;
 
 public class MenuView extends State	{
 
@@ -28,8 +29,12 @@ public class MenuView extends State	{
 				//color change and sound
 				
 				if(handler.getMouseManager().isLeftPressed()) { 
-					//click
 					
+					//handle exception: if it isn't a map
+					FileNavigator fileNavigator = new FileNavigator();
+					fileNavigator.Navigate("Load a map");
+					String path = fileNavigator.getAbsolutePath();
+					handler.setGameView(path);
 				}
 			}
 		}

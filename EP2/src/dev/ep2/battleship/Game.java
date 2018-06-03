@@ -19,7 +19,7 @@ public class Game extends Canvas implements Runnable {
 	public int width, height;
 	public String title;
 	
-	private Thread thread;
+	public Thread thread;
 	private BufferStrategy bs;
 	public static Graphics g; 
 	private Route route;

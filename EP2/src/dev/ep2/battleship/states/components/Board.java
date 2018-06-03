@@ -61,7 +61,7 @@ public class Board {
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				 
-				board[x][y] = 1;
+				board[x][y] = 0;
 				//board[x][y] = FileHelper.parseInt(tokens[(x + y * numberOfTargetX) + 6]);
 			}
 		}

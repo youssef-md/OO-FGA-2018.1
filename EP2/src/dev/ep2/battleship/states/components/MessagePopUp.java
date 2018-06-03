@@ -8,13 +8,14 @@ import dev.ep2.battleship.gfx.Assets;
 
 public class MessagePopUp {
 
-	private Graphics g;
-	
-	
-	public MessagePopUp(Graphics g, String message) {
 		
-		this.g = g;
+	public MessagePopUp(String message) {
+		
 		show(message);
+	}
+	
+	public void render(Graphics g) {
+		
 	}
 	
 	public void show(String message) {

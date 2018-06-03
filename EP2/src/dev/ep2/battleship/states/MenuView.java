@@ -1,22 +1,27 @@
 package dev.ep2.battleship.states;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.gfx.Assets;
+import dev.ep2.battleship.gfx.Text;
 import dev.ep2.battleship.states.components.FileNavigator;
 import dev.ep2.battleship.states.components.MessagePopUp;
 
 public class MenuView extends State	{
 
 	final String ID = "MenuView"; 
-	private boolean isHoverBtnStart, isMapLoaded = false;
+	FileNavigator fileNavigator;
+	
+	private boolean isHoverBtnStart, isMapLoaded, isMessage = false;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
 		
 		super(handler);
 		assets = new Assets();
+		fileNavigator = new FileNavigator();
 	}
 	
 	@Override
@@ -58,16 +63,18 @@ public class MenuView extends State	{
 		else
 			g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
 		
+		if(isMessage) {
+			//render a mensagem de erro passando o Graphics e depois seta isMessage = false quando for pra ela sumir
+		}
 		
+		Text.drawString(g, "Battleship", 500, 500, false, Color.white, Assets.military_font28);
 		isHoverBtnStart = false;		
 		
 	}
 
 	private void findTheFileAndLoadIt() {
 		
-		FileNavigator fileNavigator = new FileNavigator();
 		fileNavigator.Navigate("Load a map");
-		
 		if(fileNavigator.getPath() != null ) {
 			
 			handler.setGameView(fileNavigator.getPath());	
@@ -75,7 +82,8 @@ public class MenuView extends State	{
 			
 		} else if(fileNavigator.getPath() == null) {
 		
-			MessagePopUp message = new MessagePopUp(handler.getGame().getGraphicsG(), "Where is the file???");
+			MessagePopUp message = new MessagePopUp("Where is the file???");
+			isMessage = true;
 		}
 
 	}

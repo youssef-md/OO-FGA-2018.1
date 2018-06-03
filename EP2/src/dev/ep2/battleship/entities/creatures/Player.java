@@ -7,6 +7,7 @@ import dev.ep2.battleship.Handler;
 public class Player extends Creature{
 
 	private Handler handler;
+	public static char sex = 'x';
 	
 	public Player(Handler handler, int x, int y) {
 		
@@ -40,4 +41,5 @@ public class Player extends Creature{
 		//desenhar o hp e as estratégias
 	}	
 
+	
 }

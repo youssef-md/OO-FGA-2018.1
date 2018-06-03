@@ -17,19 +17,21 @@ public class GameView extends State{
 	public GameView(Handler handler, String boardPath) {
 		
 		super(handler);	
-		
+		handler.getMouseManager().setLeftPressed(false);
 		assets = new Assets();
 		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
-		board = new Board(boardPath);
+		board = new Board(boardPath, handler);
 	}
 	
 
 	
 	@Override
 	public void tick() {
-		  
+		
+		board.tick();  
 		player.tick();		
-		board.tick();
+		
+		//System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
 	}
 
 	@Override	

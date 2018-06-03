@@ -11,7 +11,7 @@ public class Board {
 	public final int BOARD_RESOLUTION = 840;
 	public final int BORDER = 300;
 
-	private int width, height; 
+	private int numberOfTargetX, numberOfTargetY; 
 	private int targetWidth, targetHeight;
 	private int targetShotX, targetShotY;
 	private boolean validShot = false;
@@ -45,11 +45,11 @@ public class Board {
 	public void render(Graphics g) {
 		
 		// Responsiveness for the targets based on the given dimension 
-		targetWidth = BOARD_RESOLUTION / width; 
-		targetHeight = BOARD_RESOLUTION / height; 
+		targetWidth = BOARD_RESOLUTION / numberOfTargetX; 
+		targetHeight = BOARD_RESOLUTION / numberOfTargetY; 
 		
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
+		for(int y = 0; y < numberOfTargetY; y++) {
+			for(int x = 0; x < numberOfTargetX; x++) {
 				
 				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
 			}
@@ -65,14 +65,14 @@ public class Board {
 		String file = FileHelper.loadFileAsString(path);
 		String[] tokens = file.split("\\s+"); 
 		
-		width = FileHelper.parseInt(tokens[0]);
-		height = FileHelper.parseInt(tokens[1]);
+		numberOfTargetX = FileHelper.parseInt(tokens[0]);
+		numberOfTargetY = FileHelper.parseInt(tokens[1]);
 		
-		board = new int[width][height];
-		ships = new int[width][height];
+		board = new int[numberOfTargetX][numberOfTargetY];
+		ships = new int[numberOfTargetX][numberOfTargetY];
 		
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
+		for(int y = 0; y < numberOfTargetY; y++) {
+			for(int x = 0; x < numberOfTargetX; x++) {
 				
 				ships[x][y] = FileHelper.parseInt(tokens[y + 2].charAt(x));
 				board[x][y] = 0; // start the game with only blue targets

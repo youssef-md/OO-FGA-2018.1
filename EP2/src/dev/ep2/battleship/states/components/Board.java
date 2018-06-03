@@ -51,9 +51,6 @@ public class Board {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				
-				if(validShot) {
-					
-				}
 				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
 			}
 		}
@@ -85,8 +82,8 @@ public class Board {
 	
 	public Target getTarget(int x, int y) {
 		
-		if(ships[x][y] != 0)
-			 return Target.targets[1];
+		if(ships[x][y] != 0) 
+			 return Target.targets[1]; // passar o retorno mais pra baixo para que seja possível modificar a cor dos barcos
 		
 		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
 
@@ -100,8 +97,8 @@ public class Board {
 		
 		targetShotX = (x - BORDER) / targetWidth;
 		targetShotY = y / targetHeight;
-		
-		System.out.println("x: " + targetShotX + " y: " + targetShotY);
+		board[targetShotX][targetShotY] = 2;
+
 	}
 	
 }

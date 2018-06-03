@@ -41,8 +41,7 @@ public class FileHelper {
 			
 			while((line = reader.readLine()) != null)
 				builder.append(line + "\n");
-			
-			System.out.println(builder);
+
 			
 			reader.close();
 			
@@ -50,8 +49,8 @@ public class FileHelper {
 			e.printStackTrace();
 		}
 		
-		return builder.toString();
 		
+		return builder.toString();
 	}	
 	
 	
@@ -64,5 +63,16 @@ public class FileHelper {
 			return 0;
 		}
 	}
+	
+	public static int parseInt(char number) {
+		
+		try {
+			return Character.getNumericValue(number);
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 	
 }

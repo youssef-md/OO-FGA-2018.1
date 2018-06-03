@@ -19,8 +19,8 @@ public class GameView extends State{
 		super(handler);	
 		
 		assets = new Assets();
-		board = new Board(boardPath);
 		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
+		board = new Board(boardPath);
 	}
 	
 
@@ -28,8 +28,8 @@ public class GameView extends State{
 	@Override
 	public void tick() {
 		  
-		board.tick();
 		player.tick();		
+		board.tick();
 	}
 
 	@Override	
@@ -41,8 +41,6 @@ public class GameView extends State{
 		g.drawImage(Assets.filter, board.BORDER, 0, board.BOARD_RESOLUTION, board.BOARD_RESOLUTION, null);
 
 		board.render(g);
-		
-		
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 public class Assets {
 
 	public static BufferedImage user_turn_target, pc_turn_target, hit_target, sink_target, filter, btn_start, btn_start_hover, game_title;
+	public static BufferedImage popup_alert;
 	public Image wave_animation = new ImageIcon(getClass().getResource("/textures/wave_animation.gif")).getImage();
 	public static Font military_font28;
 
@@ -20,6 +21,7 @@ public class Assets {
 		SpriteSheet btnStartSheet = new SpriteSheet(ImageLoader.loadImage("/textures/btn_start.png"));
 		SpriteSheet btnStartSheetHover = new SpriteSheet(ImageLoader.loadImage("/textures/btn_start::hover.png"));
 		SpriteSheet targets = new SpriteSheet(ImageLoader.loadImage("/textures/targets_sprite_sheet.png"));
+		SpriteSheet popups = new SpriteSheet(ImageLoader.loadImage("/textures/popup_alert.png"));
 		
 		military_font28 = FontLoader.loadFont("res/fonts/Don't Delay, Act Now!.otf", 28);
 		
@@ -28,9 +30,9 @@ public class Assets {
 		btn_start = btnStartSheet.crop(0, 0, 454, 166);
 		btn_start_hover = btnStartSheetHover.crop(0, 0, 454, 166);
 		
-		
 		filter = filterSheet.crop(0, 0, 550, 200);
 		
+		popup_alert = popups.crop(0, 0, 1129, 585);
 		
 		user_turn_target = targets.crop(0, 0, 200, 200);
 		pc_turn_target = targets.crop(200, 0, 200, 200);

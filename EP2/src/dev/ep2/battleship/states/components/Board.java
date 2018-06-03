@@ -49,9 +49,8 @@ public class Board {
 	
 	private void loadBoard(String path) {
 		
-		FileHelper helper = new FileHelper(path);
 		
-		String[] tokens = helper.getnumberOfTargetXandY().split("\\s+");
+		String[] tokens = FileHelper.loadFileAsString(path).split("\\s+");
 		numberOfTargetX = FileHelper.parseInt(tokens[0]);
 		numberOfTargetY = FileHelper.parseInt(tokens[1]);
 		

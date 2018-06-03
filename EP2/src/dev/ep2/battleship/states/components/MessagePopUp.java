@@ -9,18 +9,14 @@ import dev.ep2.battleship.gfx.Assets;
 public class MessagePopUp {
 
 		
-	public MessagePopUp(String message) {
-		
-		show(message);
-	}
-	
-	public void render(Graphics g) {
+	public MessagePopUp() {
 		
 	}
 	
-	public void show(String message) {
+	
+	public static void showAlert( String message) {
 		
-		//g.drawImage(Assets.hit_target, 350, 500, null);
+		//g.drawImage(Assets.popup_alert, 350, 500, 700, 350, null);
 		JOptionPane.showMessageDialog(null, message);
 	}
 	

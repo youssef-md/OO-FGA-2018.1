@@ -14,7 +14,7 @@ public class MenuView extends State	{
 	final String ID = "MenuView"; 
 	FileNavigator fileNavigator;
 	
-	private boolean isHoverBtnStart, isMapLoaded, isMessage = false;
+	private boolean isHoverBtnStart, isMapLoaded, isAlertVisible;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
@@ -27,6 +27,9 @@ public class MenuView extends State	{
 	@Override
 	public void tick() {
 		
+		isMapLoaded = false;
+		isHoverBtnStart = false;		
+		isAlertVisible = false;
 		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 		
 		// Hit box for the Load/Start Button
@@ -63,13 +66,12 @@ public class MenuView extends State	{
 		else
 			g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
 		
-		if(isMessage) {
-			//render a mensagem de erro passando o Graphics e depois seta isMessage = false quando for pra ela sumir
-		}
+		if(isAlertVisible) 
+			MessagePopUp.showAlert("Please, open a map");
 		
-		Text.drawString(g, "Battleship", 500, 500, false, Color.white, Assets.military_font28);
-		isHoverBtnStart = false;		
 		
+		//Text.drawString(g, "Battleship", 500, 500, true, Color.white, Assets.military_font28);
+
 	}
 
 	private void findTheFileAndLoadIt() {
@@ -82,8 +84,7 @@ public class MenuView extends State	{
 			
 		} else if(fileNavigator.getPath() == null) {
 		
-			MessagePopUp message = new MessagePopUp("Where is the file???");
-			isMessage = true;
+			isAlertVisible = true;
 		}
 
 	}

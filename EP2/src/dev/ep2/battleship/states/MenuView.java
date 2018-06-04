@@ -50,8 +50,7 @@ public class MenuView extends State	{
 				isHoverBtnOk = isBtnOkPressed = false;
 				isPopUpVisible = true;
 				alertMessage = "Select your sex";
-			}
-				 		
+			}	 		
 		}
 		
 		if(isBtnRankPressed) {
@@ -77,11 +76,7 @@ public class MenuView extends State	{
 			MessagePopUp.showWarning(alertMessage, g, isHoverBtnOk, isBtnOkPressed);
 		
 		if(isAlertVisible) 
-			MessagePopUp.showAlert(alertMessage);
-		
-		
-			
-			
+			MessagePopUp.showAlert(alertMessage);	
 
 	}
 	

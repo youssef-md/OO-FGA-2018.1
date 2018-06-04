@@ -6,11 +6,13 @@ import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.states.components.Board;
+import dev.ep2.battleship.states.components.LeftPanel;
 
 public class GameView extends State{
 
 	private Player player;
 	private Board board;
+	private LeftPanel leftPanel;
 	private Assets assets;
 	private final String ID = "GameView"; 
 		
@@ -20,6 +22,7 @@ public class GameView extends State{
 		handler.getMouseManager().setLeftPressed(false);
 		assets = new Assets();
 		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
+		leftPanel = new LeftPanel(handler);
 		board = new Board(boardPath, handler);
 	}
 	
@@ -28,6 +31,7 @@ public class GameView extends State{
 	@Override
 	public void tick() {
 		
+		leftPanel.tick();
 		board.tick();  
 		player.tick();		
 		
@@ -42,6 +46,7 @@ public class GameView extends State{
 		g.drawImage(assets.getIconWaveAnimation(), board.BORDER, 0, board.BOARD_RESOLUTION, board.BOARD_RESOLUTION, null);
 		g.drawImage(Assets.filter, board.BORDER, 0, board.BOARD_RESOLUTION, board.BOARD_RESOLUTION, null);
 
+		leftPanel.render(g);
 		board.render(g);
 	}
 

@@ -8,6 +8,7 @@ public class Player extends Creature{
 
 	private Handler handler;
 	public static char sex = 'x';
+	public static boolean isQPressed, isWPressed, isEPressed, isRPressed;
 	
 	public Player(Handler handler, int x, int y) {
 		
@@ -19,21 +20,20 @@ public class Player extends Creature{
 
 	public void tick() {
 		
-		if(handler.getKeyManager().Q) {
-			System.out.println("Atacar uma posição do tabuleiro");
-		}
+		isQPressed = isWPressed = isEPressed = isRPressed = false;
 		
-		if(handler.getKeyManager().W) { 
-			System.out.println("Descobrir se há uma embarcação inimiga em uma área 2x2 do tabuleiro;");
-		}
+		if(handler.getKeyManager().Q) 
+			isQPressed = true;
 		
-		if(handler.getKeyManager().E) {
-			System.out.println("Atacar uma área 2x2 do tabuleiro");
-		}
+		if(handler.getKeyManager().W) 
+			isWPressed = true;
 		
-		if(handler.getKeyManager().R) { 
-			System.out.println("Atacar uma linha/coluna completa do tabuleiro");
-		}
+		if(handler.getKeyManager().E) 
+			isEPressed = true;		
+		
+		if(handler.getKeyManager().R)
+			isRPressed = true;
+		
 	}
 
 	public void render(Graphics g) {

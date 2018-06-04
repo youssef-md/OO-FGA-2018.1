@@ -13,12 +13,9 @@ public class HitBoxHelper {
 	
 	public boolean hoverHitBox(int x1, int x2, int y1, int y2) {
 		
-		if(handler.getMouseManager().getMouseX() > x1 && handler.getMouseManager().getMouseX() < x2) {
-			if(handler.getMouseManager().getMouseY() > y1 && handler.getMouseManager().getMouseY() < y2) {
-				
+		if(handler.getMouseManager().getMouseX() > x1 && handler.getMouseManager().getMouseX() < x2) 
+			if(handler.getMouseManager().getMouseY() > y1 && handler.getMouseManager().getMouseY() < y2) 
 				return true;	
-			}
-		}
 		
 		return false;
 	}

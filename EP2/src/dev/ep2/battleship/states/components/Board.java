@@ -24,6 +24,8 @@ public class Board {
 		
 		this.handler = handler;
 		loadAndSetTheBoard(path);
+		targetWidth = BOARD_RESOLUTION / numberOfTargetX; // Responsiveness for the targets based on the given dimension 
+		targetHeight = BOARD_RESOLUTION / numberOfTargetY; 
 	}
 	
 	public void tick() {
@@ -44,9 +46,8 @@ public class Board {
 	
 	public void render(Graphics g) {
 		
-		// Responsiveness for the targets based on the given dimension 
-		targetWidth = BOARD_RESOLUTION / numberOfTargetX; 
-		targetHeight = BOARD_RESOLUTION / numberOfTargetY; 
+		
+		
 		
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {

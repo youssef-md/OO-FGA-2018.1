@@ -14,11 +14,14 @@ import dev.ep2.battleship.states.components.MessagePopUp;
 
 public class MenuView extends State	{
 
-	final String ID = "MenuView"; 
+	private final String ID = "MenuView"; 
 	FileNavigator fileNavigator;
 	
+	private String alertMessage;
 	private boolean isHoverMale, isHoverFemale, isMalePressed, isFemalePressed;
-	private boolean isHoverBtnStart, isMapLoaded, isAlertVisible;
+	private boolean isHoverBtnStart, isBtnStartPressed, isHoverBtnRank, isBtnRankPressed, isMapLoaded;
+	private boolean isHoverBtnOk, isBtnOkPressed;
+	public static boolean isAlertVisible, isPopUpVisible;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
@@ -34,42 +37,33 @@ public class MenuView extends State	{
 			
 		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 		
-
-				
-		isHoverMale = hoverHitBox(619, 712, 511, 576);
-		isHoverFemale = hoverHitBox(720, 815, 511, 576);
-		
-		if(!isMalePressed && !isFemalePressed) isMalePressed = clickHitBox(619, 712, 511, 576);
-		if(!isFemalePressed && !isMalePressed) isFemalePressed = clickHitBox(720, 815, 511, 576);
-		
-		setPlayerSex();
-		
-		
-		System.out.println(Player.sex);
-		// Hit box for the Load/Start Button
-		/*
-		if(handler.getMouseManager().getMouseX() >= 530 && handler.getMouseManager().getMouseX() <= 862) {
-			if(handler.getMouseManager().getMouseY() >= 506 && handler.getMouseManager().getMouseY() <= 612) {
-
-				isHoverBtnStart = true;
-				
-				if(handler.getMouseManager().isLeftPressed()) { //click
+		if(!isPopUpVisible) {
+			updateUserSexOption();
+			updateBtnStartAndRank();
+		} else 
+			updateBtnOkWarning();
 					
-					findTheFileAndLoadIt();
-					if(isMapLoaded)
-						handler.getRoute().setView(handler.getGameView()); 		
-					
-				} 	
-			}
+		if(isBtnStartPressed) {
+			if(isMalePressed || isFemalePressed) { 
+				findTheFileAndLoadIt();
+				if(isMapLoaded)
+					handler.getRoute().setView(handler.getGameView());
+			} else { 
+				isHoverBtnOk = isBtnOkPressed = false;
+				isPopUpVisible = true;
+				alertMessage = "Select your sex";
+			} 		
 		}
-		 */
 		
-	
+		if(isBtnRankPressed) {
+			//carregar a View de Rank e carregar o arquivo e usar fontes pra renderizar
+			System.out.println("Rank click");
+		}
+			
 	}
 
 	@Override
 	public void render(Graphics g) {
-		
 		
 		g.drawImage(assets.getIconWaveAnimation(), 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
 		g.drawImage(Assets.game_title, 490, 20, 460, 200, null);
@@ -77,22 +71,47 @@ public class MenuView extends State	{
 		
 		renderUserAvatar(g);
 		renderUserSexOption(g);
+		renderStartButton(g);
+		renderRankButton(g);
 		
-		
-	
-		/*
-		if(isHoverBtnStart)
-			g.drawImage(Assets.btn_start_hover, 520, 500, 350, 130, null);
-		else
-			g.drawImage(Assets.btn_start, 520, 500, 350, 130, null);
-		*/
+		if(isPopUpVisible)
+			MessagePopUp.showWarning(alertMessage, g, isHoverBtnOk, isBtnOkPressed);
 		
 		if(isAlertVisible) 
-			MessagePopUp.showAlert("Please, open a map");
+			MessagePopUp.showAlert(alertMessage);
 		
 		
-		//Text.drawString(g, "Battleship", 500, 500, true, Color.white, Assets.military_font28);
+			
+			
 
+	}
+	
+	private void updateUserSexOption() {
+		
+		isHoverMale = hoverHitBox(619, 712, 511, 576);
+		isHoverFemale = hoverHitBox(720, 815, 511, 576);
+		
+		if(!isMalePressed && !isFemalePressed) {
+			isMalePressed = clickHitBox(619, 712, 511, 576);
+			isFemalePressed = clickHitBox(720, 815, 511, 576);
+			setPlayerSex();
+		}
+	}
+	
+	private void updateBtnStartAndRank() {
+		
+		isHoverBtnStart = hoverHitBox(595, 838, 615, 703);
+		isBtnStartPressed = clickHitBox(595, 838, 615, 703);
+		isHoverBtnRank = hoverHitBox(595, 838, 734, 821);
+		isBtnRankPressed = clickHitBox(595, 838, 734, 821);
+	}
+	
+	private void updateBtnOkWarning() {
+		
+		isBtnStartPressed = isHoverBtnStart = isBtnRankPressed = isHoverBtnRank = false;
+		isHoverMale = isHoverFemale = isMalePressed = isFemalePressed = false;
+		isHoverBtnOk = hoverHitBox(624, 818, 483, 544);
+		isBtnOkPressed = clickHitBox(624, 818, 483, 544);
 	}
 	
 	private boolean hoverHitBox(int x1, int x2, int y1, int y2) {
@@ -132,6 +151,7 @@ public class MenuView extends State	{
 		} else if(fileNavigator.getPath() == null) {
 		
 			isAlertVisible = true;
+			alertMessage = "Select a map";
 		}
 
 	}
@@ -165,12 +185,29 @@ public class MenuView extends State	{
 		if(isFemalePressed)
 			g.drawImage(Assets.btn_fem_pressed, 617, 510, 200, 70, null);
 	}
-			
+		
+	private void renderStartButton(Graphics g) {
+		
+		if(!isHoverBtnStart)
+			g.drawImage(Assets.btn_start, 593, 610, 250, 100, null);
+		else
+			g.drawImage(Assets.btn_start_hover, 593, 610, 250, 100, null);
+	}
+	
+	private void renderRankButton(Graphics g) {
+		
+		if(!isHoverBtnRank)
+			g.drawImage(Assets.btn_rank, 593, 730, 250, 98, null);
+		else
+			g.drawImage(Assets.btn_rank_hover, 593, 730, 250, 98, null);
+	}
+		
 	
 	@Override
 	public String getID() {
 		
 		return ID;
 	}
+	
 
 }

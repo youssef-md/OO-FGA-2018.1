@@ -15,7 +15,7 @@ import dev.ep2.battleship.Handler;
 public class Game extends Canvas implements Runnable {
 	
 	private boolean running = false;
-	private Display display;
+	public Display display;
 	public int width, height;
 	public String title;
 	
@@ -106,6 +106,7 @@ public class Game extends Canvas implements Runnable {
 	private void init() {
 		
 		display = new Display(width, height);
+		display.createDisplay();
 		display.getFrame().addKeyListener(keyManager); // KeyManager implements KeyListener
 		display.getFrame().addMouseListener(mouseManager);
 		display.getCanvas().addMouseListener(mouseManager);

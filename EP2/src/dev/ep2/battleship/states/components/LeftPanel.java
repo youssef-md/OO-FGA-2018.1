@@ -11,7 +11,7 @@ import dev.ep2.battleship.gfx.Text;
 public class LeftPanel {
 
 	private Handler handler;
-	private boolean isSingleShotPressed, isRadarPressed, isAreaShotPressed, isAirstrikePressed, isAirstrikeVertPressed, isAirstrikeHorzPressed;
+	private boolean isSingleShotPressed, isRadarPressed, isShotInArea, isAirstrikePressed, isAirstrikeVertPressed, isAirstrikeHorzPressed;
 	
 	
 	public LeftPanel(Handler handler) {
@@ -24,11 +24,45 @@ public class LeftPanel {
 		
 		//System.out.println("Q: " + Player.isQPressed + " W: " + Player.isWPressed + " E: " + Player.isEPressed + " R: " + Player.isRPressed);
 		
+		if(Player.isQPressed) {
+			isSingleShotPressed = true;
+			isRadarPressed = isShotInArea = isAirstrikePressed = false;
+		}
+			
+		if(Player.isWPressed) {
+			isRadarPressed = true;
+			isSingleShotPressed = isShotInArea = isAirstrikePressed = false;
+		}
+			
+		if(Player.isEPressed) {
+			isShotInArea = true;
+			isSingleShotPressed = isRadarPressed = isAirstrikePressed = false;
+		}
+		
+		if(Player.isRPressed) {
+			isAirstrikePressed = true;
+			isSingleShotPressed = isRadarPressed = isShotInArea = false;
+		}
+			
+		
+		if(handler.getMouseManager().isLeftPressed()) 
+			isSingleShotPressed = isRadarPressed = isShotInArea = isAirstrikePressed = false;
+		
+			
+		
+		
+			
 	}
 	
 	public void render(Graphics g) {
 		
 		g.drawImage(Assets.left_panel, 0, 0, null);
+		renderPlayerData(g);
+		renderStrategies(g);	
+		
+	}
+	
+	private void renderPlayerData(Graphics g) {
 		
 		if(Player.sex == 'M')
 			g.drawImage(Assets.avatar_male_ingame, 25, 25, 250, 250, null);
@@ -37,25 +71,59 @@ public class LeftPanel {
 		
 		Text.drawString(g, "cpt.youssef", 150, 300, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "points", 150, 365, true, Color.white, Assets.military_font40);
-		Text.drawString(g, "9999", 150, 429, true, new Color(99, 184, 203), Assets.military_font50);
+		Text.drawString(g, "9999", 150, 429, true, new Color(83, 125, 80), Assets.military_font50);
+	}
+	
+	private void renderStrategies(Graphics g) {
 		
+		renderSingleShot(g);		
+		renderRadar(g);
+		renderShotInArea(g);
+		renderAirStrike(g);
+	}
+	
+	private void renderSingleShot(Graphics g) {
 		
-		g.drawImage(Assets.btn_single_shot, 25, 479, 75, 75, null);
+		if(!isSingleShotPressed)
+			g.drawImage(Assets.btn_single_shot, 25, 479, 75, 75, null);
+		else
+			g.drawImage(Assets.btn_single_shot_pressed, 25, 479, 75, 75, null);
+
 		Text.drawString(g, "single shot", 195, 504, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "hit Q", 141, 534, true, Color.white, Assets.military_font30);
+	}
+	
+	private void renderRadar(Graphics g) {
 		
-		g.drawImage(Assets.btn_radar, 25, 565, 75, 75, null);
+		if(!isRadarPressed)
+			g.drawImage(Assets.btn_radar, 25, 565, 75, 75, null);
+		else
+			g.drawImage(Assets.btn_radar_pressed, 25, 565, 75, 75, null);
+		
 		Text.drawString(g, "Radar 2x2", 185, 590, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "hit W", 148, 620, true, Color.white, Assets.military_font30);
+	}
+	
+	private void renderShotInArea(Graphics g) {
+	
+		if(!isShotInArea)
+			g.drawImage(Assets.btn_area_shot, 25, 650, 75, 75, null);
+		else
+			g.drawImage(Assets.btn_area_shot_pressed, 25, 650, 75, 75, null);
 		
-		g.drawImage(Assets.btn_area_shot, 25, 650, 75, 75, null);
 		Text.drawString(g, "shot in area", 198, 675, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "hit E", 141, 704, true, Color.white, Assets.military_font30);
+	}
+	
+	private void renderAirStrike(Graphics g) {
 		
-		g.drawImage(Assets.btn_airstrike, 25, 735, 75, 75, null);
+		if(!isAirstrikePressed)
+			g.drawImage(Assets.btn_airstrike, 25, 735, 75, 75, null);
+		else
+			g.drawImage(Assets.btn_airstrike_pressed, 25, 735, 75, 75, null);
+		
 		Text.drawString(g, "Airstrike", 178, 760, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "hit R", 141, 789, true, Color.white, Assets.military_font30);
-		
-		
 	}
+	
 }

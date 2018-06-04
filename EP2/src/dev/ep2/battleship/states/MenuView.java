@@ -1,21 +1,19 @@
 package dev.ep2.battleship.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
-
-import javax.swing.JTextField;
 
 import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
-import dev.ep2.battleship.gfx.Text;
+import dev.ep2.battleship.helpers.HitBoxHelper;
 import dev.ep2.battleship.states.components.FileNavigator;
 import dev.ep2.battleship.states.components.MessagePopUp;
 
 public class MenuView extends State	{
 
 	private final String ID = "MenuView"; 
-	FileNavigator fileNavigator;
+	private FileNavigator fileNavigator;
+	private HitBoxHelper hitbox;
 	
 	private String alertMessage;
 	private boolean isHoverMale, isHoverFemale, isMalePressed, isFemalePressed;
@@ -28,8 +26,8 @@ public class MenuView extends State	{
 		
 		super(handler);
 		assets = new Assets();
-		fileNavigator = new FileNavigator();
-
+		hitbox = new HitBoxHelper(handler);
+		fileNavigator = new FileNavigator();		
 	}
 	
 	@Override
@@ -52,7 +50,8 @@ public class MenuView extends State	{
 				isHoverBtnOk = isBtnOkPressed = false;
 				isPopUpVisible = true;
 				alertMessage = "Select your sex";
-			} 		
+			}
+				 		
 		}
 		
 		if(isBtnRankPressed) {
@@ -88,51 +87,33 @@ public class MenuView extends State	{
 	
 	private void updateUserSexOption() {
 		
-		isHoverMale = hoverHitBox(619, 712, 511, 576);
-		isHoverFemale = hoverHitBox(720, 815, 511, 576);
+		isHoverMale = hitbox.hoverHitBox(619, 712, 511, 576);
+		isHoverFemale = hitbox.hoverHitBox(720, 815, 511, 576);
 		
 		if(!isMalePressed && !isFemalePressed) {
-			isMalePressed = clickHitBox(619, 712, 511, 576);
-			isFemalePressed = clickHitBox(720, 815, 511, 576);
+			isMalePressed = hitbox.clickHitBox(619, 712, 511, 576);
+			isFemalePressed = hitbox.clickHitBox(720, 815, 511, 576);
 			setPlayerSex();
 		}
 	}
 	
 	private void updateBtnStartAndRank() {
 		
-		isHoverBtnStart = hoverHitBox(595, 838, 615, 703);
-		isBtnStartPressed = clickHitBox(595, 838, 615, 703);
-		isHoverBtnRank = hoverHitBox(595, 838, 734, 821);
-		isBtnRankPressed = clickHitBox(595, 838, 734, 821);
+		isHoverBtnStart = hitbox.hoverHitBox(595, 838, 615, 703);
+		isBtnStartPressed = hitbox.clickHitBox(595, 838, 615, 703);
+		isHoverBtnRank = hitbox.hoverHitBox(595, 838, 734, 821);
+		isBtnRankPressed = hitbox.clickHitBox(595, 838, 734, 821);
 	}
 	
 	private void updateBtnOkWarning() {
 		
 		isBtnStartPressed = isHoverBtnStart = isBtnRankPressed = isHoverBtnRank = false;
 		isHoverMale = isHoverFemale = isMalePressed = isFemalePressed = false;
-		isHoverBtnOk = hoverHitBox(624, 818, 483, 544);
-		isBtnOkPressed = clickHitBox(624, 818, 483, 544);
+		isHoverBtnOk = hitbox.hoverHitBox(624, 818, 483, 544);
+		isBtnOkPressed = hitbox.clickHitBox(624, 818, 483, 544);
 	}
 	
-	private boolean hoverHitBox(int x1, int x2, int y1, int y2) {
-		
-		if(handler.getMouseManager().getMouseX() > x1 && handler.getMouseManager().getMouseX() < x2) {
-			if(handler.getMouseManager().getMouseY() > y1 && handler.getMouseManager().getMouseY() < y2) {
-				
-				return true;	
-			}
-		}
-		
-		return false;
-	}
 	
-	private boolean clickHitBox(int x1, int x2, int y1, int y2) {
-		
-		if(hoverHitBox(x1, x2, y1, y2) && handler.getMouseManager().isLeftPressed())
-			return true;
-		
-		return false;
-	}
 
 	private void setPlayerSex() {
 		

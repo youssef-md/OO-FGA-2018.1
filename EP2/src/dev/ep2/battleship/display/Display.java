@@ -2,8 +2,11 @@ package dev.ep2.battleship.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 
 public class Display {
@@ -12,15 +15,15 @@ public class Display {
 	private Canvas canvas;
 	private int frameWidth, frameHeight;
 	
+	
 	public Display(int width, int height) {
 		
 		this.frameWidth = width;
 		this.frameHeight = height;
 		
-		createDisplay();
 	}
 	
-	private void createDisplay() {
+	public void createDisplay() {
 		
 		frame = new JFrame();
 		frame.setSize(frameWidth, frameHeight);
@@ -35,7 +38,7 @@ public class Display {
 		canvas.setMaximumSize(new Dimension(frameWidth, frameHeight));
 		
 		canvas.setFocusable(false);
-		frame.add(canvas); //Appending canvas to the JFrame
+		frame.add(canvas);
 		frame.pack();
 		
 	}

@@ -7,13 +7,14 @@ import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.states.components.Board;
 import dev.ep2.battleship.states.components.LeftPanel;
+import dev.ep2.battleship.states.components.MessagePopUp;
 
 public class GameView extends State{
 
-	private Player player;
 	private Board board;
 	private LeftPanel leftPanel;
 	private Assets assets;
+	private MessagePopUp messagePopUp;
 	private final String ID = "GameView"; 
 		
 	public GameView(Handler handler, String boardPath) {
@@ -21,9 +22,10 @@ public class GameView extends State{
 		super(handler);	
 		handler.getMouseManager().setLeftPressed(false);
 		assets = new Assets();
-		player = new Player(handler, 30, 150); //(x,y) para posicionar o hp do player
+		handler.setPlayer(new Player(handler, 30, 150)); //(x,y) para posicionar o hp do player
 		leftPanel = new LeftPanel(handler);
 		board = new Board(boardPath, handler);
+		messagePopUp = new MessagePopUp(handler);
 	}
 	
 
@@ -33,7 +35,7 @@ public class GameView extends State{
 		
 		leftPanel.tick();
 		board.tick();  
-		player.tick();		
+		handler.getPlayer().tick();		
 		
 		//System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
 	}
@@ -48,6 +50,11 @@ public class GameView extends State{
 
 		leftPanel.render(g);
 		board.render(g);
+		if(handler.getPlayer().getPoints() <= 0) {
+			messagePopUp.youLose("you lost", g);
+		}
+			//salvar os pontos num arquivo e fechar o jogo
+			
 	}
 
 	@Override

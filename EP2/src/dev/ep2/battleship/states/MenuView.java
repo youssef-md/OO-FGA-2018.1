@@ -14,12 +14,11 @@ public class MenuView extends State	{
 	private final String ID = "MenuView"; 
 	private FileNavigator fileNavigator;
 	private HitBoxHelper hitbox;
-	
+	private MessagePopUp messagePopUp;
 	private String alertMessage;
 	private boolean isHoverMale, isHoverFemale, isMalePressed, isFemalePressed;
 	private boolean isHoverBtnStart, isBtnStartPressed, isHoverBtnRank, isBtnRankPressed, isMapLoaded;
-	private boolean isHoverBtnOk, isBtnOkPressed;
-	public static boolean isAlertVisible, isPopUpVisible;
+	private boolean isPopUpVisible, isAlertVisible;
 	
 	Assets assets;
 	public MenuView(Handler handler) {
@@ -27,7 +26,11 @@ public class MenuView extends State	{
 		super(handler);
 		assets = new Assets();
 		hitbox = new HitBoxHelper(handler);
+		messagePopUp = new MessagePopUp(handler);
 		fileNavigator = new FileNavigator();		
+		isPopUpVisible = false;
+		isAlertVisible = false;
+		
 	}
 	
 	@Override
@@ -39,7 +42,7 @@ public class MenuView extends State	{
 			updateUserSexOption();
 			updateBtnStartAndRank();
 		} else 
-			updateBtnOkWarning();
+			resetFlags();
 					
 		if(isBtnStartPressed) {
 			if(isMalePressed || isFemalePressed) { 
@@ -47,7 +50,6 @@ public class MenuView extends State	{
 				if(isMapLoaded)
 					handler.getRoute().setView(handler.getGameView());
 			} else { 
-				isHoverBtnOk = isBtnOkPressed = false;
 				isPopUpVisible = true;
 				alertMessage = "Select your sex";
 			}	 		
@@ -73,10 +75,10 @@ public class MenuView extends State	{
 		renderRankButton(g);
 		
 		if(isPopUpVisible)
-			MessagePopUp.showWarning(alertMessage, g, isHoverBtnOk, isBtnOkPressed);
+			isPopUpVisible = messagePopUp.makeWarningVisible(alertMessage, g);
 		
 		if(isAlertVisible) 
-			MessagePopUp.showAlert(alertMessage);	
+			isAlertVisible = messagePopUp.showAlert(alertMessage);	
 
 	}
 	
@@ -100,16 +102,12 @@ public class MenuView extends State	{
 		isBtnRankPressed = hitbox.clickHitBox(595, 838, 734, 821);
 	}
 	
-	private void updateBtnOkWarning() {
+	private void resetFlags() {
 		
 		isBtnStartPressed = isHoverBtnStart = isBtnRankPressed = isHoverBtnRank = false;
 		isHoverMale = isHoverFemale = isMalePressed = isFemalePressed = false;
-		isHoverBtnOk = hitbox.hoverHitBox(624, 818, 483, 544);
-		isBtnOkPressed = hitbox.clickHitBox(624, 818, 483, 544);
 	}
 	
-	
-
 	private void setPlayerSex() {
 		
 		if(isMalePressed) Player.sex = 'M';
@@ -178,7 +176,6 @@ public class MenuView extends State	{
 			g.drawImage(Assets.btn_rank_hover, 593, 730, 250, 98, null);
 	}
 		
-	
 	@Override
 	public String getID() {
 		

@@ -11,7 +11,7 @@ import dev.ep2.battleship.gfx.Text;
 public class LeftPanel {
 
 	private Handler handler;
-	private boolean isSingleShotPressed, isRadarPressed, isShotInArea, isAirstrikePressed, isAirstrikeVertPressed, isAirstrikeHorzPressed;
+	public static boolean isSingleShotPressed, isRadarPressed, isShotInAreaPressed, isAirstrikePressed, isAirstrikeVertPressed, isAirstrikeHorzPressed;
 	
 	
 	public LeftPanel(Handler handler) {
@@ -26,27 +26,27 @@ public class LeftPanel {
 		
 		if(Player.isQPressed) {
 			isSingleShotPressed = true;
-			isRadarPressed = isShotInArea = isAirstrikePressed = false;
+			isRadarPressed = isShotInAreaPressed = isAirstrikePressed = false;
 		}
 			
 		if(Player.isWPressed) {
 			isRadarPressed = true;
-			isSingleShotPressed = isShotInArea = isAirstrikePressed = false;
+			isSingleShotPressed = isShotInAreaPressed = isAirstrikePressed = false;
 		}
 			
 		if(Player.isEPressed) {
-			isShotInArea = true;
+			isShotInAreaPressed = true;
 			isSingleShotPressed = isRadarPressed = isAirstrikePressed = false;
 		}
 		
 		if(Player.isRPressed) {
 			isAirstrikePressed = true;
-			isSingleShotPressed = isRadarPressed = isShotInArea = false;
+			isSingleShotPressed = isRadarPressed = isShotInAreaPressed = false;
 		}
 			
 		
 		if(handler.getMouseManager().isLeftPressed()) 
-			isSingleShotPressed = isRadarPressed = isShotInArea = isAirstrikePressed = false;
+			isSingleShotPressed = isRadarPressed = isShotInAreaPressed = isAirstrikePressed = false;
 		
 			
 		
@@ -71,7 +71,7 @@ public class LeftPanel {
 		
 		Text.drawString(g, "cpt.youssef", 150, 300, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "points", 150, 365, true, Color.white, Assets.military_font40);
-		Text.drawString(g, "9999", 150, 429, true, new Color(83, 125, 80), Assets.military_font50);
+		Text.drawString(g, handler.getPlayer().getPointsToString(), 150, 429, true, new Color(83, 125, 80), Assets.military_font50);
 	}
 	
 	private void renderStrategies(Graphics g) {
@@ -106,7 +106,7 @@ public class LeftPanel {
 	
 	private void renderShotInArea(Graphics g) {
 	
-		if(!isShotInArea)
+		if(!isShotInAreaPressed)
 			g.drawImage(Assets.btn_area_shot, 25, 650, 75, 75, null);
 		else
 			g.drawImage(Assets.btn_area_shot_pressed, 25, 650, 75, 75, null);

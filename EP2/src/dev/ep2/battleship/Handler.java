@@ -1,5 +1,6 @@
 package dev.ep2.battleship;
 
+import dev.ep2.battleship.entities.creatures.Player;
 import dev.ep2.battleship.input.KeyManager;
 import dev.ep2.battleship.input.MouseManager;
 import dev.ep2.battleship.states.GameView;
@@ -12,6 +13,7 @@ public class Handler {
 	private Route route;
 	private GameView gameView;
 	private MenuView menuView;
+	private Player player;
 	
 	public Handler(Game game) {
 		
@@ -25,6 +27,15 @@ public class Handler {
 		gameView = new GameView(this, boardPath);
 	}
 	
+	public void setPlayer(Player player) {
+		
+		this.player = player;
+	}
+	
+	public Player getPlayer() {
+		
+		return player;
+	}
 	
 	public Route getRoute() {
 		

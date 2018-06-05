@@ -50,7 +50,7 @@ public class Welcome {
 
 				input = textField.getText();
 				Game game = new Game("Battleship", 1440, 840);
-				
+				// salvar o nome do jogador num txt e no inicio da Game ler ele e settar juntamente para o futuro rank dele
 				frame.dispose();
 				game.start();
 			}

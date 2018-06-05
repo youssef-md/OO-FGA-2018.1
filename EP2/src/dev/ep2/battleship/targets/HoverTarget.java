@@ -2,11 +2,11 @@ package dev.ep2.battleship.targets;
 
 import dev.ep2.battleship.gfx.Assets;
 
-public class PCTurnTarget extends Target {
+public class HoverTarget extends Target {
 
-	public PCTurnTarget(int ID) {
+	public HoverTarget(int ID) {
 
-		super(Assets.pc_turn_target, ID);
+		super(Assets.hover_target, ID);
 	}
 
 	

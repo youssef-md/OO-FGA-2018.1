@@ -2,10 +2,10 @@ package dev.ep2.battleship.targets;
 
 import dev.ep2.battleship.gfx.Assets;
 
-public class UserTurnTarget extends Target {
+public class WaveTarget extends Target {
 
-	public UserTurnTarget(int ID) {
+	public WaveTarget(int ID) {
 		
-		super(Assets.user_turn_target, ID);
+		super(Assets.wave_target, ID);
 	}
 }

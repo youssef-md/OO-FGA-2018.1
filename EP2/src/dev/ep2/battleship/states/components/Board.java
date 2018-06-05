@@ -22,6 +22,7 @@ public class Board {
 	
 	private int[][] board;
 	private int[][] ships;
+	private boolean[][] hover;
 	
 	public Board(String path, Handler handler) {
 		
@@ -31,7 +32,7 @@ public class Board {
 		loadAndSetTheBoard(path);
 		targetWidth = BOARD_RESOLUTION / numberOfTargetX; // Responsiveness for the targets based on the given dimension 
 		targetHeight = BOARD_RESOLUTION / numberOfTargetY; 
-
+		
 	}
 	
 	public void tick() {
@@ -45,6 +46,10 @@ public class Board {
 		checkIfThereIsPointAvailable();
 		checkIfTheUserCanShoot();
 		checkIfItIsAValidShot();
+		
+		System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
+		System.out.println("TargetW: " + targetWidth + " TargetH: " +targetHeight);
+
 		
 		//System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
 							
@@ -63,12 +68,29 @@ public class Board {
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				
+				hoverGameplayHelper(x, y);
 				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
+				
 			}
 		}
 	}
 	
- 	private void loadAndSetTheBoard(String path) {
+	private void hoverGameplayHelper(int x, int y) {
+		
+		hover = new boolean[numberOfTargetX][numberOfTargetY];
+		
+		if(selectedStrategy == "single_shot") {
+			if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1))))
+				if(board[x][y] == 0)
+					hover[x][y] = true;
+			
+			else 
+				hover[x][y] = false;
+				
+		}
+	}
+	
+  	private void loadAndSetTheBoard(String path) {
 		
 		String file = FileHelper.loadFileAsString(path);
 		String[] tokens = file.split("\\s+"); 
@@ -92,13 +114,16 @@ public class Board {
 		
 		 // passar o retorno mais pra baixo para que seja possível modificar a cor dos barcos
 		
-		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
-
-		if(target == null)
-			return Target.userTurnTarget;
 		
-		if(ships[x][y] != 0) 
-			 return Target.targets[1];
+		
+		if(hover[x][y] == true)
+			return Target.targets[2];
+		
+		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
+		
+		if(target == null)
+			return Target.waveTarget;
+	
 		
 		return target;
 	}
@@ -107,10 +132,14 @@ public class Board {
 		
 		//System.out.println("single shot: " +LeftPanel.isSingleShotPressed + " radar: " + LeftPanel.isRadarPressed + " area: " + LeftPanel.isShotInArea + " airstrike: " + LeftPanel.isAirstrikePressed);
 		
+		
 		if(isStrategySelected) {
 			targetShotX = (x - BORDER) / targetWidth;
 			targetShotY = y / targetHeight;
-			board[targetShotX][targetShotY] = 2;	
+			
+			if(selectedStrategy == "single_shot") {
+				board[targetShotX][targetShotY] = 3;	
+			}	
 		}
 		
 		isStrategySelected = false;

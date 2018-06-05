@@ -11,9 +11,9 @@ public class Target {
 	
 	public static Target[] targets	= new Target[5];
 	
-	public static Target userTurnTarget = new UserTurnTarget(0);
-	public static Target pcTurnTarget = new PCTurnTarget(1);
-	public static Target hitTarget = new HitTarget(2);
+	public static Target waveTarget = new WaveTarget(0);
+	public static Target hitTarget = new HitTarget(1);
+	public static Target hoverTarget = new HoverTarget(2);
 	public static Target sinkTarget = new SinkTarget(3);
 
 	

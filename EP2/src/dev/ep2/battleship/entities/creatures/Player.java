@@ -7,6 +7,7 @@ import dev.ep2.battleship.Handler;
 public class Player extends Creature{
 
 	private Handler handler;
+	private String name;
 	private int points = 1000;
 	public static char sex = 'x';
 	public static boolean isQPressed, isWPressed, isEPressed, isRPressed;
@@ -39,7 +40,6 @@ public class Player extends Creature{
 
 	public void render(Graphics g) {
 		
-		//desenhar o hp e as estratégias
 	}	
 	
 	public int getPoints() {
@@ -57,5 +57,11 @@ public class Player extends Creature{
 		return Integer.toString(points);
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 	
+	public String getName() {
+		return name;
+	}
 }

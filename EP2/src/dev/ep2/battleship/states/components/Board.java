@@ -67,27 +67,20 @@ public class Board {
 		
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
-				
-				hoverGameplayHelper(x, y);
+
 				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
-				
+				hoverGameplayHelper(x, y);
 			}
 		}
 	}
 	
 	private void hoverGameplayHelper(int x, int y) {
 		
-		hover = new boolean[numberOfTargetX][numberOfTargetY];
 		
-		if(selectedStrategy == "single_shot") {
-			if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1))))
-				if(board[x][y] == 0)
-					hover[x][y] = true;
-			
-			else 
-				hover[x][y] = false;
-				
-		}
+		if(selectedStrategy == "single_shot")  
+			hoverForSingleShot(x, y);
+		else if(selectedStrategy == "radar")
+			hoverForRadar(x, y);
 	}
 	
   	private void loadAndSetTheBoard(String path) {
@@ -100,6 +93,7 @@ public class Board {
 		
 		board = new int[numberOfTargetX][numberOfTargetY];
 		ships = new int[numberOfTargetX][numberOfTargetY];
+		hover = new boolean[numberOfTargetX][numberOfTargetY];
 		
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
@@ -113,11 +107,10 @@ public class Board {
 	public Target getTarget(int x, int y) {
 		
 		 // passar o retorno mais pra baixo para que seja possível modificar a cor dos barcos
-		
-		
-		
+			
 		if(hover[x][y] == true)
 			return Target.targets[2];
+
 		
 		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
 		
@@ -127,6 +120,7 @@ public class Board {
 		
 		return target;
 	}
+
 	
 	private void setShot(int x, int y) {
 		
@@ -146,6 +140,52 @@ public class Board {
 		isClickOnBoard = false;
 	}
 
+	private void hoverForSingleShot(int x, int y) {
+		
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) {
+			if(board[x][y] == 0)
+				hover[x][y] = true;
+		
+		}else {
+			hover[x][y] = false;
+		}
+	}
+	
+	private void hoverForRadar(int x, int y) {
+		
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) {
+			
+			if((y + 1 < numberOfTargetY) && !(x == numberOfTargetX - 1)) {
+				hover[x][y] = true;
+				hover[x][y + 1] = true;
+				hover[x + 1][y] = true;
+				hover[x + 1][y + 1] = true;
+					
+			}else if((y == numberOfTargetY - 1) && !(x == numberOfTargetX - 1)) {
+				hover[x][y] = true;
+				hover[x + 1][y] = true;
+				hover[x][y - 1] = true;
+				hover[x + 1][y - 1] = true;
+				
+			}else if((x == numberOfTargetX - 1) && !(y == numberOfTargetY - 1)) {
+				hover[x][y] = true;
+				hover[x - 1][y] = true;
+				hover[x][y + 1] = true;
+				hover[x - 1][y + 1] = true;
+				
+			}else if((x == numberOfTargetX - 1) && (y == numberOfTargetY - 1)) {
+				hover[x][y] = true;
+				hover[x - 1][y] = true;
+				hover[x][y - 1] = true;
+				hover[x - 1][y - 1] = true;
+			}
+			
+		} else {
+			hover[x][y] = false;
+		}
+		
+	}
+	
 	private void checkIfTheUserCanShoot() {
 		
 		if(isClickOnBoard && isStrategySelected && !isPointAvailable) {

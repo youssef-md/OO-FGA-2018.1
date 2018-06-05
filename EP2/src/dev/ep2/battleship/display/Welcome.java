@@ -50,7 +50,7 @@ public class Welcome {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game game = new Game("Battleship", 1440, 840);
+				Game game = new Game("Battleship", 1140, 840);
 				
 				PrintWriter writer = null;
 				

@@ -36,29 +36,20 @@ public class Board {
 	
 	public void tick() {
 		
-		//variaveis para verificar se é clicavel, e para definir qual bloco renderizar	
-		
-		if(LeftPanel.isSingleShotPressed || LeftPanel.isRadarPressed || LeftPanel.isShotInAreaPressed || LeftPanel.isAirstrikePressed) 
-			isStrategySelected = true;
+		checkIfUserSelectedAStrategy();
 		gettingTheSelectedStrategy();
-		checkingIfThereIsPointAvailable();
+		checkIfThereIsPointAvailable();
 		
 		if(isPointAvailable)
 			isClickOnBoard = hitbox.clickHitBox(300, 1140, 0, 840);
-				
+
+		checkIfTheClickIsOutOfBoard();
+		
 		if(isClickOnBoard && isStrategySelected && isPointAvailable) {
 			setShot(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
 			debitPoints(selectedStrategy);
 		}
-			
-		//usar o Enter ao invés de clicar em Ok
-
-		if(isStrategySelected && (hitbox.clickHitBox(0, 300, 0, 840) || hitbox.clickHitBox(1140, 1440, 0, 840))) {
-			isPopUpVisible = true;
-			alertMessage = "click on the board";
-			//não desconta dinheiro!
-		}
-					
+		
 		//System.out.println("strat: " + isStrategySelected + " onBoard: " + isClickOnBoard + " popup: " + isPopUpVisible);
 							
 	}
@@ -74,7 +65,7 @@ public class Board {
 		}
 		
 		if(!isPointAvailable && isPopUpVisible)
-			isPopUpVisible = messagePopUp.makeWarningVisible("you cant buy the selected strategy", g);
+			isPopUpVisible = messagePopUp.makeWarningVisible(alertMessage, g);
 		
 		if(isPopUpVisible)
 			isPopUpVisible = messagePopUp.makeWarningVisible(alertMessage, g);
@@ -145,7 +136,7 @@ public class Board {
 		
 	}
 
-	private void checkingIfThereIsPointAvailable() {
+	private void checkIfThereIsPointAvailable() {
 		
 		isPointAvailable = true;
 		
@@ -165,6 +156,7 @@ public class Board {
 		if(selectedStrategy == 4)
 			if((handler.getPlayer().getPoints()) < AIRSTRIKE_PRICE)
 				isPointAvailable = false;
+		
 	}
 	
 	private void gettingTheSelectedStrategy() {
@@ -179,5 +171,17 @@ public class Board {
 			selectedStrategy = 4;
 	}
 	
-	
+	private void checkIfTheClickIsOutOfBoard() {
+		
+		if(isStrategySelected && (hitbox.clickHitBox(0, 300, 0, 840) || hitbox.clickHitBox(1140, 1440, 0, 840))) {
+			isPopUpVisible = true;
+			alertMessage = "click on the board";
+		}
+	}
+
+	private void checkIfUserSelectedAStrategy() {
+		
+		if(LeftPanel.isSingleShotPressed || LeftPanel.isRadarPressed || LeftPanel.isShotInAreaPressed || LeftPanel.isAirstrikePressed) 
+			isStrategySelected = true;
+	}
 }

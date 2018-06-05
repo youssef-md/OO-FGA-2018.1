@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener{
 
 	private boolean[] keys;
-	public boolean Q, W, E, R;
+	public boolean Q, W, E, R, ENTER;
 	
 	public KeyManager() {
 		
@@ -19,6 +19,7 @@ public class KeyManager implements KeyListener{
 		W = keys[KeyEvent.VK_W];
 		E = keys[KeyEvent.VK_E];
 		R = keys[KeyEvent.VK_R];
+		ENTER = keys[KeyEvent.VK_ENTER];
 	}
 	
 	@Override

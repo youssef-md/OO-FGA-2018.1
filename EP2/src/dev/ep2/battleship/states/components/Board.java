@@ -24,7 +24,7 @@ public class Board {
 	private int[][] board;
 	private int[][] ships;
 	private boolean[][] shots;
-	private boolean[][] hover;
+
 	
 	public Board(String path, Handler handler) {
 		
@@ -56,7 +56,7 @@ public class Board {
 		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 
 		
-		//System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
+		System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
 							
 	}
 	
@@ -105,7 +105,10 @@ public class Board {
 			hoverFor2x2Area(x, y);
 		else if(selectedStrategy == "shot_in_area")
 			hoverFor2x2Area(x, y);
-		else if(selectedStrategy == "airstrike"); // melhorar: vert ou horz
+		else if(selectedStrategy == "air_horz")
+			hoverForAirStrikeHorz(x, y);
+		else if(selectedStrategy == "air_vert")
+			hoverForAirStrikeVert(x, y);
 	}
 	
   	private void loadAndSetTheBoard(String path) {
@@ -187,14 +190,21 @@ public class Board {
 			hover[x][y] = false;
 		
 	}
-	
-	private void hoverForShotInArea(int x, int y) {
 		
+	private void hoverForAirStrikeHorz(int x, int y) {
 		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
-			matrixSweep(hover,numberOfTargetY, numberOfTargetX, x, y, true);
-		else 
+			for(int i = 0; i < numberOfTargetX; i++) 
+				hover[i][y] = true;
+		else
 			hover[x][y] = false;
-		
+	}
+	
+	private void hoverForAirStrikeVert(int x, int y) {
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
+			for(int i = 0; i < numberOfTargetY; i++) 
+				hover[x][i] = true;
+		else
+			hover[x][y] = false;
 	}
 	
 	private void matrixSweep(boolean[][] matrix, int width, int height, int x, int y, boolean value) {
@@ -293,13 +303,10 @@ public class Board {
 	
 	private void checkWhatIsTheAirStrikeDirection() {
 		
-		
 		isAirVerticalHover = hitbox.hoverHitBox(370, 568, 322, 518);
 		isAirVertical = hitbox.clickHitBox(370, 568, 322, 518);
 		isAirHorizontalHover = hitbox.hoverHitBox(612, 808, 322, 518);
 		isAirHorizontal = hitbox.clickHitBox(612, 808, 322, 518);
-		
-		System.out.println("Air: " + isAirStrike + " vert: " + isAirVertical + " horz: "  + isAirHorizontal);
 		
 		if(isAirVertical)
 			selectedStrategy = "air_vert";
@@ -308,6 +315,8 @@ public class Board {
 		
 		if(isAirVertical || isAirHorizontal)
 			isAirStrike = false;
+		
+		isStrategySelected = false;
 	}
 	
 	private void checkIfTheClickIsOutOfBoard() {
@@ -326,6 +335,5 @@ public class Board {
 			isStrategySelected = true;
 		
 	}
-	
 	
 }

@@ -47,7 +47,7 @@ public class MessagePopUp {
 		
 		Text.drawString(g, message, 720, 420, true, Color.white, Assets.military_font30);
 
-		if(isBtnOkPressed) 
+		if(isBtnOkPressed)
 			return false;
 		else 
 			return true;
@@ -72,7 +72,9 @@ public class MessagePopUp {
 	
 	private void updateBtnOk() {
 		
-		isHoverBtnOk = isBtnOkPressed = handler.getKeyManager().ENTER;
+		//isHoverBtnOk = isBtnOkPressed = handler.getKeyManager().ENTER;
+		isHoverBtnOk = hitbox.hoverHitBox(624, 818, 483, 544);
+		isBtnOkPressed = hitbox.clickHitBox(624, 818, 483, 544);
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.entities.creatures.Player;
+import dev.ep2.battleship.gfx.Assets;
 import dev.ep2.battleship.helpers.FileHelper;
 import dev.ep2.battleship.helpers.HitBoxHelper;
 import dev.ep2.battleship.states.MenuView;
@@ -14,7 +15,7 @@ public class Board {
 	public final int BOARD_RESOLUTION = 840,  BORDER = 300;
 	private final int SINGLE_SHOT_PRICE = 50, RADAR_PRICE = 150, SHOT_IN_AREA_PRICE = 400, AIRSTRIKE_PRICE = 600;
 	private int numberOfTargetX, numberOfTargetY, targetWidth, targetHeight, targetShotX, targetShotY;
-	private boolean isClickOnBoard, isStrategySelected = false, isPopUpVisible, isPointAvailable = true;
+	private boolean isClickOnBoard, isStrategySelected = false, isPopUpVisible, isPointAvailable = true, isAirStrike, isAirVerticalHover, isAirVertical, isAirHorizontalHover, isAirHorizontal;
 	private String alertMessage, selectedStrategy;
 	private Handler handler;
 	private HitBoxHelper hitbox;
@@ -22,6 +23,7 @@ public class Board {
 	
 	private int[][] board;
 	private int[][] ships;
+	private boolean[][] shots;
 	private boolean[][] hover;
 	
 	public Board(String path, Handler handler) {
@@ -41,14 +43,17 @@ public class Board {
 		
 		checkIfUserSelectedAStrategy();
 		gettingTheSelectedStrategy();
+		if(isAirStrike)
+			checkWhatIsTheAirStrikeDirection();
 		isClickOnBoard = hitbox.clickHitBox(300, 1140, 0, 840);
 		checkIfTheClickIsOutOfBoard();
 		checkIfThereIsPointAvailable();
 		checkIfTheUserCanShoot();
 		checkIfItIsAValidShot();
 		
-		System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
-		System.out.println("TargetW: " + targetWidth + " TargetH: " +targetHeight);
+		
+		
+		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 
 		
 		//System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
@@ -56,10 +61,12 @@ public class Board {
 	}
 	
 	public void render(Graphics g) {
-		
+			
 		renderTheBoard(g);
 		if(isPopUpVisible) 
 			isPopUpVisible = messagePopUp.makeWarningVisible(alertMessage, g);
+		if(isAirStrike)
+			renderAirStrikeOption(g);
 	}
 	
 	
@@ -74,13 +81,31 @@ public class Board {
 		}
 	}
 	
+	private void renderAirStrikeOption(Graphics g) {
+		
+		g.drawImage(Assets.filter, 0, 0, 1140, 840, null);
+		
+		if(!isAirVerticalHover)
+			g.drawImage(Assets.btn_airstrike_vertical, 370, 320, 200, 200, null);
+		else
+			g.drawImage(Assets.btn_airstrike_vertical_pressed, 370, 320, 200, 200, null);
+		
+		if(!isAirHorizontalHover)
+			g.drawImage(Assets.btn_airstrike_horizontal, 610, 320, 200, 200, null);
+		else
+			g.drawImage(Assets.btn_airstrike_horizontal_pressed, 610, 320, 200, 200, null);
+	}
+	
 	private void hoverGameplayHelper(int x, int y) {
 		
 		
 		if(selectedStrategy == "single_shot")  
 			hoverForSingleShot(x, y);
 		else if(selectedStrategy == "radar")
-			hoverForRadar(x, y);
+			hoverFor2x2Area(x, y);
+		else if(selectedStrategy == "shot_in_area")
+			hoverFor2x2Area(x, y);
+		else if(selectedStrategy == "airstrike"); // melhorar: vert ou horz
 	}
 	
   	private void loadAndSetTheBoard(String path) {
@@ -94,6 +119,7 @@ public class Board {
 		board = new int[numberOfTargetX][numberOfTargetY];
 		ships = new int[numberOfTargetX][numberOfTargetY];
 		hover = new boolean[numberOfTargetX][numberOfTargetY];
+		shots = new boolean[numberOfTargetX][numberOfTargetY];
 		
 		for(int y = 0; y < numberOfTargetY; y++) {
 			for(int x = 0; x < numberOfTargetX; x++) {
@@ -103,13 +129,19 @@ public class Board {
 			}
 		}
 	}
+  	
 	
 	public Target getTarget(int x, int y) {
 		
-		 // passar o retorno mais pra baixo para que seja possível modificar a cor dos barcos
+		 
 			
 		if(hover[x][y] == true)
-			return Target.targets[2];
+			board[x][y] = 2;
+		else
+			board[x][y] = 0;
+
+		if(shots[x][y] == true)
+			board[x][y] = 3;
 
 		
 		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
@@ -117,7 +149,6 @@ public class Board {
 		if(target == null)
 			return Target.waveTarget;
 	
-		
 		return target;
 	}
 
@@ -132,7 +163,7 @@ public class Board {
 			targetShotY = y / targetHeight;
 			
 			if(selectedStrategy == "single_shot") {
-				board[targetShotX][targetShotY] = 3;	
+				shots[targetShotX][targetShotY] = true;	
 			}	
 		}
 		
@@ -142,48 +173,56 @@ public class Board {
 
 	private void hoverForSingleShot(int x, int y) {
 		
-		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) {
-			if(board[x][y] == 0)
-				hover[x][y] = true;
-		
-		}else {
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
+			hover[x][y] = true;
+		else 
 			hover[x][y] = false;
-		}
 	}
 	
-	private void hoverForRadar(int x, int y) {
+	private void hoverFor2x2Area(int x, int y) {
 		
-		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) {
-			
-			if((y + 1 < numberOfTargetY) && !(x == numberOfTargetX - 1)) {
-				hover[x][y] = true;
-				hover[x][y + 1] = true;
-				hover[x + 1][y] = true;
-				hover[x + 1][y + 1] = true;
-					
-			}else if((y == numberOfTargetY - 1) && !(x == numberOfTargetX - 1)) {
-				hover[x][y] = true;
-				hover[x + 1][y] = true;
-				hover[x][y - 1] = true;
-				hover[x + 1][y - 1] = true;
-				
-			}else if((x == numberOfTargetX - 1) && !(y == numberOfTargetY - 1)) {
-				hover[x][y] = true;
-				hover[x - 1][y] = true;
-				hover[x][y + 1] = true;
-				hover[x - 1][y + 1] = true;
-				
-			}else if((x == numberOfTargetX - 1) && (y == numberOfTargetY - 1)) {
-				hover[x][y] = true;
-				hover[x - 1][y] = true;
-				hover[x][y - 1] = true;
-				hover[x - 1][y - 1] = true;
-			}
-			
-		} else {
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
+			matrixSweep(hover,numberOfTargetY, numberOfTargetX, x, y, true);	
+		else 
 			hover[x][y] = false;
-		}
 		
+	}
+	
+	private void hoverForShotInArea(int x, int y) {
+		
+		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
+			matrixSweep(hover,numberOfTargetY, numberOfTargetX, x, y, true);
+		else 
+			hover[x][y] = false;
+		
+	}
+	
+	private void matrixSweep(boolean[][] matrix, int width, int height, int x, int y, boolean value) {
+		
+		if((y + 1 < width) && !(x == height - 1)) {
+			matrix[x][y] = value;
+			matrix[x][y + 1] = value;
+			matrix[x + 1][y] = value;
+			matrix[x + 1][y + 1] = value;
+				
+		}else if((y == width - 1) && !(x == height - 1)) {
+			matrix[x][y] = value;
+			matrix[x + 1][y] = value;
+			matrix[x][y - 1] = value;
+			matrix[x + 1][y - 1] = value;
+			
+		}else if((x == height - 1) && !(y == width - 1)) {
+			matrix[x][y] = value;
+			matrix[x - 1][y] = value;
+			matrix[x][y + 1] = value;
+			matrix[x - 1][y + 1] = value;
+			
+		}else if((x == height - 1) && (y == width - 1)) {
+			matrix[x][y] = value;
+			matrix[x - 1][y] = value;
+			matrix[x][y - 1] = value;
+			matrix[x - 1][y - 1] = value;
+		}
 	}
 	
 	private void checkIfTheUserCanShoot() {
@@ -247,8 +286,28 @@ public class Board {
 			selectedStrategy = "radar";
 		if(LeftPanel.isShotInAreaPressed)
 			selectedStrategy = "shot_in_area";
-		if(LeftPanel.isAirstrikePressed)
-			selectedStrategy = "airstrike";
+		if(LeftPanel.isAirstrikePressed) {
+			isAirStrike = true;		
+		}
+	}
+	
+	private void checkWhatIsTheAirStrikeDirection() {
+		
+		
+		isAirVerticalHover = hitbox.hoverHitBox(370, 568, 322, 518);
+		isAirVertical = hitbox.clickHitBox(370, 568, 322, 518);
+		isAirHorizontalHover = hitbox.hoverHitBox(612, 808, 322, 518);
+		isAirHorizontal = hitbox.clickHitBox(612, 808, 322, 518);
+		
+		System.out.println("Air: " + isAirStrike + " vert: " + isAirVertical + " horz: "  + isAirHorizontal);
+		
+		if(isAirVertical)
+			selectedStrategy = "air_vert";
+		if(isAirHorizontal)
+			selectedStrategy = "air_horz";
+		
+		if(isAirVertical || isAirHorizontal)
+			isAirStrike = false;
 	}
 	
 	private void checkIfTheClickIsOutOfBoard() {
@@ -267,4 +326,6 @@ public class Board {
 			isStrategySelected = true;
 		
 	}
+	
+	
 }

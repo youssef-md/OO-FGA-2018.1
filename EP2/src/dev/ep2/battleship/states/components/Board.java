@@ -15,7 +15,7 @@ public class Board {
 	public final int BOARD_RESOLUTION = 840,  BORDER = 300;
 	private final int SINGLE_SHOT_PRICE = 50, RADAR_PRICE = 150, SHOT_IN_AREA_PRICE = 400, AIRSTRIKE_PRICE = 600;
 	private int numberOfTargetX, numberOfTargetY, targetWidth, targetHeight, targetShotX, targetShotY;
-	private boolean isClickOnBoard, isStrategySelected = false, isPopUpVisible, isPointAvailable = true, isAirStrike, isAirVerticalHover, isAirVertical, isAirHorizontalHover, isAirHorizontal;
+	private boolean isClickOnBoard, isStrategySelected, isPopUpVisible, isPointAvailable = true, isAirStrike, isAirVerticalHover, isAirVertical, isAirHorizontalHover, isAirHorizontal;
 	private String alertMessage, selectedStrategy;
 	private Handler handler;
 	private HitBoxHelper hitbox;
@@ -24,7 +24,7 @@ public class Board {
 	private int[][] board;
 	private int[][] ships;
 	private boolean[][] shots;
-
+	private boolean[][] hover;
 	
 	public Board(String path, Handler handler) {
 		
@@ -50,13 +50,9 @@ public class Board {
 		checkIfThereIsPointAvailable();
 		checkIfTheUserCanShoot();
 		checkIfItIsAValidShot();
-		
-		
-		
-		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
 
-		
-		System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
+		//System.out.println("MouseX = " + handler.getMouseManager().getMouseX() + " MouseY = " + handler.getMouseManager().getMouseY());
+		//System.out.println("popUp: " + isPopUpVisible +" ["+ selectedStrategy + "] : " + isStrategySelected + " avail: " + isPointAvailable + " board click: " + isClickOnBoard);
 							
 	}
 	
@@ -98,7 +94,6 @@ public class Board {
 	
 	private void hoverGameplayHelper(int x, int y) {
 		
-		
 		if(selectedStrategy == "single_shot")  
 			hoverForSingleShot(x, y);
 		else if(selectedStrategy == "radar")
@@ -128,15 +123,15 @@ public class Board {
 			for(int x = 0; x < numberOfTargetX; x++) {
 				
 				ships[x][y] = FileHelper.parseInt(tokens[y + 2].charAt(x));
+				System.out.print(ships[x][y]);
 				board[x][y] = 0; // start the game with only blue targets
 			}
+			System.out.println("");
 		}
 	}
   	
 	
-	public Target getTarget(int x, int y) {
-		
-		 
+	public Target getTarget(int x, int y) { 
 			
 		if(hover[x][y] == true)
 			board[x][y] = 2;
@@ -146,7 +141,6 @@ public class Board {
 		if(shots[x][y] == true)
 			board[x][y] = 3;
 
-		
 		Target target = Target.targets[board[x][y]]; //getting the respective Target based on the ID
 		
 		if(target == null)
@@ -166,8 +160,18 @@ public class Board {
 			targetShotY = y / targetHeight;
 			
 			if(selectedStrategy == "single_shot") {
+				
 				shots[targetShotX][targetShotY] = true;	
-			}	
+				
+			} else if(selectedStrategy == "radar") {
+				
+				
+				
+			} else if(selectedStrategy == "shot_in_area") {
+				
+				matrixSweep(shots, numberOfTargetY, numberOfTargetX, targetShotX, targetShotY, true);
+				
+			}
 		}
 		
 		isStrategySelected = false;
@@ -185,7 +189,7 @@ public class Board {
 	private void hoverFor2x2Area(int x, int y) {
 		
 		if(hitbox.hoverHitBox((BORDER + (x * targetWidth)), (BORDER + ((x + 1) * targetWidth)), (targetHeight * y), (targetHeight * (y + 1)))) 
-			matrixSweep(hover,numberOfTargetY, numberOfTargetX, x, y, true);	
+			matrixSweep(hover, numberOfTargetY, numberOfTargetX, x, y, true);	
 		else 
 			hover[x][y] = false;
 		
@@ -197,6 +201,7 @@ public class Board {
 				hover[i][y] = true;
 		else
 			hover[x][y] = false;
+		
 	}
 	
 	private void hoverForAirStrikeVert(int x, int y) {

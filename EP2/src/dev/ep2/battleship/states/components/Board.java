@@ -11,11 +11,11 @@ import dev.ep2.battleship.targets.Target;
 
 public class Board {
 
-	public final int BOARD_RESOLUTION = 840;
-	public final int BORDER = 300;
+	public final int BOARD_RESOLUTION = 840,  BORDER = 300;
+	private final int SINGLE_SHOT_PRICE = 50, RADAR_PRICE = 150, SHOT_IN_AREA_PRICE = 400, AIRSTRIKE_PRICE = 600;
 
 	private int numberOfTargetX, numberOfTargetY, targetWidth, targetHeight, targetShotX, targetShotY, selectedStrategy;
-	private boolean isClickOnBoard, isStrategySelected, isPopUpVisible;
+	private boolean isClickOnBoard, isStrategySelected, isPopUpVisible, isPointAvailable;
 	private Handler handler;
 	private HitBoxHelper hitbox;
 	private MessagePopUp messagePopUp;
@@ -31,6 +31,7 @@ public class Board {
 		loadAndSetTheBoard(path);
 		targetWidth = BOARD_RESOLUTION / numberOfTargetX; // Responsiveness for the targets based on the given dimension 
 		targetHeight = BOARD_RESOLUTION / numberOfTargetY; 
+
 	}
 	
 	public void tick() {
@@ -39,14 +40,13 @@ public class Board {
 		
 		if(LeftPanel.isSingleShotPressed || LeftPanel.isRadarPressed || LeftPanel.isShotInAreaPressed || LeftPanel.isAirstrikePressed) 
 			isStrategySelected = true;
-		
 		gettingTheSelectedStrategy();
+		checkingIfThereIsPointAvailable();
 		
-		System.out.print("selected strat = " + selectedStrategy);
-		
-		isClickOnBoard = hitbox.clickHitBox(300, 1140, 0, 840);
+		if(isPointAvailable)
+			isClickOnBoard = hitbox.clickHitBox(300, 1140, 0, 840);
 				
-		if(isClickOnBoard && isStrategySelected) {
+		if(isClickOnBoard && isStrategySelected && isPointAvailable) {
 			setShot(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY());
 			debitPoints(selectedStrategy);
 		}
@@ -59,15 +59,8 @@ public class Board {
 			//não desconta dinheiro!
 		}
 					
-		System.out.println("strat: " + isStrategySelected + " onBoard: " + isClickOnBoard + " popup: " + isPopUpVisible);
-		
-			
-	
-
-			
-	
-		//hover e pressed do btnok tem que ser static lembrar
-						
+		//System.out.println("strat: " + isStrategySelected + " onBoard: " + isClickOnBoard + " popup: " + isPopUpVisible);
+							
 	}
 	
 	public void render(Graphics g) {
@@ -79,6 +72,9 @@ public class Board {
 				getTarget(x, y).render(g, x * targetWidth + BORDER, y * targetHeight, targetWidth, targetHeight);
 			}
 		}
+		
+		if(!isPointAvailable && isPopUpVisible)
+			isPopUpVisible = messagePopUp.makeWarningVisible("you cant buy the selected strategy", g);
 		
 		if(isPopUpVisible)
 			isPopUpVisible = messagePopUp.makeWarningVisible(alertMessage, g);
@@ -139,16 +135,37 @@ public class Board {
 	private void debitPoints(int selectedStrategy) {
 		
 		if(selectedStrategy == 1)
-			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - 50); 
+			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - SINGLE_SHOT_PRICE); 
 		if(selectedStrategy == 2)
-			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - 150); 
+			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - RADAR_PRICE); 
 		if(selectedStrategy == 3)
-			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - 350); 
+			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - SHOT_IN_AREA_PRICE); 
 		if(selectedStrategy == 4)
-			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - 600); 
+			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - AIRSTRIKE_PRICE); 
 		
 	}
 
+	private void checkingIfThereIsPointAvailable() {
+		
+		isPointAvailable = true;
+		
+		gettingTheSelectedStrategy();
+		if(selectedStrategy == 1)
+			if((handler.getPlayer().getPoints()) < SINGLE_SHOT_PRICE)
+				isPointAvailable = false;
+		
+		if(selectedStrategy == 2)
+			if((handler.getPlayer().getPoints()) < RADAR_PRICE)
+				isPointAvailable = false;
+		
+		if(selectedStrategy == 3)
+			if((handler.getPlayer().getPoints()) < SHOT_IN_AREA_PRICE)
+				isPointAvailable = false;
+		
+		if(selectedStrategy == 4)
+			if((handler.getPlayer().getPoints()) < AIRSTRIKE_PRICE)
+				isPointAvailable = false;
+	}
 	
 	private void gettingTheSelectedStrategy() {
 		
@@ -161,5 +178,6 @@ public class Board {
 		if(LeftPanel.isAirstrikePressed)
 			selectedStrategy = 4;
 	}
+	
 	
 }

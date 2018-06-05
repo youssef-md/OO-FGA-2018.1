@@ -50,7 +50,7 @@ public class GameView extends State{
 
 		leftPanel.render(g);
 		board.render(g);
-		if(handler.getPlayer().getPoints() <= 0) {
+		if(handler.getPlayer().getPoints() < 40) {
 			messagePopUp.youLose("you lost", g);
 		}
 			//salvar os pontos num arquivo e fechar o jogo

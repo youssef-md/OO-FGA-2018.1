@@ -3,6 +3,9 @@ package dev.ep2.battleship.display;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,10 +50,21 @@ public class Welcome {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				input = textField.getText();
 				Game game = new Game("Battleship", 1440, 840);
-				// salvar o nome do jogador num txt e no inicio da Game ler ele e settar juntamente para o futuro rank dele
+				
+				PrintWriter writer = null;
+				
+				try {
+					writer = new PrintWriter("playername.txt", "UTF-8");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+				
+				writer.println(textField.getText());
+				
+				writer.close();
 				frame.dispose();
 				game.start();
 			}

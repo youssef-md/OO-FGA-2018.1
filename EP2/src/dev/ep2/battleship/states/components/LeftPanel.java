@@ -2,6 +2,10 @@ package dev.ep2.battleship.states.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import dev.ep2.battleship.Handler;
 import dev.ep2.battleship.entities.creatures.Player;
@@ -17,6 +21,7 @@ public class LeftPanel {
 	public LeftPanel(Handler handler) {
 		
 		this.handler = handler;
+		readPlayerInfo();
 	}
 	
 	public void tick() {
@@ -62,6 +67,26 @@ public class LeftPanel {
 		
 	}
 	
+	private void readPlayerInfo()  {
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("playername.txt"));
+			
+			String line;
+			try {
+				line = reader.readLine();
+				handler.getPlayer().setName(line);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		
+
+	}
+	
 	private void renderPlayerData(Graphics g) {
 		
 		if(Player.sex == 'M')
@@ -69,7 +94,7 @@ public class LeftPanel {
 		else if(Player.sex == 'F')
 			g.drawImage(Assets.avatar_female_ingame, 25, 25, 250, 250, null);
 		
-		Text.drawString(g, "cpt.youssef", 150, 300, true, Color.white, Assets.military_font30);
+		Text.drawString(g, "cpt. " + handler.getPlayer().getName(), 150, 300, true, Color.white, Assets.military_font30);
 		Text.drawString(g, "points", 150, 365, true, Color.white, Assets.military_font40);
 		Text.drawString(g, handler.getPlayer().getPointsToString(), 150, 429, true, new Color(83, 125, 80), Assets.military_font50);
 	}

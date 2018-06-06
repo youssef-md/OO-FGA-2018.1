@@ -36,6 +36,8 @@ public class MenuView extends State	{
 	@Override
 	public void tick() {
 		
+		System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
+		
 		if(!isPopUpVisible) {
 			updateUserSexOption();
 			updateBtnStartAndRank();
@@ -64,7 +66,7 @@ public class MenuView extends State	{
 	public void render(Graphics g) {
 		
 		g.drawImage(assets.getIconWaveAnimation(), 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
-		g.drawImage(Assets.game_title, 490, 20, 460, 200, null);
+		g.drawImage(Assets.game_title, 340, 20, 460, 200, null);
 		g.drawImage(Assets.filter, 0, 0, handler.getAppWidth(), handler.getAppHeight(), null);
 		
 		renderUserAvatar(g);
@@ -82,22 +84,22 @@ public class MenuView extends State	{
 	
 	private void updateUserSexOption() {
 		
-		isHoverMale = hitbox.hoverHitBox(619, 712, 511, 576);
-		isHoverFemale = hitbox.hoverHitBox(720, 815, 511, 576);
+		isHoverMale = hitbox.hoverHitBox(474, 565, 511, 576);
+		isHoverFemale = hitbox.hoverHitBox(575, 669, 511, 576);
 		
 		if(!isMalePressed && !isFemalePressed) {
-			isMalePressed = hitbox.clickHitBox(619, 712, 511, 576);
-			isFemalePressed = hitbox.clickHitBox(720, 815, 511, 576);
+			isMalePressed = hitbox.clickHitBox(474, 565, 511, 576);
+			isFemalePressed = hitbox.clickHitBox(575, 669, 511, 576);
 			setPlayerSex();
 		}
 	}
 	
 	private void updateBtnStartAndRank() {
 		
-		isHoverBtnStart = hitbox.hoverHitBox(595, 838, 615, 703);
-		isBtnStartPressed = hitbox.clickHitBox(595, 838, 615, 703);
-		isHoverBtnRank = hitbox.hoverHitBox(595, 838, 734, 821);
-		isBtnRankPressed = hitbox.clickHitBox(595, 838, 734, 821);
+		isHoverBtnStart = hitbox.hoverHitBox(450, 692, 615, 703);
+		isBtnStartPressed = hitbox.clickHitBox(450, 692, 615, 703);
+		isHoverBtnRank = hitbox.hoverHitBox(450, 692, 734, 821);
+		isBtnRankPressed = hitbox.clickHitBox(450, 692, 734, 821);
 	}
 	
 	private void resetFlags() {
@@ -131,47 +133,47 @@ public class MenuView extends State	{
 	private void renderUserAvatar(Graphics g) {
 		
 		if(!isMalePressed && !isFemalePressed)
-			g.drawImage(Assets.avatar_base, 595, 250, 250, 250, null);
+			g.drawImage(Assets.avatar_base, 445, 250, 250, 250, null);
 		
 		if((isHoverMale && !isFemalePressed) || isMalePressed)
-			g.drawImage(Assets.avatar_male, 595, 250, 250, 250, null);
+			g.drawImage(Assets.avatar_male, 445, 250, 250, 250, null);
 		
 		if((isHoverFemale && !isMalePressed) || isFemalePressed)
-			g.drawImage(Assets.avatar_female, 595, 250, 250, 250, null);
+			g.drawImage(Assets.avatar_female, 445, 250, 250, 250, null);
 	}
 	
 	private void renderUserSexOption(Graphics g) {
 		
 		if(!isHoverMale || !isHoverFemale || !isMalePressed || !isFemalePressed) 
-			g.drawImage(Assets.btn_sex, 617, 510, 200, 70, null);
+			g.drawImage(Assets.btn_sex, 470, 510, 200, 70, null);
 		
 		if(isHoverMale && !isMalePressed && !isFemalePressed) 
-			g.drawImage(Assets.btn_male_hover, 617, 510, 200, 70, null);
+			g.drawImage(Assets.btn_male_hover, 470, 510, 200, 70, null);
 		
 		if(isMalePressed)
-			g.drawImage(Assets.btn_male_pressed, 617, 510, 200, 70, null);
+			g.drawImage(Assets.btn_male_pressed, 470, 510, 200, 70, null);
 		
 		if(isHoverFemale && !isFemalePressed && !isMalePressed)
-			g.drawImage(Assets.btn_fem_hover, 617, 510, 200, 70, null);
+			g.drawImage(Assets.btn_fem_hover, 470, 510, 200, 70, null);
 		
 		if(isFemalePressed)
-			g.drawImage(Assets.btn_fem_pressed, 617, 510, 200, 70, null);
+			g.drawImage(Assets.btn_fem_pressed, 470, 510, 200, 70, null);
 	}
 		
 	private void renderStartButton(Graphics g) {
 		
 		if(!isHoverBtnStart)
-			g.drawImage(Assets.btn_start, 593, 610, 250, 100, null);
+			g.drawImage(Assets.btn_start, 445, 610, 250, 100, null);
 		else
-			g.drawImage(Assets.btn_start_hover, 593, 610, 250, 100, null);
+			g.drawImage(Assets.btn_start_hover, 445, 610, 250, 100, null);
 	}
 	
 	private void renderRankButton(Graphics g) {
 		
 		if(!isHoverBtnRank)
-			g.drawImage(Assets.btn_rank, 593, 730, 250, 98, null);
+			g.drawImage(Assets.btn_rank, 445, 730, 250, 98, null);
 		else
-			g.drawImage(Assets.btn_rank_hover, 593, 730, 250, 98, null);
+			g.drawImage(Assets.btn_rank_hover, 445, 730, 250, 98, null);
 	}
 		
 	@Override

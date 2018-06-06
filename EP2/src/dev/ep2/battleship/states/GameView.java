@@ -37,7 +37,7 @@ public class GameView extends State{
 		board.tick();  
 		handler.getPlayer().tick();		
 		
-		//System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
+		
 	}
 
 	@Override	

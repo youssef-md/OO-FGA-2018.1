@@ -301,7 +301,7 @@ public class Board {
 			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - RADAR_PRICE); 
 		if(selectedStrategy == "shot_in_area")
 			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - SHOT_IN_AREA_PRICE); 
-		if(selectedStrategy == "airstrike")
+		if(selectedStrategy == "air_horz" ||selectedStrategy == "air_vert")
 			handler.getPlayer().setPoints(handler.getPlayer().getPoints() - AIRSTRIKE_PRICE); 
 		
 	}

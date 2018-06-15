@@ -36,7 +36,7 @@ public class MenuView extends State	{
 	@Override
 	public void tick() {
 		
-		System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
+		//System.out.println("x: " + handler.getMouseManager().getMouseX() + " y: " + handler.getMouseManager().getMouseY());
 		
 		if(!isPopUpVisible) {
 			updateUserSexOption();

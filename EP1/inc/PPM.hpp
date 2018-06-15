@@ -31,7 +31,7 @@ public:
 	~PPM();
 	PPM(string filename) : Image(filename){} // super()
 
-	void ReadFile(); //@override from class File;
+	void ReadFile(); 
 	void CreateImage();
 
 	void FindingMessage();
